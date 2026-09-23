@@ -1,5 +1,4 @@
 <h1>Deck Builder</h1>
-<p>{{ vm.deckId ? vm.deckName : 'New deck' }} - {{ vm.dirty ? 'Unsaved changes' : (vm.deckId ? 'Saved' : 'Empty draft') }}</p>
 <p *ngIf="vm.loadingDeck" role="status">Loading deck...</p>
 <p *ngIf="vm.deckError" role="alert">{{ vm.deckError }}</p>
 <button *ngIf="cannotEdit" (click)="retry()">Retry loading deck</button>
@@ -65,13 +64,12 @@
     </div>
 
     <div id="deckPanel" class="panel deck-pane" [class.mobile-hidden]="mobileTab !== 'deck'">
-  <div class="field-group"><label for="deckName">Deck name</label>
-  <input id="deckName" [(ngModel)]="vm.deckName" maxlength="255" [disabled]="!!vm.deckId" placeholder="Name your deck" /></div>
-  <p *ngIf="vm.deckId">You can rename this deck from Home.</p>
-  <div class="field-group"><label for="format">Format</label>
+  <div class="field-group" *ngIf="!vm.deckId"><label for="deckName">Deck name</label>
+  <input id="deckName" [(ngModel)]="vm.deckName" maxlength="255" placeholder="Name your deck" /></div>
+  <p *ngIf="vm.formats.length === 1">Format: {{ vm.formats[0].name }}</p>
+  <div class="field-group" *ngIf="vm.formats.length > 1"><label for="format">Format</label>
   <select id="format" [(ngModel)]="vm.selectedFormatId" [disabled]="!!vm.deckId"><option *ngFor="let format of vm.formats" [value]="format.id">{{ format.name }}</option></select></div>
 
-      <a *ngIf="vm.deckId" class="analysis-link" [routerLink]="['/analysis', vm.deckId]">Analyze saved deck</a>
       <h2>Deck contents</h2>
       <div *ngIf="vm.selectedDeckCards.length === 0" class="empty-state">Pick cards to build a deck.</div>
 

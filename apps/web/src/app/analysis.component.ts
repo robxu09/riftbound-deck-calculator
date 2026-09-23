@@ -1,12 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { catchError, of, Subscription, switchMap } from 'rxjs';
 import { Deck, DeckAnalysisResult, RiftboundApiService } from './riftbound-api.service';
 
 @Component({
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule],
   templateUrl: './analysis.component.html'
 })
 export class AnalysisComponent implements OnInit, OnDestroy {

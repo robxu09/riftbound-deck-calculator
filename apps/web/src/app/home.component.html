@@ -14,10 +14,6 @@
     <a class="button" [routerLink]="['/analysis', deck.id]">Analyze deck</a>
     <a class="button secondary" [routerLink]="['/builder', deck.id]">Edit deck</a>
   </div>
-  <div class="button-row home-create">
-    <a class="button secondary" routerLink="/builder/new">Create deck</a>
-    <button class="secondary" (click)="showImport = !showImport" [attr.aria-expanded]="showImport" aria-controls="deckImport">{{ showImport ? 'Close import' : 'Import deck' }}</button>
-  </div>
   <ng-container *ngIf="selectedDeck as deck">
     <button class="more-actions secondary" (click)="showActions = !showActions" [attr.aria-expanded]="showActions" aria-controls="deckActions">More deck actions</button>
     <div id="deckActions" [hidden]="!showActions">
@@ -42,6 +38,13 @@
     <p *ngIf="vm.actionError" role="alert">{{ vm.actionError }}</p>
     <p *ngIf="vm.actionStatus" role="status">{{ vm.actionStatus }}</p>
 
+</section>
+<section class="panel home-new" aria-labelledby="newDeckHeading">
+  <h2 id="newDeckHeading">Start a new deck</h2>
+  <div class="button-row home-create">
+    <a class="button secondary" routerLink="/builder/new">Create deck</a>
+    <button class="secondary" (click)="showImport = !showImport" [attr.aria-expanded]="showImport" aria-controls="deckImport">{{ showImport ? 'Close import' : 'Import deck' }}</button>
+  </div>
 </section>
 <ng-container *ngIf="showImport">  <section id="deckImport" class="panel import-panel">
     <h2>Import deck from text</h2>

@@ -169,10 +169,10 @@ a.secondary { background: #1d4ed8; }
 * { box-sizing: border-box; }
 input, select, textarea { max-width: 100%; min-width: 0; }
 .panel, .layout > * { min-width: 0; }
-.home-decks { max-width: 680px; }
+.home-decks, .home-new { max-width: 680px; }
 .home-primary, .home-create { margin-bottom: 20px; }
 .home-primary > *, .home-create > * { flex: 1; text-align: center; }
-.home-create { border-top: 1px solid #334155; padding-top: 20px; }
+.home-create { margin-bottom: 0; }
 button.more-actions { margin-top: 0; background: #334155; }
 #deckActions { margin-top: 20px; }
 button.danger { background: #9f1239; }
@@ -183,7 +183,6 @@ button.danger { background: #9f1239; }
 .deck-identity strong { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .deck-identity span { color: #cbd5e1; font-size: 13px; }
 .builder-tabs { display: none; }
-.analysis-link { display: inline-block; margin-bottom: 20px; padding: 8px 0; }
 .selected-list li { align-items: center; gap: 8px; }
 .selected-list li span { flex: 1; min-width: 0; overflow-wrap: anywhere; }
 .selected-list li strong, .selected-list li button { flex-shrink: 0; }

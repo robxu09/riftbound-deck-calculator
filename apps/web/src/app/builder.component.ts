@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { CardSearchPipe } from './card-search.pipe';
 import { DeckSectionsPipe } from './deck-sections.pipe';
@@ -9,7 +9,7 @@ import { DeckWorkspace } from './deck-workspace.service';
 
 @Component({
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterLink, CardSearchPipe, DeckSectionsPipe],
+  imports: [CommonModule, FormsModule, CardSearchPipe, DeckSectionsPipe],
   templateUrl: './builder.component.html'
 })
 export class BuilderComponent implements OnInit, OnDestroy {

@@ -4,7 +4,6 @@
 <section *ngIf="deck" class="panel">
   <h2>{{ deck.name }}</h2>
   <p>Latest saved version at the time this analysis was loaded. Unsaved builder edits are not included.</p>
-  <a class="button" [routerLink]="['/builder', deck.id]">Edit deck</a>
 </section>
 <section *ngIf="analysis" class="panel analysis-panel">
   <h2>Saved deck summary</h2>

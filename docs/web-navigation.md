@@ -1,7 +1,7 @@
 # Web navigation
 
 - `/` is Home: choose a saved deck from the Selected deck dropdown, then choose Analyze
-  deck or Edit deck. Create deck and Import deck are always available. Rename,
+  deck or Edit deck. Create deck and Import deck have a separate section. Rename,
   duplicate, export and delete are grouped under More deck actions. Deletion
   confirms the deck name and removal of all saved versions; the next available
   deck is selected only after a successful deletion.
@@ -35,3 +35,8 @@ opening-hand/mulligan rules to be confirmed before implementation.
 
 Production web hosting must rewrite application routes to `index.html` so direct
 links and refreshes work; the Angular development server already does this.
+
+Home is the navigation hub: Builder and Analysis each return Home instead of
+linking directly to each other. The builder shows its name and save status once,
+in the sticky toolbar. Existing decks omit the disabled name field, and a single
+available format is shown as text instead of a dropdown.
