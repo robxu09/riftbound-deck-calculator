@@ -13,6 +13,7 @@ import { DeckWorkspace } from './deck-workspace.service';
   templateUrl: './builder.component.html'
 })
 export class BuilderComponent implements OnInit, OnDestroy {
+  mobileTab: 'deck' | 'cards' = 'deck';
   private subscriptions = new Subscription();
   private requestedId: string | null = null;
   constructor(public vm: DeckWorkspace, private route: ActivatedRoute, private router: Router) {}

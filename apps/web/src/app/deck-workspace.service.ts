@@ -13,6 +13,7 @@ export class DeckWorkspace {
   savingVersion = false;
   saveStatus = '';
   listError = '';
+  loadingDecks = false;
   catalogError = '';
   private baseline = '';
   private importedDraft = false;
@@ -223,11 +224,16 @@ export class DeckWorkspace {
 
   loadSavedDecks(): void {
     this.listError = '';
+    this.loadingDecks = true;
     this.api.getDecks().subscribe({
       next: (decks) => {
         this.savedDecks = decks;
+        this.loadingDecks = false;
       },
-      error: () => this.listError = 'Unable to load saved decks. Check the API and try again.'
+      error: () => {
+        this.loadingDecks = false;
+        this.listError = 'Unable to load saved decks. Check the API and try again.';
+      }
     });
   }
 
@@ -300,16 +306,33 @@ export class DeckWorkspace {
   }
 
   deleteDeck(deckId: string): void {
+    if (this.actionBusy) return;
+    this.actionBusy = true;
+    this.actionError = '';
+    this.actionStatus = '';
     this.api.deleteDeck(deckId).subscribe({
-      next: () => {
+      next: result => {
+        this.actionBusy = false;
+        if (!result.deleted) {
+          this.actionError = 'The deck could not be deleted. Refresh the deck list and try again.';
+          return;
+        }
         this.savedDecks = this.savedDecks.filter((deck) => deck.id !== deckId);
+        if (this.homeDeckId === deckId || !this.savedDecks.some(deck => deck.id === this.homeDeckId)) {
+          this.homeDeckId = this.savedDecks[0]?.id ?? null;
+        }
+        this.deckAction = null;
+        this.actionStatus = 'Deck and saved versions deleted.';
         if (this.deckId === deckId) {
           this.selectionGeneration++;
           this.deckId = null;
           this.selectedDeckCards = [];
         }
       },
-      error: () => this.actionError = 'Unable to remove this deck. Try again.'
+      error: () => {
+        this.actionBusy = false;
+        this.actionError = 'Unable to delete this deck. Try again.';
+      }
     });
   }
 

@@ -9,7 +9,7 @@ not modified. Invalid imports cannot be applied.
 **Create deck** on Home opens an empty, unsaved builder draft. Creation and
 import do not write to the API until you click **Save deck**. Names must be
 unique, ignoring case and surrounding whitespace. Save errors keep the draft.
-For an existing deck, **Save version** persists its edited card list.
+For an existing deck, **Save changes** persists its edited card list.
 
 Supported headings: `Legend:`, `Champion:`, `MainDeck:` (or `Main Deck:`),
 `Battlefields:`, `Runes:`, and `Sideboard:` (or `Side Deck:`). Headings and codes
@@ -56,7 +56,9 @@ or changes a deck. Parsing and matching live in a framework-independent domain c
 
 ## Rename, duplicate and export
 
-Each saved deck has **Rename**, **Duplicate**, and **Export .txt** actions.
+Choose a saved deck on Home, then open **More deck actions** for **Rename**,
+**Duplicate**, and **Export .txt**. **Delete deck** asks for confirmation by name
+and deletes the deck together with its saved versions.
 
 - Rename changes the name in place, keeping its ID and all version history.
   Names must be nonblank, at most 255 characters and unique ignoring case and

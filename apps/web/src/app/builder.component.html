@@ -5,21 +5,20 @@
 <button *ngIf="cannotEdit" (click)="retry()">Retry loading deck</button>
 <p *ngIf="vm.catalogError" role="alert">{{ vm.catalogError }} <button (click)="vm.loadCards(); vm.loadFormats()">Retry</button></p>
 <p *ngIf="vm.saveStatus" role="status">{{ vm.saveStatus }}</p>
-<fieldset [disabled]="vm.loadingDeck || vm.busy || cannotEdit">
-<section class="panel">
-  <div class="field-group"><label for="deckName">Deck name</label>
-  <input id="deckName" [(ngModel)]="vm.deckName" maxlength="255" [disabled]="!!vm.deckId" placeholder="Name your deck" /></div>
-  <p *ngIf="vm.deckId">You can rename this deck from Home.</p>
-  <div class="field-group"><label for="format">Format</label>
-  <select id="format" [(ngModel)]="vm.selectedFormatId" [disabled]="!!vm.deckId"><option *ngFor="let format of vm.formats" [value]="format.id">{{ format.name }}</option></select></div>
-  <div class="button-row">
-    <button *ngIf="!vm.deckId" (click)="vm.createDeck(true)" [disabled]="!vm.deckName.trim() || !vm.formats.length">{{ vm.creatingDeck ? 'Saving...' : 'Save deck' }}</button>
-    <button *ngIf="vm.deckId" (click)="vm.addDeckVersion()" [disabled]="!vm.dirty">{{ vm.savingVersion ? 'Saving...' : 'Save version' }}</button>
-    <a *ngIf="vm.deckId" class="button secondary" [routerLink]="['/analysis', vm.deckId]">Analyze saved deck</a>
+<div class="builder-toolbar">
+  <div class="save-row">
+    <div class="deck-identity"><strong [title]="vm.deckName || 'New deck'">{{ vm.deckName || 'New deck' }}</strong><span>{{ vm.dirty ? 'Unsaved changes' : (vm.deckId ? 'Saved' : 'Empty draft') }}</span></div>
+    <button *ngIf="!vm.deckId" (click)="vm.createDeck(true)" [disabled]="vm.busy || vm.loadingDeck || cannotEdit || !vm.deckName.trim() || !vm.formats.length">{{ vm.creatingDeck ? 'Saving...' : 'Save deck' }}</button>
+    <button *ngIf="vm.deckId" (click)="vm.addDeckVersion()" [disabled]="vm.busy || vm.loadingDeck || cannotEdit || !vm.dirty">{{ vm.savingVersion ? 'Saving...' : 'Save changes' }}</button>
   </div>
-</section>
-  <section class="layout">
-    <div class="panel">
+  <div class="builder-tabs" role="group" aria-label="Builder view">
+    <button (click)="mobileTab = 'deck'" [attr.aria-pressed]="mobileTab === 'deck'" aria-controls="deckPanel">Deck</button>
+    <button (click)="mobileTab = 'cards'" [attr.aria-pressed]="mobileTab === 'cards'" aria-controls="cardPanel">Add cards</button>
+  </div>
+</div>
+<fieldset [disabled]="vm.loadingDeck || vm.busy || cannotEdit">
+  <section class="layout builder-layout">
+    <div id="cardPanel" class="panel card-pane" [class.mobile-hidden]="mobileTab !== 'cards'">
       <h2>Cards</h2>
       <p>Printed card text. Errata and Constructed legality are not verified.</p>
       <div class="field-group">
@@ -65,8 +64,15 @@
       </ng-container>
     </div>
 
-    <div class="panel">
-      <h2>Selected deck</h2>
+    <div id="deckPanel" class="panel deck-pane" [class.mobile-hidden]="mobileTab !== 'deck'">
+  <div class="field-group"><label for="deckName">Deck name</label>
+  <input id="deckName" [(ngModel)]="vm.deckName" maxlength="255" [disabled]="!!vm.deckId" placeholder="Name your deck" /></div>
+  <p *ngIf="vm.deckId">You can rename this deck from Home.</p>
+  <div class="field-group"><label for="format">Format</label>
+  <select id="format" [(ngModel)]="vm.selectedFormatId" [disabled]="!!vm.deckId"><option *ngFor="let format of vm.formats" [value]="format.id">{{ format.name }}</option></select></div>
+
+      <a *ngIf="vm.deckId" class="analysis-link" [routerLink]="['/analysis', vm.deckId]">Analyze saved deck</a>
+      <h2>Deck contents</h2>
       <div *ngIf="vm.selectedDeckCards.length === 0" class="empty-state">Pick cards to build a deck.</div>
 
       <div class="deck-section" *ngFor="let group of vm.selectedDeckCards | deckSections" [attr.data-section]="group.id">
@@ -82,9 +88,7 @@
 
       <div *ngIf="vm.selectedDeckCards.length > 0 || vm.deckId" class="button-row">
         <button *ngIf="vm.selectedDeckCards.length" type="button" class="secondary" (click)="vm.clearSelectedDeckCards()">Remove all</button>
-        <button *ngIf="vm.deckId" type="button" class="secondary" (click)="vm.addDeckVersion()" [disabled]="vm.busy || !vm.dirty">
-          Save version
-        </button>
+
       </div>
     </div>
   </section>

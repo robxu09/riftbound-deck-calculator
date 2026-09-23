@@ -1,11 +1,14 @@
 # Web navigation
 
-- `/` is Home: select a saved deck, then choose Edit deck or Analyze deck.
-  Rename, duplicate, export and delete remain available on Home.
+- `/` is Home: choose a saved deck from the Selected deck dropdown, then choose Analyze
+  deck or Edit deck. Create deck and Import deck are always available. Rename,
+  duplicate, export and delete are grouped under More deck actions. Deletion
+  confirms the deck name and removal of all saved versions; the next available
+  deck is selected only after a successful deletion.
 - `/builder/new` opens an empty, unsaved draft. Home's import preview opens this
   route with imported cards carried in memory. Save deck creates the record and
   initial version, then replaces the URL with `/builder/{deckId}`.
-- `/builder/{deckId}` loads the latest saved version for editing. Save version
+- `/builder/{deckId}` loads the latest saved version for editing. Save changes
   persists the changes. Name changes are handled through Rename on Home.
 - `/analysis/{deckId}` requests the existing API summary of the latest saved
   version. It never saves or analyzes the builder's unsaved draft.
@@ -16,6 +19,11 @@ New drafts live in memory until explicitly saved; they do not survive a refresh.
 The builder warns before leaving changed/imported drafts, including browser
 refresh or tab closure (the browser controls the wording of that warning).
 Navigation waits for pending saves; failed saves keep the draft intact.
+
+On screens up to 760px wide, the builder uses Deck and Add cards views. Switching
+views preserves the draft, filters and destination section. A sticky toolbar keeps
+the deck name and Save deck / Save changes action available in both views. Desktop
+screens retain the side-by-side catalog and deck layout.
 
 Angular's page components use a shared DeckWorkspace service for catalog,
 import, saved-deck management and editing state. Analysis loads independently.

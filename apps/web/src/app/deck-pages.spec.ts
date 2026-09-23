@@ -17,7 +17,7 @@ describe('Deck page workflows', () => {
   let vm: DeckWorkspace;
 
   beforeEach(async () => {
-    api = jasmine.createSpyObj('api', ['getCards', 'getFormats', 'getDecks', 'getDeck', 'getDeckVersions', 'createDeck', 'addDeckVersion', 'analyzeDeck', 'previewImport']);
+    api = jasmine.createSpyObj('api', ['getCards', 'getFormats', 'getDecks', 'getDeck', 'getDeckVersions', 'createDeck', 'addDeckVersion', 'analyzeDeck', 'previewImport', 'deleteDeck']);
     api.getCards.and.returnValue(of([
       { id: 'legend', name: 'Example Legend', type: 'Legend', cost: null, text: '', setCode: 'OGN', domains: ['Chaos', 'Order'] },
       { id: 'unit', name: 'Example Unit', type: 'Unit', cost: 1, text: '', setCode: 'OGN', domains: ['Mind'] }
@@ -61,6 +61,80 @@ describe('Deck page workflows', () => {
     expect(TestBed.inject(Router).url).toBe('/builder/created');
     expect(api.createDeck).toHaveBeenCalledWith({ name: 'New deck', formatId: deck.formatId, cards: [] });
     expect(page.vm.dirty).toBeFalse();
+  });
+
+  it('uses a compact dropdown for many decks and updates both destination links', async () => {
+    const decks = Array.from({ length: 100 }, (_, i) => ({ ...deck, id: `deck-${i}`, name: `Deck ${i}` }));
+    api.getDecks.and.returnValue(of(decks));
+    const home = await harness.navigateByUrl('/', HomeComponent);
+    expect(home.selectedDeckId).toBe('deck-0');
+    const select = harness.routeNativeElement!.querySelector<HTMLSelectElement>('#selectedDeck')!;
+    expect(select.options.length).toBe(100);
+    expect(harness.routeNativeElement!.querySelector('#deckActions')!.hasAttribute('hidden')).toBeTrue();
+    select.value = 'deck-99';
+    select.dispatchEvent(new Event('change'));
+    harness.detectChanges();
+    const links = Array.from(harness.routeNativeElement!.querySelectorAll('a')).map(a => a.getAttribute('href'));
+    expect(links).toContain('/builder/deck-99');
+    expect(links).toContain('/analysis/deck-99');
+    expect(harness.routeNativeElement!.querySelectorAll('.saved-deck-item').length).toBe(0);
+  });
+
+  it('confirms deletion by name, waits for success, and selects the next deck', async () => {
+    const next = { ...deck, id: 'next', name: 'Next deck' };
+    api.getDecks.and.returnValue(of([deck, next]));
+    const home = await harness.navigateByUrl('/', HomeComponent);
+    const confirm = spyOn(window, 'confirm').and.returnValue(false);
+    home.removeDeck(deck.id);
+    expect(confirm.calls.mostRecent().args[0]).toContain('"Saved deck"');
+    expect(confirm.calls.mostRecent().args[0]).toContain('all its saved versions');
+    expect(api.deleteDeck).not.toHaveBeenCalled();
+    confirm.and.returnValue(true);
+    const response = new Subject<{ deleted: boolean }>();
+    api.deleteDeck.and.returnValue(response);
+    home.removeDeck(deck.id);
+    expect(home.selectedDeckId).toBe(deck.id);
+    expect(vm.actionBusy).toBeTrue();
+    response.next({ deleted: true });
+    expect(home.selectedDeckId).toBe('next');
+    expect(vm.actionBusy).toBeFalse();
+    api.deleteDeck.and.returnValue(of({ deleted: true }));
+    home.removeDeck('next');
+    harness.detectChanges();
+    expect(home.selectedDeckId).toBeNull();
+    expect(harness.routeNativeElement!.textContent).toContain('No saved decks yet');
+    expect(harness.routeNativeElement!.querySelector('#selectedDeck')).toBeNull();
+  });
+
+  it('keeps the selected deck on failed deletion', async () => {
+    const home = await harness.navigateByUrl('/', HomeComponent);
+    spyOn(window, 'confirm').and.returnValue(true);
+    api.deleteDeck.and.returnValue(throwError(() => new Error('offline')));
+    home.removeDeck(deck.id);
+    expect(home.selectedDeckId).toBe(deck.id);
+    expect(vm.actionBusy).toBeFalse();
+    expect(vm.actionError).toContain('Unable to delete');
+    api.deleteDeck.and.returnValue(of({ deleted: false }));
+    home.removeDeck(deck.id);
+    expect(vm.savedDecks).toEqual([deck]);
+  });
+
+  it('preserves edits and the save action when switching mobile builder views', async () => {
+    const page = await harness.navigateByUrl('/builder/saved', BuilderComponent);
+    expect(page.mobileTab).toBe('deck');
+    const tabs = harness.routeNativeElement!.querySelectorAll<HTMLButtonElement>('.builder-tabs button');
+    tabs[1].click();
+    harness.detectChanges();
+    expect(page.mobileTab).toBe('cards');
+    vm.addCardToDeck('legend');
+    tabs[0].click();
+    harness.detectChanges();
+    expect(page.mobileTab).toBe('deck');
+    expect(vm.selectedDeckCards.length).toBe(2);
+    expect(vm.dirty).toBeTrue();
+    const save = harness.routeNativeElement!.querySelector<HTMLButtonElement>('.save-row button')!;
+    expect(save.textContent).toContain('Save changes');
+    expect(save.disabled).toBeFalse();
   });
 
   it('opens previewed imports in the builder without saving and resets the previous name', async () => {

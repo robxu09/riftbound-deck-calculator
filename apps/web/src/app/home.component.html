@@ -1,29 +1,36 @@
 <h1>My decks</h1>
-<p>Select a saved deck to edit or analyze, or start a new one.</p>
-<div class="button-row panel">
-  <a class="button" routerLink="/builder/new">Create deck</a>
-  <button class="secondary" (click)="showImport = !showImport">{{ showImport ? 'Close import' : 'Import deck' }}</button>
-</div>
-<section class="panel" *ngIf="selectedDeck as deck">
-  <h2>{{ deck.name }}</h2>
-  <div class="button-row"><a class="button" [routerLink]="['/builder', deck.id]">Edit deck</a>
-  <a class="button secondary" [routerLink]="['/analysis', deck.id]">Analyze deck</a></div>
-</section>
-  <section class="panel saved-decks-panel">
-    <h2>Saved decks</h2>
-    <p>Duplicate and export use the latest saved version. Save your changes first to include them.</p>
-    <p *ngIf="vm.listError" role="alert">{{ vm.listError }} <button (click)="vm.loadSavedDecks()">Retry</button></p>
-    <div *ngIf="!vm.listError && vm.savedDecks.length === 0" class="empty-state">No saved decks yet.</div>
-    <div class="saved-deck-list" *ngIf="vm.savedDecks.length > 0">
-      <div *ngFor="let deck of vm.savedDecks" class="saved-deck-item">
-        <button type="button" (click)="selectedDeckId = deck.id" [attr.aria-pressed]="selectedDeckId === deck.id">{{ deck.name }}</button>
-        <button type="button" class="secondary" (click)="vm.beginDeckAction(deck, 'rename')" [disabled]="vm.actionBusy">Rename</button>
-        <button type="button" class="secondary" (click)="vm.beginDeckAction(deck, 'duplicate')" [disabled]="vm.actionBusy">Duplicate</button>
-        <button type="button" class="secondary" (click)="vm.exportSavedDeck(deck)" [disabled]="vm.actionBusy">Export .txt</button>
-        <button type="button" class="secondary" (click)="removeDeck(deck.id)">Remove deck</button>
+<p>Choose a deck to analyze or edit, or start a new one.</p>
+<section class="panel home-decks">
+  <p *ngIf="vm.listError" role="alert">{{ vm.listError }} <button (click)="vm.loadSavedDecks()">Retry</button></p>
+  <p *ngIf="vm.loadingDecks" role="status">Loading decks...</p>
+  <p *ngIf="!vm.loadingDecks && !vm.listError && !vm.savedDecks.length" class="empty-state">No saved decks yet. Create a deck or import a text list to get started.</p>
+  <div class="field-group" *ngIf="vm.savedDecks.length">
+    <label for="selectedDeck">Selected deck</label>
+    <select id="selectedDeck" [(ngModel)]="selectedDeckId" [disabled]="vm.actionBusy">
+      <option *ngFor="let deck of vm.savedDecks" [value]="deck.id">{{ deck.name }}</option>
+    </select>
+  </div>
+  <div class="button-row home-primary" *ngIf="selectedDeck as deck">
+    <a class="button" [routerLink]="['/analysis', deck.id]">Analyze deck</a>
+    <a class="button secondary" [routerLink]="['/builder', deck.id]">Edit deck</a>
+  </div>
+  <div class="button-row home-create">
+    <a class="button secondary" routerLink="/builder/new">Create deck</a>
+    <button class="secondary" (click)="showImport = !showImport" [attr.aria-expanded]="showImport" aria-controls="deckImport">{{ showImport ? 'Close import' : 'Import deck' }}</button>
+  </div>
+  <ng-container *ngIf="selectedDeck as deck">
+    <button class="more-actions secondary" (click)="showActions = !showActions" [attr.aria-expanded]="showActions" aria-controls="deckActions">More deck actions</button>
+    <div id="deckActions" [hidden]="!showActions">
+      <p>Actions for <strong>{{ deck.name }}</strong>. Duplicate and export use the latest saved version.</p>
+      <div class="button-row">
+        <button class="secondary" (click)="vm.beginDeckAction(deck, 'rename')" [disabled]="vm.actionBusy">Rename</button>
+        <button class="secondary" (click)="vm.beginDeckAction(deck, 'duplicate')" [disabled]="vm.actionBusy">Duplicate</button>
+        <button class="secondary" (click)="vm.exportSavedDeck(deck)" [disabled]="vm.actionBusy">Export .txt</button>
+        <button class="danger" (click)="removeDeck(deck.id)" [disabled]="vm.actionBusy">Delete deck</button>
       </div>
     </div>
-    <form *ngIf="vm.deckAction" (ngSubmit)="vm.submitDeckAction()" class="deck-action-form">
+  </ng-container>
+<form *ngIf="vm.deckAction" (ngSubmit)="vm.submitDeckAction()" class="deck-action-form">
       <h3>{{ vm.deckAction.mode === 'rename' ? 'Rename' : 'Duplicate' }} {{ vm.deckAction.deck.name }}</h3>
       <div class="field-group">
         <label for="actionName">{{ vm.deckAction.mode === 'rename' ? 'New name' : 'Name for the copy' }}</label>
@@ -34,11 +41,9 @@
     </form>
     <p *ngIf="vm.actionError" role="alert">{{ vm.actionError }}</p>
     <p *ngIf="vm.actionStatus" role="status">{{ vm.actionStatus }}</p>
-  </section>
 
-
-
-<ng-container *ngIf="showImport">  <section class="panel import-panel">
+</section>
+<ng-container *ngIf="showImport">  <section id="deckImport" class="panel import-panel">
     <h2>Import deck from text</h2>
     <p>Paste a deck list or choose a .txt file. Use section headings and lines such as <code>1 Ambessa, The Wolf [VEN-084]</code>.</p>
     <div class="field-group">

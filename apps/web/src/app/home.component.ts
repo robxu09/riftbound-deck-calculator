@@ -12,8 +12,18 @@ import { DeckWorkspace } from './deck-workspace.service';
 })
 export class HomeComponent implements OnInit {
   showImport = false;
-  get selectedDeckId(): string | null { return this.vm.homeDeckId; }
-  set selectedDeckId(id: string | null) { this.vm.homeDeckId = id; }
+  showActions = false;
+  get selectedDeckId(): string | null {
+    return this.vm.savedDecks.some(deck => deck.id === this.vm.homeDeckId)
+      ? this.vm.homeDeckId : this.vm.savedDecks[0]?.id ?? null;
+  }
+  set selectedDeckId(id: string | null) {
+    this.vm.homeDeckId = id;
+    this.showActions = false;
+    this.vm.deckAction = null;
+    this.vm.actionError = '';
+    this.vm.actionStatus = '';
+  }
   constructor(public vm: DeckWorkspace, private router: Router) {}
 
   ngOnInit(): void {
@@ -29,7 +39,9 @@ export class HomeComponent implements OnInit {
   }
 
   removeDeck(id: string): void {
+    const deck = this.vm.savedDecks.find(deck => deck.id === id);
+    if (!deck || this.vm.actionBusy) return;
+    if (!window.confirm(`Delete "${deck.name}"? This permanently deletes the deck and all its saved versions.`)) return;
     this.vm.deleteDeck(id);
-    if (this.selectedDeckId === id) this.selectedDeckId = null;
   }
 }
