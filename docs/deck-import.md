@@ -1,16 +1,15 @@
 # Importing a text deck
 
-In the web app, paste a list into **Import deck from text**, or choose a `.txt`
-file. Click **Preview import**, review the section totals and any notices, then
-**Use import as new draft**. Set the deck name and click **Save selection as new deck** to save.
-The new draft replaces the current unsaved selection; previously saved decks are
-not modified. Imports with syntax errors or unknown/ambiguous codes cannot be
-applied, so partial imports never silently replace a draft.
+From **Home**, choose **Import deck**. Paste a list or choose a `.txt` file,
+click **Preview import**, then **Use import as new draft** after reviewing the
+section totals and notices. This opens **Deck Builder** with the imported cards.
+Choose a name and click **Save deck** to persist the draft. Existing decks are
+not modified. Invalid imports cannot be applied.
 
-**Create empty deck** always creates and selects a deck with no cards, even when
-an imported or saved deck is currently selected. Both creation actions require a
-unique name, ignoring case and surrounding whitespace. Errors leave the current
-selection intact. Creation saves the initial card list in the same API request.
+**Create deck** on Home opens an empty, unsaved builder draft. Creation and
+import do not write to the API until you click **Save deck**. Names must be
+unique, ignoring case and surrounding whitespace. Save errors keep the draft.
+For an existing deck, **Save version** persists its edited card list.
 
 Supported headings: `Legend:`, `Champion:`, `MainDeck:` (or `Main Deck:`),
 `Battlefields:`, `Runes:`, and `Sideboard:` (or `Side Deck:`). Headings and codes

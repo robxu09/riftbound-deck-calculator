@@ -1,0 +1,71 @@
+<h1>My decks</h1>
+<p>Select a saved deck to edit or analyze, or start a new one.</p>
+<div class="button-row panel">
+  <a class="button" routerLink="/builder/new">Create deck</a>
+  <button class="secondary" (click)="showImport = !showImport">{{ showImport ? 'Close import' : 'Import deck' }}</button>
+</div>
+<section class="panel" *ngIf="selectedDeck as deck">
+  <h2>{{ deck.name }}</h2>
+  <div class="button-row"><a class="button" [routerLink]="['/builder', deck.id]">Edit deck</a>
+  <a class="button secondary" [routerLink]="['/analysis', deck.id]">Analyze deck</a></div>
+</section>
+  <section class="panel saved-decks-panel">
+    <h2>Saved decks</h2>
+    <p>Duplicate and export use the latest saved version. Save your changes first to include them.</p>
+    <p *ngIf="vm.listError" role="alert">{{ vm.listError }} <button (click)="vm.loadSavedDecks()">Retry</button></p>
+    <div *ngIf="!vm.listError && vm.savedDecks.length === 0" class="empty-state">No saved decks yet.</div>
+    <div class="saved-deck-list" *ngIf="vm.savedDecks.length > 0">
+      <div *ngFor="let deck of vm.savedDecks" class="saved-deck-item">
+        <button type="button" (click)="selectedDeckId = deck.id" [attr.aria-pressed]="selectedDeckId === deck.id">{{ deck.name }}</button>
+        <button type="button" class="secondary" (click)="vm.beginDeckAction(deck, 'rename')" [disabled]="vm.actionBusy">Rename</button>
+        <button type="button" class="secondary" (click)="vm.beginDeckAction(deck, 'duplicate')" [disabled]="vm.actionBusy">Duplicate</button>
+        <button type="button" class="secondary" (click)="vm.exportSavedDeck(deck)" [disabled]="vm.actionBusy">Export .txt</button>
+        <button type="button" class="secondary" (click)="removeDeck(deck.id)">Remove deck</button>
+      </div>
+    </div>
+    <form *ngIf="vm.deckAction" (ngSubmit)="vm.submitDeckAction()" class="deck-action-form">
+      <h3>{{ vm.deckAction.mode === 'rename' ? 'Rename' : 'Duplicate' }} {{ vm.deckAction.deck.name }}</h3>
+      <div class="field-group">
+        <label for="actionName">{{ vm.deckAction.mode === 'rename' ? 'New name' : 'Name for the copy' }}</label>
+        <input id="actionName" name="actionName" [(ngModel)]="vm.actionName" maxlength="255" required [disabled]="vm.actionBusy" />
+      </div>
+      <button type="submit" [disabled]="vm.actionBusy || !vm.actionName.trim()">{{ vm.deckAction.mode === 'rename' ? 'Save name' : 'Create copy' }}</button>
+      <button type="button" class="secondary" (click)="vm.deckAction = null; vm.actionError = ''" [disabled]="vm.actionBusy">Cancel</button>
+    </form>
+    <p *ngIf="vm.actionError" role="alert">{{ vm.actionError }}</p>
+    <p *ngIf="vm.actionStatus" role="status">{{ vm.actionStatus }}</p>
+  </section>
+
+
+
+<ng-container *ngIf="showImport">  <section class="panel import-panel">
+    <h2>Import deck from text</h2>
+    <p>Paste a deck list or choose a .txt file. Use section headings and lines such as <code>1 Ambessa, The Wolf [VEN-084]</code>.</p>
+    <div class="field-group">
+      <label for="deckFile">Text file</label>
+      <input id="deckFile" type="file" accept=".txt,text/plain" (change)="vm.readDeckFile($event)" />
+    </div>
+    <div class="field-group">
+      <label for="deckText">Deck list</label>
+      <textarea id="deckText" rows="10" maxlength="100000" [(ngModel)]="vm.importText" (ngModelChange)="vm.resetImportPreview()" placeholder="Legend:&#10;1 Ambessa, Matriarch of War [VEN-153]&#10;&#10;Champion:&#10;1 Ambessa, The Wolf [VEN-084]"></textarea>
+    </div>
+    <button type="button" (click)="vm.previewTextImport()" [disabled]="vm.importBusy || !vm.importText.trim()">{{ vm.importBusy ? 'Checking cards...' : 'Preview import' }}</button>
+    <p *ngIf="vm.importError" role="alert">{{ vm.importError }}</p>
+    <p *ngIf="vm.importStatus" role="status">{{ vm.importStatus }}</p>
+    <div *ngIf="vm.importPreview" aria-live="polite">
+      <h3>Import preview</h3>
+      <ul>
+        <li *ngFor="let group of vm.importPreview.cards | deckSections">{{ group.label }}: {{ group.count }}</li>
+      </ul>
+      <ul *ngIf="vm.importPreview.errors.length" role="alert">
+        <li *ngFor="let issue of vm.importPreview.errors">{{ issue.line ? 'Line ' + issue.line + ': ' : '' }}{{ issue.message }}</li>
+      </ul>
+      <ul *ngIf="vm.importPreview.warnings.length">
+        <li *ngFor="let issue of vm.importPreview.warnings">Line {{ issue.line }}: {{ issue.message }}</li>
+      </ul>
+      <p>The imported cards open in the builder as a new, unsaved draft. Section counts are guides; legality is not enforced.</p>
+      <button type="button" (click)="acceptImport()" [disabled]="!!vm.importPreview.errors.length">Use import as new draft</button>
+    </div>
+  </section>
+
+</ng-container>
