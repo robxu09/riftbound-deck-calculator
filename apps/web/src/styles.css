@@ -201,3 +201,10 @@ button.danger { background: #9f1239; }
   .home-primary, .home-create { gap: 8px; }
   .home-primary > *, .home-create > * { padding-left: 8px; padding-right: 8px; }
 }
+.practice-hand { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; margin: 16px 0; }
+.practice-hand .card-item { padding: 16px; }
+.practice-hand .card-item:disabled { opacity: 1; cursor: default; }
+.practice-hand .card-item[aria-pressed="true"] { background: #312e81; }
+.mulligan-panel .button-row { margin-bottom: 16px; }
+.draw-history summary { cursor: pointer; padding: 12px 0; }
+@media (max-width: 760px) { .practice-hand { grid-template-columns: minmax(0, 1fr); } }

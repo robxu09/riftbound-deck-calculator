@@ -1,0 +1,38 @@
+<section class="panel mulligan-panel">
+  <h2>Mulligan practice</h2>
+  <p *ngIf="loading" role="status">Loading practice deck...</p>
+  <p *ngIf="error" role="alert">{{ error }} <button (click)="load()">Retry</button></p>
+  <ng-container *ngIf="session as practice">
+    <p>Saved version {{ versionNumber }}. Practice uses only the 39 Main Deck cards.</p>
+    <p *ngIf="practice.choosing">Select up to two cards to put on the bottom, then draw replacements. Selection order sets their order at the bottom, with position 1 drawn first.</p>
+    <div class="button-row">
+      <button *ngIf="practice.choosing" (click)="practice.confirm()">{{ practice.selected.length ? 'Replace ' + practice.selected.length + ' selected' : 'Keep all four' }}</button>
+      <button *ngIf="!practice.choosing" (click)="practice.draw()" [disabled]="!practice.remaining">Draw one</button>
+      <button (click)="practice.reset()">Reset practice</button>
+    </div>
+    <p role="status">{{ practice.remaining }} cards remaining. <ng-container *ngIf="practice.choosing">{{ practice.selected.length }} of 2 selected to put on the bottom.</ng-container><ng-container *ngIf="!practice.choosing">Mulligan complete. {{ practice.draws.length }} subsequent draws.</ng-container></p>
+    <p *ngIf="!practice.remaining">No cards left to draw. Reset to practice another opening hand.</p>
+    <p *ngIf="practice.draws.length" role="status">Last drawn: {{ catalog.get(practice.draws[practice.draws.length - 1].cardId)?.name }}</p>
+    <h3>{{ practice.choosing ? 'Opening hand' : 'Cards in hand' }} ({{ practice.hand.length }})</h3>
+    <div class="practice-hand">
+      <button *ngFor="let copy of practice.hand" class="card-item" (click)="practice.toggle(copy.copyId)"
+        [attr.aria-pressed]="practice.selected.includes(copy.copyId)"
+        [disabled]="!practice.choosing || (practice.selected.length === 2 && !practice.selected.includes(copy.copyId))">
+        <ng-container *ngIf="catalog.get(copy.cardId) as card">
+          <strong>{{ card.name }}</strong>
+          <span>{{ card.type }} - {{ card.setCode }}</span>
+          <span>{{ card.domains?.join(' / ') }}</span>
+          <span *ngIf="card.cost != null">Energy: {{ card.cost }}</span>
+          <span *ngIf="card.power != null">Power: {{ card.power }}</span>
+          <span *ngIf="card.might != null">Might: {{ card.might }}</span>
+          <small>{{ card.text }}</small>
+          <span *ngIf="practice.selected.includes(copy.copyId)">Bottom position {{ practice.selected.indexOf(copy.copyId) + 1 }}</span>
+        </ng-container>
+      </button>
+    </div>
+    <details *ngIf="practice.draws.length" class="draw-history">
+      <summary>Draw history ({{ practice.draws.length }})</summary>
+      <ol><li *ngFor="let copy of practice.draws">{{ catalog.get(copy.cardId)?.name }}</li></ol>
+    </details>
+  </ng-container>
+</section>

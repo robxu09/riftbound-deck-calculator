@@ -5,6 +5,7 @@
   <h2>{{ deck.name }}</h2>
   <p>Latest saved version at the time this analysis was loaded. Unsaved builder edits are not included.</p>
 </section>
+<app-mulligan-practice *ngIf="deck" [deckId]="deck.id" />
 <section *ngIf="analysis" class="panel analysis-panel">
   <h2>Saved deck summary</h2>
   <p>Basic summary only; this does not establish Constructed legality.</p>

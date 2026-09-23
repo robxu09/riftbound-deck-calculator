@@ -3,10 +3,11 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { catchError, of, Subscription, switchMap } from 'rxjs';
 import { Deck, DeckAnalysisResult, RiftboundApiService } from './riftbound-api.service';
+import { MulliganPracticeComponent } from './mulligan-practice.component';
 
 @Component({
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, MulliganPracticeComponent],
   templateUrl: './analysis.component.html'
 })
 export class AnalysisComponent implements OnInit, OnDestroy {

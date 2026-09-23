@@ -30,8 +30,8 @@ import, saved-deck management and editing state. Analysis loads independently.
 No API or database changes are required by this navigation milestone.
 
 Analysis currently provides the existing summary, counts, energy curve and any
-warnings. Draw probabilities and mulligan practice are the next milestone, with
-opening-hand/mulligan rules to be confirmed before implementation.
+warnings, plus [mulligan practice](mulligan-practice.md). Draw probabilities and
+deeper analysis remain future work.
 
 Production web hosting must rewrite application routes to `index.html` so direct
 links and refreshes work; the Angular development server already does this.
