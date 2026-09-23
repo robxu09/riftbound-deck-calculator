@@ -38,5 +38,5 @@ links and refreshes work; the Angular development server already does this.
 
 Home is the navigation hub: Builder and Analysis each return Home instead of
 linking directly to each other. The builder shows its name and save status once,
-in the sticky toolbar. Existing decks omit the disabled name field, and a single
-available format is shown as text instead of a dropdown.
+in the sticky toolbar. Existing decks omit the disabled name field, and the format
+control is hidden while only one format is available.

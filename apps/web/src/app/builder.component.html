@@ -19,7 +19,6 @@
   <section class="layout builder-layout">
     <div id="cardPanel" class="panel card-pane" [class.mobile-hidden]="mobileTab !== 'cards'">
       <h2>Cards</h2>
-      <p>Printed card text. Errata and Constructed legality are not verified.</p>
       <div class="field-group">
         <label for="cardSearch">Search cards</label>
         <input id="cardSearch" [(ngModel)]="vm.cardSearch" type="search" placeholder="Name, text, domain, type, or set" />
@@ -73,7 +72,6 @@
     <div id="deckPanel" class="panel deck-pane" [class.mobile-hidden]="mobileTab !== 'deck'">
   <div class="field-group" *ngIf="!vm.deckId"><label for="deckName">Deck name</label>
   <input id="deckName" [(ngModel)]="vm.deckName" maxlength="255" placeholder="Name your deck" /></div>
-  <p *ngIf="vm.formats.length === 1">Format: {{ vm.formats[0].name }}</p>
   <div class="field-group" *ngIf="vm.formats.length > 1"><label for="format">Format</label>
   <select id="format" [(ngModel)]="vm.selectedFormatId" [disabled]="!!vm.deckId"><option *ngFor="let format of vm.formats" [value]="format.id">{{ format.name }}</option></select></div>
 

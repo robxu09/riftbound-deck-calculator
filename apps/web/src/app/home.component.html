@@ -1,5 +1,4 @@
 <h1>My decks</h1>
-<p>Choose a deck to analyze or edit, or start a new one.</p>
 <section class="panel home-decks">
   <p *ngIf="vm.listError" role="alert">{{ vm.listError }} <button (click)="vm.loadSavedDecks()">Retry</button></p>
   <p *ngIf="vm.loadingDecks" role="status">Loading decks...</p>
