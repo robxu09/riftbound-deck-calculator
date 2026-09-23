@@ -3,8 +3,8 @@
   <p *ngIf="loading" role="status">Loading practice deck...</p>
   <p *ngIf="error" role="alert">{{ error }} <button (click)="load()">Retry</button></p>
   <ng-container *ngIf="session as practice">
-    <p>Saved version {{ versionNumber }}. Practice uses only the 39 Main Deck cards.</p>
-    <p *ngIf="practice.choosing">Select up to two cards to put on the bottom, then draw replacements. Selection order sets their order at the bottom, with position 1 drawn first.</p>
+    <p>Version {{ versionNumber }} ? 39 Main Deck cards</p>
+    <p *ngIf="practice.choosing">Select up to two cards to replace. Bottom order follows selection order.</p>
     <div class="button-row">
       <button *ngIf="practice.choosing" (click)="practice.confirm()">{{ practice.selected.length ? 'Replace ' + practice.selected.length + ' selected' : 'Keep all four' }}</button>
       <button *ngIf="!practice.choosing" (click)="practice.draw()" [disabled]="!practice.remaining">Draw one</button>

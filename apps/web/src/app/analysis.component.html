@@ -1,22 +1,5 @@
 <h1>Deck Analysis</h1>
-<p *ngIf="loading" role="status">Loading saved analysis…</p>
+<p *ngIf="loading" role="status">Loading deck...</p>
 <p *ngIf="error" role="alert">{{ error }} <button (click)="load()">Retry</button></p>
-<section *ngIf="deck" class="panel">
-  <h2>{{ deck.name }}</h2>
-  <p>Latest saved version at the time this analysis was loaded. Unsaved builder edits are not included.</p>
-</section>
+<h2 *ngIf="deck">{{ deck.name }}</h2>
 <app-mulligan-practice *ngIf="deck" [deckId]="deck.id" />
-<section *ngIf="analysis" class="panel analysis-panel">
-  <h2>Saved deck summary</h2>
-  <p>Basic summary only; this does not establish Constructed legality.</p>
-  <p>{{ analysis.summary }}</p>
-  <ul>
-    <li>Total cards: {{ analysis.cardCount }}</li>
-    <li>Unique cards: {{ analysis.uniqueCardCount }}</li>
-    <li *ngFor="let bucket of analysis.manaCurve | keyvalue">Main deck + champion energy {{ bucket.key }}: {{ bucket.value }}</li>
-  </ul>
-  <div *ngIf="analysis.warnings.length">
-    <h3>Warnings</h3>
-    <ul><li *ngFor="let warning of analysis.warnings">{{ warning }}</li></ul>
-  </div>
-</section>

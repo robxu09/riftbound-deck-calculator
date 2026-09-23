@@ -257,10 +257,10 @@ describe('Deck page workflows', () => {
     vm.addCardToDeck('legend');
     spyOn(window, 'confirm').and.returnValue(true);
     await harness.navigateByUrl('/analysis/saved', AnalysisComponent);
-    expect(api.analyzeDeck).toHaveBeenCalledWith({ deckId: 'saved', formatId: deck.formatId, analysisType: 'summary' });
+    expect(api.analyzeDeck).not.toHaveBeenCalled();
     expect(api.addDeckVersion).not.toHaveBeenCalled();
-    expect(harness.routeNativeElement!.textContent).toContain('Total cards: 2');
-    expect(harness.routeNativeElement!.textContent).toContain('Example warning');
+    expect(harness.routeNativeElement!.textContent).toContain('Mulligan practice');
+    expect(harness.routeNativeElement!.querySelector('.analysis-panel')).toBeNull();
   });
 
   it('disables editing after a failed version load and supports retry', async () => {
@@ -275,13 +275,13 @@ describe('Deck page workflows', () => {
   });
 
   it('shows analysis errors and recovers on retry', async () => {
-    api.analyzeDeck.and.returnValue(throwError(() => new Error('offline')));
+    api.getDeck.and.returnValue(throwError(() => new Error('offline')));
     const page = await harness.navigateByUrl('/analysis/saved', AnalysisComponent);
     expect(page.error).toContain('Unable to load');
     expect(page.loading).toBeFalse();
-    api.analyzeDeck.and.returnValue(of({ deckId: 'saved', formatId: deck.formatId, cardCount: 0, uniqueCardCount: 0, manaCurve: {}, summary: 'Empty', warnings: [] }));
+    api.getDeck.and.returnValue(of(deck));
     page.load();
     expect(page.error).toBe('');
-    expect(page.analysis?.cardCount).toBe(0);
+    expect(page.deck?.id).toBe(deck.id);
   });
 });

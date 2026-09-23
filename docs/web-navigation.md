@@ -10,8 +10,8 @@
   initial version, then replaces the URL with `/builder/{deckId}`.
 - `/builder/{deckId}` loads the latest saved version for editing. Save changes
   persists the changes. Name changes are handled through Rename on Home.
-- `/analysis/{deckId}` requests the existing API summary of the latest saved
-  version. It never saves or analyzes the builder's unsaved draft.
+- `/analysis/{deckId}` opens mulligan practice using the latest saved version.
+  It never saves or uses the builder's unsaved draft.
 
 The Home link is available on every page. The selected saved deck is remembered
 within the current session. Direct builder and analysis links load from the API.
@@ -29,9 +29,9 @@ Angular's page components use a shared DeckWorkspace service for catalog,
 import, saved-deck management and editing state. Analysis loads independently.
 No API or database changes are required by this navigation milestone.
 
-Analysis currently provides the existing summary, counts, energy curve and any
-warnings, plus [mulligan practice](mulligan-practice.md). Draw probabilities and
-deeper analysis remain future work.
+Analysis focuses on [mulligan practice](mulligan-practice.md). The saved-deck
+summary is no longer displayed or requested by this page. Draw probabilities
+and deeper analysis remain future work.
 
 Production web hosting must rewrite application routes to `index.html` so direct
 links and refreshes work; the Angular development server already does this.
