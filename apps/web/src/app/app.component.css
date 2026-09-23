@@ -108,6 +108,11 @@ button.secondary {
   padding: 10px 14px;
 }
 
+.deck-action-form {
+  margin-top: 20px;
+  max-width: 480px;
+}
+
 .card-list {
   max-height: 65vh;
   overflow-y: auto;

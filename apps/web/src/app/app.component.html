@@ -52,19 +52,34 @@
         <li *ngFor="let issue of importPreview.warnings">Line {{ issue.line }}: {{ issue.message }}</li>
       </ul>
       <p>Using this import replaces the current unsaved selection with a new draft. Saved decks are kept. Section counts are guides; legality is not enforced.</p>
-      <button type="button" (click)="useImportedDeck()" [disabled]="!!importPreview.errors.length || !importPreview.cards.length">Use import as new draft</button>
+      <button type="button" (click)="useImportedDeck()" [disabled]="!!importPreview.errors.length">Use import as new draft</button>
     </div>
   </section>
 
   <section class="panel saved-decks-panel">
     <h2>Saved decks</h2>
+    <p>Duplicate and export use the latest saved version. Save your changes first to include them.</p>
     <div *ngIf="savedDecks.length === 0" class="empty-state">No saved decks yet.</div>
     <div class="saved-deck-list" *ngIf="savedDecks.length > 0">
       <div *ngFor="let deck of savedDecks" class="saved-deck-item">
         <button type="button" (click)="loadDeck(deck.id)">{{ deck.name }}</button>
+        <button type="button" class="secondary" (click)="beginDeckAction(deck, 'rename')" [disabled]="actionBusy">Rename</button>
+        <button type="button" class="secondary" (click)="beginDeckAction(deck, 'duplicate')" [disabled]="actionBusy">Duplicate</button>
+        <button type="button" class="secondary" (click)="exportSavedDeck(deck)" [disabled]="actionBusy">Export .txt</button>
         <button type="button" class="secondary" (click)="deleteDeck(deck.id)">Remove deck</button>
       </div>
     </div>
+    <form *ngIf="deckAction" (ngSubmit)="submitDeckAction()" class="deck-action-form">
+      <h3>{{ deckAction.mode === 'rename' ? 'Rename' : 'Duplicate' }} {{ deckAction.deck.name }}</h3>
+      <div class="field-group">
+        <label for="actionName">{{ deckAction.mode === 'rename' ? 'New name' : 'Name for the copy' }}</label>
+        <input id="actionName" name="actionName" [(ngModel)]="actionName" maxlength="255" required [disabled]="actionBusy" />
+      </div>
+      <button type="submit" [disabled]="actionBusy || !actionName.trim()">{{ deckAction.mode === 'rename' ? 'Save name' : 'Create copy' }}</button>
+      <button type="button" class="secondary" (click)="deckAction = null; actionError = ''" [disabled]="actionBusy">Cancel</button>
+    </form>
+    <p *ngIf="actionError" role="alert">{{ actionError }}</p>
+    <p *ngIf="actionStatus" role="status">{{ actionStatus }}</p>
   </section>
 
   <section class="layout">

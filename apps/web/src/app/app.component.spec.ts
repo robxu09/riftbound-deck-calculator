@@ -1,6 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { of, Subject, throwError } from 'rxjs';
 import { AppComponent } from './app.component';
+import { DeckFileService } from './deck-file.service';
 import { DeckImportResult, DeckVersion, RiftboundApiService } from './riftbound-api.service';
 
 describe('AppComponent', () => {
@@ -60,6 +61,64 @@ describe('AppComponent', () => {
     app.clearSelectedDeckCards();
 
     expect(app.selectedDeckCards).toEqual([]);
+  });
+
+  it('renames a selected deck without dropping unsaved card edits', () => {
+    const deck = { id: 'saved', name: 'Before', formatId: 'format-constructed' };
+    const rename = jasmine.createSpy('renameDeck').and.returnValue(of({ ...deck, name: 'After' }));
+    const app = new AppComponent({ ...apiStub, renameDeck: rename } as unknown as RiftboundApiService);
+    app.deckId = deck.id;
+    app.selectedDeckCards = [{ cardId: 'rune', quantity: 6, section: 'RUNES' }];
+    app.beginDeckAction(deck, 'rename');
+    app.actionName = 'After';
+    app.submitDeckAction();
+    expect(rename).toHaveBeenCalledWith(deck.id, 'After');
+    expect(app.deckName).toBe('After');
+    expect(app.selectedDeckCards[0].quantity).toBe(6);
+    expect(app.deckAction).toBeNull();
+  });
+
+  it('duplicates a saved deck without replacing the current draft', () => {
+    const deck = { id: 'saved', name: 'Original', formatId: 'format-constructed' };
+    const duplicate = jasmine.createSpy('duplicateDeck').and.returnValue(of({ ...deck, id: 'copy', name: 'Original copy' }));
+    const app = new AppComponent({ ...apiStub, duplicateDeck: duplicate } as unknown as RiftboundApiService);
+    app.selectedDeckCards = [{ cardId: 'unsaved', quantity: 2 }];
+    app.beginDeckAction(deck, 'duplicate');
+    app.submitDeckAction();
+    expect(duplicate).toHaveBeenCalledWith('saved', 'Original copy');
+    expect(app.selectedDeckCards).toEqual([{ cardId: 'unsaved', quantity: 2 }]);
+    expect(app.deckId).toBeNull();
+  });
+
+  it('keeps the rename form open and displays conflicts', () => {
+    const deck = { id: 'saved', name: 'Before', formatId: 'format-constructed' };
+    const app = new AppComponent({ ...apiStub, renameDeck: () => throwError(() => ({ error: { error: 'Name already exists.' } })) } as unknown as RiftboundApiService);
+    app.beginDeckAction(deck, 'rename');
+    app.submitDeckAction();
+    expect(app.actionError).toBe('Name already exists.');
+    expect(app.deckAction?.deck.id).toBe('saved');
+    expect(app.actionBusy).toBeFalse();
+  });
+
+  it('downloads exported saved text without using unsaved selections', () => {
+    const deck = { id: 'saved', name: 'My deck', formatId: 'format-constructed' };
+    const exportDeck = jasmine.createSpy('exportDeck').and.returnValue(of('Legend:\n'));
+    const files = jasmine.createSpyObj<DeckFileService>('DeckFileService', ['download']);
+    const app = new AppComponent({ ...apiStub, exportDeck } as unknown as RiftboundApiService, files);
+    app.selectedDeckCards = [{ cardId: 'unsaved', quantity: 2 }];
+    app.exportSavedDeck(deck);
+    expect(exportDeck).toHaveBeenCalledWith('saved');
+    expect(files.download).toHaveBeenCalledWith('Legend:\n', 'My deck');
+    expect(app.selectedDeckCards[0].cardId).toBe('unsaved');
+  });
+
+  it('shows export failures instead of downloading an error response', () => {
+    const files = jasmine.createSpyObj<DeckFileService>('DeckFileService', ['download']);
+    const app = new AppComponent({ ...apiStub, exportDeck: () => throwError(() => ({ error: '{"error":"Unknown card ID"}' })) } as unknown as RiftboundApiService, files);
+    app.exportSavedDeck({ id: 'saved', name: 'Bad card', formatId: 'format-constructed' });
+    expect(app.actionError).toBe('Unknown card ID');
+    expect(files.download).not.toHaveBeenCalled();
+    expect(app.actionBusy).toBeFalse();
   });
 
   it('filters visible cards through the type and domain controls while preserving the deck destination', async () => {

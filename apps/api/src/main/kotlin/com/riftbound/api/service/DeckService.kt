@@ -10,6 +10,8 @@ import com.riftbound.api.domain.DeckAnalysisResult
 import com.riftbound.api.domain.DeckCard
 import com.riftbound.api.domain.DeckSection
 import com.riftbound.api.domain.DeckTextImporter
+import com.riftbound.api.domain.DeckTextExporter
+import com.riftbound.api.domain.DeckNotFoundException
 import com.riftbound.api.domain.DeckVersion
 import com.riftbound.api.domain.DuplicateDeckNameException
 import com.riftbound.api.domain.Format
@@ -34,6 +36,7 @@ class DeckService(
 
     private val cards = CardCatalog.load()
     private val textImporter = DeckTextImporter(cards)
+    private val textExporter = DeckTextExporter(cards)
     private val objectMapper = jacksonObjectMapper()
     private val formats = mutableListOf(
         Format("format-constructed", "Constructed", 60, 30, 3, "1.0")
@@ -46,6 +49,42 @@ class DeckService(
     fun getCard(id: String): Card? = cards.firstOrNull { it.id == id }
 
     fun getFormats(): List<Format> = formats.toList()
+
+    @Synchronized
+    @Transactional
+    fun renameDeck(deckId: String, requestedName: String): Deck {
+        val name = requestedName.trim()
+        require(name.isNotEmpty()) { "Enter a deck name." }
+        require(name.length <= 255) { "Deck names must be at most 255 characters." }
+        if (deckRepository != null) {
+            val entity = deckRepository.findById(deckId).orElseThrow { DeckNotFoundException(deckId) }
+            if (deckRepository.existsByNormalizedNameAndIdNot(name.lowercase(), deckId)) throw DuplicateDeckNameException(name)
+            entity.name = name
+            entity.normalizedName = name.lowercase()
+            try {
+                return toDomain(deckRepository.saveAndFlush(entity))
+            } catch (e: DataIntegrityViolationException) {
+                throw DuplicateDeckNameException(name)
+            }
+        }
+        val deck = fallbackDecks[deckId] ?: throw DeckNotFoundException(deckId)
+        if (fallbackDecks.values.any { it.id != deckId && it.name.equals(name, ignoreCase = true) }) throw DuplicateDeckNameException(name)
+        return deck.copy(name = name).also { fallbackDecks[deckId] = it }
+    }
+
+    @Synchronized
+    @Transactional
+    fun duplicateDeck(deckId: String, name: String): Deck {
+        val original = getDeck(deckId) ?: throw DeckNotFoundException(deckId)
+        val latest = getDeckVersions(deckId).lastOrNull()
+        return createDeck(CreateDeckRequest(name, original.formatId, latest?.cards ?: emptyList()))
+    }
+
+    @Transactional(readOnly = true)
+    fun exportDeck(deckId: String): String {
+        getDeck(deckId) ?: throw DeckNotFoundException(deckId)
+        return textExporter.export(getDeckVersions(deckId).lastOrNull()?.cards ?: emptyList())
+    }
 
     @Transactional(readOnly = true)
     fun getDecks(): List<Deck> = if (deckRepository != null) {
@@ -80,6 +119,7 @@ class DeckService(
     fun createDeck(request: CreateDeckRequest): Deck = if (deckRepository != null) {
         val name = request.name.trim()
         require(name.isNotEmpty()) { "Enter a deck name." }
+        require(name.length <= 255) { "Deck names must be at most 255 characters." }
         val normalizedName = name.lowercase()
         if (deckRepository.existsByNormalizedName(normalizedName)) {
             throw DuplicateDeckNameException(name)
@@ -109,6 +149,7 @@ class DeckService(
     } else {
         val name = request.name.trim()
         require(name.isNotEmpty()) { "Enter a deck name." }
+        require(name.length <= 255) { "Deck names must be at most 255 characters." }
         if (fallbackDecks.values.any { it.name.equals(name, ignoreCase = true) }) {
             throw DuplicateDeckNameException(name)
         }

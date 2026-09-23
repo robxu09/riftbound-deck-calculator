@@ -7,6 +7,7 @@ import jakarta.persistence.Id
 import jakarta.persistence.JoinColumn
 import jakarta.persistence.ManyToOne
 import jakarta.persistence.PrePersist
+import jakarta.persistence.PreUpdate
 import jakarta.persistence.Table
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.stereotype.Repository
@@ -32,6 +33,7 @@ class DeckEntity {
     var createdAt: Instant = Instant.now()
 
     @PrePersist
+    @PreUpdate
     fun normalizeName() {
         normalizedName = name.trim().lowercase()
     }
@@ -80,6 +82,7 @@ class DeckVersionEntity {
 interface DeckRepository : JpaRepository<DeckEntity, String> {
     fun existsByNameIgnoreCase(name: String): Boolean
     fun existsByNormalizedName(normalizedName: String): Boolean
+    fun existsByNormalizedNameAndIdNot(normalizedName: String, id: String): Boolean
     fun findAllByOrderByCreatedAtDesc(): List<DeckEntity>
 }
 

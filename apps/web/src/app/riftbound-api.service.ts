@@ -93,6 +93,18 @@ export class RiftboundApiService {
     return this.http.get<Deck>(`${this.apiUrl}/decks/${deckId}`);
   }
 
+  renameDeck(deckId: string, name: string): Observable<Deck> {
+    return this.http.post<Deck>(`${this.apiUrl}/decks/${deckId}/rename`, { name });
+  }
+
+  duplicateDeck(deckId: string, name: string): Observable<Deck> {
+    return this.http.post<Deck>(`${this.apiUrl}/decks/${deckId}/duplicate`, { name });
+  }
+
+  exportDeck(deckId: string): Observable<string> {
+    return this.http.get(`${this.apiUrl}/decks/${deckId}/export`, { responseType: 'text' });
+  }
+
   deleteDeck(deckId: string): Observable<{ deleted: boolean }> {
     return this.http.post<{ deleted: boolean }>(`${this.apiUrl}/decks/${deckId}/delete`, {});
   }

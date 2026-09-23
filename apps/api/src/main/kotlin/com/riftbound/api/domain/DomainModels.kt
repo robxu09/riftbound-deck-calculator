@@ -86,6 +86,9 @@ data class CreateDeckRequest(
 
 class DuplicateDeckNameException(name: String) : IllegalArgumentException("A saved deck named '$name' already exists. Choose a different name.")
 
+data class DeckNameRequest(val name: String)
+class DeckNotFoundException(id: String) : NoSuchElementException("Deck not found: $id")
+
 data class AddDeckVersionRequest(
     val cards: List<DeckCard>,
     val notes: String? = null

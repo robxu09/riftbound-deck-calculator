@@ -54,3 +54,23 @@ in the local H2 database across API restarts; see [deck storage](deck-storage.md
 The Kotlin endpoint `POST /api/decks/import-preview` accepts `{ "text": "..." }`
 and returns matched `cards`, line-numbered `errors`, and `warnings`. It never saves
 or changes a deck. Parsing and matching live in a framework-independent domain class.
+
+## Rename, duplicate and export
+
+Each saved deck has **Rename**, **Duplicate**, and **Export .txt** actions.
+
+- Rename changes the name in place, keeping its ID and all version history.
+  Names must be nonblank, at most 255 characters and unique ignoring case and
+  surrounding whitespace. Renaming does not save or discard unsaved card edits.
+- Duplicate asks for a new name and copies the latest saved version into a new
+  deck with its own ID and initial version. Earlier history is not copied. The
+  current selection stays in place; select the saved copy to open it.
+- Export downloads the latest saved version as UTF-8 text with all six sections,
+  quantities, and full printing IDs. It does not include unsaved edits, deck name,
+  version history or notes. Reimport the file and choose a name to save a new deck.
+  An empty deck exports section headings and imports as an empty draft.
+  Missing catalog IDs produce an error rather than silently dropping cards.
+
+API routes: `POST /api/decks/{id}/rename` and `/duplicate` accept `{ "name": "..." }`;
+`GET /api/decks/{id}/export` returns `text/plain; charset=UTF-8`. Conflicting names
+return 409, missing decks return 404, and invalid names/export data return 400.

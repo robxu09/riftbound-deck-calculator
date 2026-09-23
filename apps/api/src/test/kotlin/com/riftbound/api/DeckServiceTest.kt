@@ -41,6 +41,37 @@ class DeckServiceTest {
     }
 
     @Test
+    fun `rename retains history and updates name uniqueness`() {
+        val original = deckService.createDeck(CreateDeckRequest("Before", "format-constructed", listOf(DeckCard("ogn-126-298", 6, DeckSection.RUNES))))
+        val versions = deckService.getDeckVersions(original.id)
+        val renamed = deckService.renameDeck(original.id, " After ")
+        assertEquals(original.copy(name = "After"), renamed)
+        assertEquals(versions, deckService.getDeckVersions(original.id))
+        assertEquals("AFTER", deckService.renameDeck(original.id, "AFTER").name)
+        assertThrows(DuplicateDeckNameException::class.java) { deckService.createDeck(CreateDeckRequest(" after ", "format-constructed")) }
+        deckService.createDeck(CreateDeckRequest("Before", "format-constructed"))
+        assertThrows(DuplicateDeckNameException::class.java) { deckService.renameDeck(original.id, "Before") }
+        assertEquals("AFTER", deckService.getDeck(original.id)!!.name)
+    }
+
+    @Test
+    fun `duplicate copies only latest saved version and remains independent`() {
+        val original = deckService.createDeck(CreateDeckRequest("Original", "format-constructed"))
+        val cards = listOf(DeckCard("ven-sp3-006", 1, DeckSection.CHAMPION), DeckCard("ogn-126-298", 6, DeckSection.RUNES))
+        deckService.addDeckVersion(original.id, AddDeckVersionRequest(cards))
+        val copy = deckService.duplicateDeck(original.id, "Copy")
+        assertTrue(copy.id != original.id)
+        assertEquals(original.formatId, copy.formatId)
+        assertEquals(cards, deckService.getDeckVersions(copy.id).single().cards)
+        deckService.addDeckVersion(copy.id, AddDeckVersionRequest(emptyList()))
+        assertEquals(cards, deckService.getDeckVersions(original.id).last().cards)
+        assertThrows(DuplicateDeckNameException::class.java) { deckService.duplicateDeck(original.id, " copy ") }
+        assertEquals(2, deckService.getDecks().size)
+        deckService.deleteDeck(copy.id)
+        assertNotNull(deckService.getDeck(original.id))
+    }
+
+    @Test
     fun `duplicate names ignore case and surrounding whitespace without changing saved decks`() {
         val deck = deckService.createDeck(CreateDeckRequest("  Ambessa  ", "format-constructed"))
         assertEquals("Ambessa", deck.name)

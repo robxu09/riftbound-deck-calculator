@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { CardSearchPipe } from './card-search.pipe';
 import { DECK_SECTIONS, DeckSectionsPipe } from './deck-sections.pipe';
 import { DeckImportResult, DeckSection } from './riftbound-api.service';
+import { DeckFileService } from './deck-file.service';
 import { DeckAnalysisResult, RiftboundApiService, type Card, type Deck, type DeckCard, type Format } from './riftbound-api.service';
 
 @Component({
@@ -38,6 +39,65 @@ export class AppComponent implements OnInit {
   private selectionGeneration = 0;
   creatingDeck = false;
   deckError = '';
+  deckAction: { deck: Deck; mode: 'rename' | 'duplicate' } | null = null;
+  actionName = '';
+  actionBusy = false;
+  actionError = '';
+  actionStatus = '';
+
+  beginDeckAction(deck: Deck, mode: 'rename' | 'duplicate'): void {
+    if (this.actionBusy) return;
+    this.deckAction = { deck, mode };
+    this.actionName = mode === 'rename' ? deck.name : `${deck.name} copy`;
+    this.actionError = '';
+    this.actionStatus = '';
+  }
+
+  submitDeckAction(): void {
+    if (!this.deckAction || this.actionBusy) return;
+    const { deck, mode } = this.deckAction;
+    this.actionBusy = true;
+    this.actionError = '';
+    const request = mode === 'rename'
+      ? this.api.renameDeck(deck.id, this.actionName)
+      : this.api.duplicateDeck(deck.id, this.actionName);
+    request.subscribe({
+      next: updated => {
+        this.actionBusy = false;
+        this.deckAction = null;
+        this.loadSavedDecks();
+        if (mode === 'rename' && this.deckId === updated.id) {
+          this.deckName = updated.name;
+          this.analysis = null;
+        }
+        this.actionStatus = mode === 'rename' ? `Renamed to ${updated.name}.` : `Created ${updated.name} from the latest saved version. Select it to open the copy.`;
+      },
+      error: error => {
+        this.actionBusy = false;
+        this.actionError = error.error?.error ?? `Unable to ${mode} this deck.`;
+      }
+    });
+  }
+
+  exportSavedDeck(deck: Deck): void {
+    if (this.actionBusy) return;
+    this.actionBusy = true;
+    this.actionError = '';
+    this.actionStatus = '';
+    this.api.exportDeck(deck.id).subscribe({
+      next: text => {
+        this.actionBusy = false;
+        this.deckFiles.download(text, deck.name);
+        this.actionStatus = `Exported the latest saved version of ${deck.name}.`;
+      },
+      error: error => {
+        this.actionBusy = false;
+        // HttpClient's text response mode also returns JSON error bodies as text.
+        try { this.actionError = JSON.parse(error.error).error ?? 'Unable to export this deck.'; }
+        catch { this.actionError = 'Unable to export this deck.'; }
+      }
+    });
+  }
 
   resetImportPreview(): void {
     this.importGeneration++;
@@ -88,17 +148,19 @@ export class AppComponent implements OnInit {
   }
 
   useImportedDeck(): void {
-    if (!this.importPreview || this.importPreview.errors.length || !this.importPreview.cards.length) return;
+    if (!this.importPreview || this.importPreview.errors.length) return;
     this.selectionGeneration++;
     this.deckError = '';
     this.selectedDeckCards = this.importPreview.cards.map(card => ({ ...card }));
     this.deckId = null;
     this.analysis = null;
     this.resetImportPreview();
-    this.importStatus = 'Imported into a new draft. Set the deck name above, then click Save selection as new deck.';
+    this.importStatus = this.selectedDeckCards.length
+      ? 'Imported into a new draft. Set the deck name above, then click Save selection as new deck.'
+      : 'Imported an empty draft. Set the deck name above, then click Create empty deck.';
   }
 
-  constructor(private api: RiftboundApiService) {}
+  constructor(private api: RiftboundApiService, private deckFiles: DeckFileService = new DeckFileService()) {}
 
   ngOnInit(): void {
     this.loadCards();

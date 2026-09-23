@@ -5,6 +5,8 @@ import com.riftbound.api.domain.CreateDeckRequest
 import com.riftbound.api.domain.DeckAnalysisRequest
 import com.riftbound.api.domain.DeckImportRequest
 import com.riftbound.api.domain.DuplicateDeckNameException
+import com.riftbound.api.domain.DeckNameRequest
+import com.riftbound.api.domain.DeckNotFoundException
 import com.riftbound.api.service.DeckService
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.CrossOrigin
@@ -14,6 +16,8 @@ import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.ExceptionHandler
+import org.springframework.http.MediaType
 
 @RestController
 @CrossOrigin(origins = ["http://localhost:4200"], allowCredentials = "true")
@@ -48,6 +52,28 @@ class DeckController(
 
     @GetMapping("/decks/{deckId}")
     fun getDeck(@PathVariable deckId: String) = deckService.getDeck(deckId)
+
+    @PostMapping("/decks/{deckId}/rename")
+    fun renameDeck(@PathVariable deckId: String, @RequestBody request: DeckNameRequest) =
+        deckService.renameDeck(deckId, request.name)
+
+    @PostMapping("/decks/{deckId}/duplicate")
+    fun duplicateDeck(@PathVariable deckId: String, @RequestBody request: DeckNameRequest) =
+        deckService.duplicateDeck(deckId, request.name)
+
+    @GetMapping("/decks/{deckId}/export")
+    fun exportDeck(@PathVariable deckId: String): ResponseEntity<String> = ResponseEntity.ok()
+        .contentType(MediaType("text", "plain", Charsets.UTF_8))
+        .body(deckService.exportDeck(deckId))
+
+    @ExceptionHandler(DuplicateDeckNameException::class)
+    fun duplicateName(error: DuplicateDeckNameException) = ResponseEntity.status(409).body(mapOf("error" to error.message))
+
+    @ExceptionHandler(DeckNotFoundException::class)
+    fun missingDeck(error: DeckNotFoundException) = ResponseEntity.status(404).body(mapOf("error" to error.message))
+
+    @ExceptionHandler(IllegalArgumentException::class)
+    fun invalidRequest(error: IllegalArgumentException) = ResponseEntity.badRequest().body(mapOf("error" to error.message))
 
     @PostMapping("/decks/{deckId}/delete")
     fun deleteDeck(@PathVariable deckId: String): ResponseEntity<Map<String, Boolean>> {

@@ -21,12 +21,14 @@ class DeckTextImporter(private val catalog: List<Card>) {
             return DeckImportResult(emptyList(), listOf(DeckImportIssue(0, "Text must be at most 100,000 characters.")), emptyList())
         }
         var section: DeckSection? = null
+        var hasHeading = false
         text.removePrefix("\uFEFF").lineSequence().forEachIndexed { index, raw ->
             val line = raw.trim()
             val lineNumber = index + 1
             if (line.isEmpty()) return@forEachIndexed
             if (line.endsWith(":")) {
                 section = headings[line.dropLast(1).lowercase().replace(Regex("\\s+"), "")]
+                if (section != null) hasHeading = true
                 if (section == null) errors.add(DeckImportIssue(lineNumber, "Unknown section: $line"))
                 return@forEachIndexed
             }
@@ -67,7 +69,7 @@ class DeckTextImporter(private val catalog: List<Card>) {
             val previous = cards[key]?.quantity ?: 0
             cards[key] = DeckCard(card.id, previous + quantity, currentSection)
         }
-        if (cards.isEmpty() && errors.isEmpty()) errors.add(DeckImportIssue(0, "Paste a deck list containing at least one card."))
+        if (!hasHeading && cards.isEmpty() && errors.isEmpty()) errors.add(DeckImportIssue(0, "Paste a deck list containing section headings and cards."))
         return DeckImportResult(cards.values.toList(), errors, warnings)
     }
 }
