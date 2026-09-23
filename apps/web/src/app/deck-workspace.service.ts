@@ -51,6 +51,10 @@ export class DeckWorkspace {
   cardSearch = '';
   cardType = '';
   cardDomain = '';
+  cardSet = '';
+  get cardSets(): string[] {
+    return [...new Set(this.cards.map(card => card.setCode.trim().toUpperCase()).filter(Boolean))].sort();
+  }
   readonly cardTypes = ['Legend', 'Unit', 'Spell', 'Battlefield', 'Rune', 'Gear', 'Unknown'];
   readonly cardDomains = ['Body', 'Calm', 'Chaos', 'Fury', 'Mind', 'Order', 'Colorless'];
   deckName = '';

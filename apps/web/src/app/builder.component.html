@@ -32,6 +32,13 @@
       </div>
       <div class="card-filters">
         <div class="field-group">
+          <label for="cardSet">Set</label>
+          <select id="cardSet" [(ngModel)]="vm.cardSet">
+            <option value="">All sets</option>
+            <option *ngFor="let set of vm.cardSets" [value]="set">{{ set }}</option>
+          </select>
+        </div>
+        <div class="field-group">
           <label for="cardType">Card type</label>
           <select id="cardType" [(ngModel)]="vm.cardType">
             <option value="">All types</option>
@@ -46,7 +53,7 @@
           </select>
         </div>
       </div>
-      <ng-container *ngIf="(vm.cards | cardSearch:vm.cardSearch:vm.cardType:vm.cardDomain) as visibleCards">
+      <ng-container *ngIf="(vm.cards | cardSearch:vm.cardSearch:vm.cardType:vm.cardDomain:vm.cardSet) as visibleCards">
       <p role="status">{{ visibleCards.length }} matching card names</p>
       <p *ngIf="!visibleCards.length" class="empty-state">No cards match. Try changing your search or filters.</p>
       <div class="card-list">

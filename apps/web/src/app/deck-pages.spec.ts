@@ -20,7 +20,7 @@ describe('Deck page workflows', () => {
     api = jasmine.createSpyObj('api', ['getCards', 'getFormats', 'getDecks', 'getDeck', 'getDeckVersions', 'createDeck', 'addDeckVersion', 'analyzeDeck', 'previewImport', 'deleteDeck']);
     api.getCards.and.returnValue(of([
       { id: 'legend', name: 'Example Legend', type: 'Legend', cost: null, text: '', setCode: 'OGN', domains: ['Chaos', 'Order'] },
-      { id: 'unit', name: 'Example Unit', type: 'Unit', cost: 1, text: '', setCode: 'OGN', domains: ['Mind'] }
+      { id: 'unit', name: 'Example Unit', type: 'Unit', cost: 1, text: '', setCode: 'UNL', domains: ['Mind'] }
     ]));
     api.getFormats.and.returnValue(of([{ id: 'format-constructed', name: 'Constructed', maxDeckSize: 40, minDeckSize: 40, cardLimit: 3 }]));
     api.getDecks.and.returnValue(of([deck]));
@@ -186,6 +186,8 @@ describe('Deck page workflows', () => {
       element.dispatchEvent(new Event('change'));
       harness.detectChanges();
     };
+    expect(vm.cardSets).toEqual(['OGN', 'UNL']);
+    select('#cardSet', 'OGN');
     select('#cardType', 'Legend');
     select('#cardDomain', 'Chaos');
     expect(harness.routeNativeElement!.querySelectorAll('.card-item').length).toBe(1);
@@ -194,6 +196,11 @@ describe('Deck page workflows', () => {
     expect(vm.dirty).toBeTrue();
     select('#cardDomain', 'Mind');
     expect(harness.routeNativeElement!.textContent).toContain('No cards match');
+    select('#cardType', '');
+    select('#cardSet', 'UNL');
+    expect(harness.routeNativeElement!.querySelector('.card-item')!.textContent).toContain('Example Unit');
+    select('#cardSet', '');
+    expect(vm.addToSection).toBe('SIDEBOARD');
   });
 
   it('cancels leaving dirty work and discards only when confirmed', async () => {

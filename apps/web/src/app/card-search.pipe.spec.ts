@@ -51,4 +51,12 @@ describe('CardSearchPipe', () => {
     expect(pipe.transform(catalog, 'VEN', 'Unit', 'Fury')).toEqual([alternate]);
     expect(catalog.length).toBe(2);
   });
+  it('filters the exact set before collapsing printings and combines all filters', () => {
+    const alternate = { ...cards[0], id: 'ven-001', setCode: 'VEN' };
+    const catalog = [...cards, alternate];
+    expect(pipe.transform(catalog, 'scorcher', 'Unit', 'Fury', 'ven')).toEqual([alternate]);
+    expect(pipe.transform(catalog, '', '', '', 'OG')).toEqual([]);
+    expect(pipe.transform(catalog, '', 'Unit', 'Mind', 'VEN')).toEqual([]);
+    expect(pipe.transform(catalog, '', '', '', '')).toEqual([cards[1], cards[0]]);
+  });
 });
