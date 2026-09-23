@@ -46,16 +46,30 @@ h1, h2, h3, p {
   margin-bottom: 16px;
 }
 
-input, select, button {
+input, select, textarea, button {
   border-radius: 10px;
   border: 1px solid #374151;
   font-size: 16px;
 }
 
-input, select {
+input, select, textarea {
   background: #0b1220;
   color: #e2e8f0;
   padding: 12px 14px;
+}
+
+textarea {
+  resize: vertical;
+  font-family: monospace;
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.deck-section {
+  margin-top: 20px;
 }
 
 button {
@@ -100,6 +114,17 @@ button.secondary {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
   gap: 12px;
+}
+
+.card-filters {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 12px;
+}
+
+.card-filters select {
+  width: 100%;
+  min-width: 0;
 }
 
 .card-item {

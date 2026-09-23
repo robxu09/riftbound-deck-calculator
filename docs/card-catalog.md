@@ -43,6 +43,10 @@ Review catalog diffs before accepting refreshes, especially removed cards.
 
 - Card IDs use the source's Riftbound printing ID, not names or collector numbers
   alone. Flagged variants are omitted; this is not a universal reprint identity model.
+- The API retains every printing in the snapshot for lookup, text import and saved
+  deck references. The web card browser collapses duplicate names only after
+  applying search, type and domain filters. Searching a printing ID or set can
+  therefore find printings that are hidden in the unfiltered list.
 - `cost` is energy (nullable), with separate power and might. Missing costs stay
   null and do not enter the energy curve; a real zero cost remains zero.
   The response field `manaCurve` is retained for compatibility.
@@ -52,10 +56,11 @@ Review catalog diffs before accepting refreshes, especially removed cards.
   The gallery export does not supply per-card update times.
 - Gallery text is printed text, not verified errata. Preview cards and tokens may
   be present. Catalog membership does not establish Constructed legality.
-- Deck-size bounds are still the existing MVP placeholders (30–60), not a complete
-  Constructed rules implementation. The UI labels analysis as a basic summary.
-- Decks remain in memory and refer to the current catalog. Historical card-revision
-  pinning in saved deck versions and durable deck storage remain future work.
+- The format metadata still has MVP placeholder bounds (30–60). These are not
+  enforced or used for size warnings. The UI shows informational targets by deck
+  section and labels analysis as a basic summary; see [text import](deck-import.md).
+- Decks and versions persist in a local H2 database; see [deck storage](deck-storage.md).
+  They refer to the current catalog. Historical card-revision pinning remains future work.
   Keep snapshot history in version control; the importer replaces the current file.
 - Card data belongs to Riot; the community scripts' license does not transfer
   ownership of card text. Source attribution is retained here and in the snapshot.

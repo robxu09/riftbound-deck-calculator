@@ -3,6 +3,8 @@ package com.riftbound.api.controller
 import com.riftbound.api.domain.AddDeckVersionRequest
 import com.riftbound.api.domain.CreateDeckRequest
 import com.riftbound.api.domain.DeckAnalysisRequest
+import com.riftbound.api.domain.DeckImportRequest
+import com.riftbound.api.domain.DuplicateDeckNameException
 import com.riftbound.api.service.DeckService
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.CrossOrigin
@@ -29,11 +31,20 @@ class DeckController(
     @GetMapping("/formats")
     fun getFormats() = deckService.getFormats()
 
+    @PostMapping("/decks/import-preview")
+    fun previewImport(@RequestBody request: DeckImportRequest) = deckService.previewImport(request.text)
+
     @GetMapping("/decks")
     fun getDecks() = deckService.getDecks()
 
     @PostMapping("/decks")
-    fun createDeck(@RequestBody request: CreateDeckRequest) = deckService.createDeck(request)
+    fun createDeck(@RequestBody request: CreateDeckRequest): ResponseEntity<*> = try {
+        ResponseEntity.ok(deckService.createDeck(request))
+    } catch (e: DuplicateDeckNameException) {
+        ResponseEntity.status(409).body(mapOf("error" to e.message))
+    } catch (e: IllegalArgumentException) {
+        ResponseEntity.badRequest().body(mapOf("error" to e.message))
+    }
 
     @GetMapping("/decks/{deckId}")
     fun getDeck(@PathVariable deckId: String) = deckService.getDeck(deckId)

@@ -9,7 +9,7 @@
   <section class="panel">
     <div class="field-group">
       <label for="deckName">Deck name</label>
-      <input id="deckName" [(ngModel)]="deckName" type="text" />
+      <input id="deckName" [(ngModel)]="deckName" (ngModelChange)="deckError = ''" type="text" [disabled]="creatingDeck" />
     </div>
 
     <div class="field-group">
@@ -19,7 +19,41 @@
       </select>
     </div>
 
-    <button type="button" (click)="createDeck()">Create deck</button>
+    <div class="button-row">
+      <button type="button" (click)="createDeck()" [disabled]="creatingDeck">Create empty deck</button>
+      <button type="button" class="secondary" (click)="createDeck(true)" [disabled]="creatingDeck || !selectedDeckCards.length">Save selection as new deck</button>
+    </div>
+    <p *ngIf="deckError" role="alert">{{ deckError }}</p>
+  </section>
+
+  <section class="panel import-panel">
+    <h2>Import deck from text</h2>
+    <p>Paste a deck list or choose a .txt file. Use section headings and lines such as <code>1 Ambessa, The Wolf [VEN-084]</code>.</p>
+    <div class="field-group">
+      <label for="deckFile">Text file</label>
+      <input id="deckFile" type="file" accept=".txt,text/plain" (change)="readDeckFile($event)" />
+    </div>
+    <div class="field-group">
+      <label for="deckText">Deck list</label>
+      <textarea id="deckText" rows="10" maxlength="100000" [(ngModel)]="importText" (ngModelChange)="resetImportPreview()" placeholder="Legend:&#10;1 Ambessa, Matriarch of War [VEN-153]&#10;&#10;Champion:&#10;1 Ambessa, The Wolf [VEN-084]"></textarea>
+    </div>
+    <button type="button" (click)="previewTextImport()" [disabled]="importBusy || !importText.trim()">{{ importBusy ? 'Checking cards…' : 'Preview import' }}</button>
+    <p *ngIf="importError" role="alert">{{ importError }}</p>
+    <p *ngIf="importStatus" role="status">{{ importStatus }}</p>
+    <div *ngIf="importPreview" aria-live="polite">
+      <h3>Import preview</h3>
+      <ul>
+        <li *ngFor="let group of importPreview.cards | deckSections">{{ group.label }}: {{ group.count }}</li>
+      </ul>
+      <ul *ngIf="importPreview.errors.length" role="alert">
+        <li *ngFor="let issue of importPreview.errors">{{ issue.line ? 'Line ' + issue.line + ': ' : '' }}{{ issue.message }}</li>
+      </ul>
+      <ul *ngIf="importPreview.warnings.length">
+        <li *ngFor="let issue of importPreview.warnings">Line {{ issue.line }}: {{ issue.message }}</li>
+      </ul>
+      <p>Using this import replaces the current unsaved selection with a new draft. Saved decks are kept. Section counts are guides; legality is not enforced.</p>
+      <button type="button" (click)="useImportedDeck()" [disabled]="!!importPreview.errors.length || !importPreview.cards.length">Use import as new draft</button>
+    </div>
   </section>
 
   <section class="panel saved-decks-panel">
@@ -41,8 +75,33 @@
         <label for="cardSearch">Search cards</label>
         <input id="cardSearch" [(ngModel)]="cardSearch" type="search" placeholder="Name, text, domain, type, or set" />
       </div>
+      <div class="field-group">
+        <label for="addToSection">Add cards to</label>
+        <select id="addToSection" [(ngModel)]="addToSection">
+          <option *ngFor="let section of sections" [value]="section.id">{{ section.label }}</option>
+        </select>
+      </div>
+      <div class="card-filters">
+        <div class="field-group">
+          <label for="cardType">Card type</label>
+          <select id="cardType" [(ngModel)]="cardType">
+            <option value="">All types</option>
+            <option *ngFor="let type of cardTypes" [value]="type">{{ type }}</option>
+          </select>
+        </div>
+        <div class="field-group">
+          <label for="cardDomain">Domain</label>
+          <select id="cardDomain" [(ngModel)]="cardDomain">
+            <option value="">All domains</option>
+            <option *ngFor="let domain of cardDomains" [value]="domain">{{ domain }}</option>
+          </select>
+        </div>
+      </div>
+      <ng-container *ngIf="(cards | cardSearch:cardSearch:cardType:cardDomain) as visibleCards">
+      <p role="status">{{ visibleCards.length }} matching card names</p>
+      <p *ngIf="!visibleCards.length" class="empty-state">No cards match. Try changing your search or filters.</p>
       <div class="card-list">
-        <button *ngFor="let card of cards | cardSearch:cardSearch" type="button" class="card-item" (click)="addCardToDeck(card.id)">
+        <button *ngFor="let card of visibleCards" type="button" class="card-item" (click)="addCardToDeck(card.id)">
           <strong>{{ card.name }}</strong>
           <span>{{ card.supertype }} {{ card.type }} · {{ card.setCode }}</span>
           <span>{{ card.domains?.join(' / ') }}</span>
@@ -52,23 +111,27 @@
           <small>{{ card.text }}</small>
         </button>
       </div>
+      </ng-container>
     </div>
 
     <div class="panel">
       <h2>Selected deck</h2>
       <div *ngIf="selectedDeckCards.length === 0" class="empty-state">Pick cards to build a deck.</div>
 
-      <ul class="selected-list" *ngIf="selectedDeckCards.length > 0">
-        <li *ngFor="let deckCard of selectedDeckCards">
-          <span>{{ getCardName(deckCard.cardId) }}</span>
-          <strong>x{{ deckCard.quantity }}</strong>
-          <button type="button" class="secondary" (click)="removeCardFromDeck(deckCard.cardId)">Remove</button>
-        </li>
-      </ul>
+      <div class="deck-section" *ngFor="let group of selectedDeckCards | deckSections" [attr.data-section]="group.id">
+        <h3>{{ group.label }} — {{ group.count }} / {{ group.target }}</h3>
+        <ul class="selected-list">
+          <li *ngFor="let deckCard of group.cards">
+            <span>{{ getCardName(deckCard.cardId) }}</span>
+            <strong>x{{ deckCard.quantity }}</strong>
+            <button type="button" class="secondary" (click)="removeCardFromDeck(deckCard.cardId, group.id)">Remove</button>
+          </li>
+        </ul>
+      </div>
 
-      <div *ngIf="selectedDeckCards.length > 0" class="button-row">
-        <button type="button" class="secondary" (click)="clearSelectedDeckCards()">Remove all</button>
-        <button type="button" class="secondary" (click)="addDeckVersion()">
+      <div *ngIf="selectedDeckCards.length > 0 || deckId" class="button-row">
+        <button *ngIf="selectedDeckCards.length" type="button" class="secondary" (click)="clearSelectedDeckCards()">Remove all</button>
+        <button *ngIf="deckId" type="button" class="secondary" (click)="addDeckVersion()">
           Save version and analyze
         </button>
       </div>
@@ -82,7 +145,7 @@
     <ul>
       <li>Total cards: {{ analysis.cardCount }}</li>
       <li>Unique cards: {{ analysis.uniqueCardCount }}</li>
-      <li *ngFor="let key of objectKeys(analysis.manaCurve)">Cost {{ key }}: {{ analysis.manaCurve[key] }}</li>
+      <li *ngFor="let key of objectKeys(analysis.manaCurve)">Main deck + champion energy {{ key }}: {{ analysis.manaCurve[key] }}</li>
     </ul>
 
     <div *ngIf="analysis.warnings.length > 0">

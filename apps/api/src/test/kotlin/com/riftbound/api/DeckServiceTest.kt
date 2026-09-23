@@ -1,18 +1,116 @@
 package com.riftbound.api
 
+import com.riftbound.api.controller.DeckController
 import com.riftbound.api.domain.AddDeckVersionRequest
 import com.riftbound.api.domain.CreateDeckRequest
-import com.riftbound.api.domain.DeckCard
 import com.riftbound.api.domain.DeckAnalysisRequest
+import com.riftbound.api.domain.DeckCard
+import com.riftbound.api.domain.DeckSection
+import com.riftbound.api.domain.DuplicateDeckNameException
+import com.riftbound.api.persistence.DeckRepository
+import com.riftbound.api.persistence.DeckVersionRepository
 import com.riftbound.api.service.DeckService
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNotNull
+import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.Assertions.assertTrue
+import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.boot.test.context.SpringBootTest
 
+@SpringBootTest(properties = [
+    "spring.datasource.url=jdbc:h2:mem:deck-service-tests;DB_CLOSE_DELAY=-1",
+    "spring.jpa.hibernate.ddl-auto=create-drop"
+])
 class DeckServiceTest {
 
-    private val deckService = DeckService()
+    @Autowired
+    private lateinit var deckService: DeckService
+
+    @Autowired
+    private lateinit var deckRepository: DeckRepository
+
+    @Autowired
+    private lateinit var deckVersionRepository: DeckVersionRepository
+
+    @BeforeEach
+    fun resetDatabase() {
+        deckVersionRepository.deleteAll()
+        deckRepository.deleteAll()
+    }
+
+    @Test
+    fun `duplicate names ignore case and surrounding whitespace without changing saved decks`() {
+        val deck = deckService.createDeck(CreateDeckRequest("  Ambessa  ", "format-constructed"))
+        assertEquals("Ambessa", deck.name)
+        for (name in listOf("Ambessa", "ambessa", " AMBESSA ")) {
+            assertThrows(DuplicateDeckNameException::class.java) {
+                deckService.createDeck(CreateDeckRequest(name, "format-constructed"))
+            }
+        }
+        assertEquals(listOf(deck), deckService.getDecks())
+        assertEquals(1, deckService.getDeckVersions(deck.id).size)
+        deckService.deleteDeck(deck.id)
+        assertEquals("ambessa", deckService.createDeck(CreateDeckRequest("ambessa", "format-constructed")).name)
+    }
+
+    @Test
+    fun `creates empty and populated decks independently with initial versions`() {
+        val cards = listOf(DeckCard("ogn-126-298", 6, DeckSection.RUNES))
+        val imported = deckService.createDeck(CreateDeckRequest("Imported", "format-constructed", cards))
+        val empty = deckService.createDeck(CreateDeckRequest("Empty", "format-constructed"))
+        assertEquals(cards, deckService.getDeckVersions(imported.id).single().cards)
+        assertTrue(deckService.getDeckVersions(empty.id).single().cards.isEmpty())
+    }
+
+    @Test
+    fun `creation returns conflict for duplicates and bad request for blank names`() {
+        val controller = DeckController(deckService)
+        assertEquals(200, controller.createDeck(CreateDeckRequest("Test", "format-constructed")).statusCode.value())
+        val conflict = controller.createDeck(CreateDeckRequest(" test ", "format-constructed"))
+        assertEquals(409, conflict.statusCode.value())
+        assertTrue((conflict.body as Map<*, *>) ["error"].toString().contains("already exists"))
+        assertEquals(400, controller.createDeck(CreateDeckRequest("  ", "format-constructed")).statusCode.value())
+        assertEquals(1, deckService.getDecks().size)
+    }
+
+    @Test
+    fun `concurrent requests cannot create duplicate names`() {
+        val executor = java.util.concurrent.Executors.newFixedThreadPool(2)
+        val ready = java.util.concurrent.CountDownLatch(2)
+        val start = java.util.concurrent.CountDownLatch(1)
+        try {
+            val results = (1..2).map {
+                executor.submit<Boolean> {
+                    ready.countDown()
+                    start.await()
+                    try {
+                        deckService.createDeck(CreateDeckRequest("Concurrent", "format-constructed"))
+                        true
+                    } catch (_: DuplicateDeckNameException) { false }
+                }
+            }
+            assertTrue(ready.await(5, java.util.concurrent.TimeUnit.SECONDS))
+            start.countDown()
+            assertEquals(1, results.count { it.get(5, java.util.concurrent.TimeUnit.SECONDS) })
+            assertEquals(1, deckService.getDecks().size)
+        } finally {
+            start.countDown()
+            executor.shutdownNow()
+        }
+    }
+
+    @Test
+    fun `deck state is shared through the repositories`() {
+        val created = deckService.createDeck(CreateDeckRequest("Persisted Deck", "format-constructed"))
+        deckService.addDeckVersion(created.id, AddDeckVersionRequest(listOf(DeckCard("ogn-001-298", 2)), "Saved"))
+
+        val restarted = DeckService(deckRepository, deckVersionRepository)
+
+        assertEquals(listOf("Persisted Deck"), restarted.getDecks().map { it.name })
+        assertEquals(2, restarted.getDeckVersions(created.id).size)
+    }
 
     @Test
     fun `creates deck and returns it`() {
@@ -65,6 +163,20 @@ class DeckServiceTest {
 
         assertEquals(2, savedDecks.size)
         assertEquals(listOf(firstDeck.id, secondDeck.id).sorted(), savedDecks.map { it.id }.sorted())
+    }
+
+    @Test
+    fun `retains printing IDs for imports saved decks and analysis`() {
+        val printing = deckService.getCard("ven-sp3-006")!!
+        assertEquals("Ahri, Inquisitive", printing.name)
+        assertTrue(deckService.getCards().any { it.id == printing.id })
+        val imported = deckService.previewImport("MainDeck:\n2 Ahri, Inquisitive [VEN-SP3/006]")
+        assertTrue(imported.errors.isEmpty())
+        assertEquals(printing.id, imported.cards.single().cardId)
+        val deck = deckService.createDeck(CreateDeckRequest("Alternate printing", "format-constructed", imported.cards))
+        assertEquals(imported.cards, deckService.getDeckVersions(deck.id).single().cards)
+        val analysis = deckService.analyzeDeck(DeckAnalysisRequest(deck.id, deck.formatId))
+        assertEquals(mapOf(printing.cost.toString() to 2), analysis.manaCurve)
     }
 
     @Test

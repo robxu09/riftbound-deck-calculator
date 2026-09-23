@@ -37,9 +37,18 @@ export interface DeckVersion {
   notes?: string;
 }
 
+export type DeckSection = 'LEGEND' | 'CHAMPION' | 'MAIN_DECK' | 'BATTLEFIELDS' | 'RUNES' | 'SIDEBOARD';
+
 export interface DeckCard {
   cardId: string;
   quantity: number;
+  section?: DeckSection;
+}
+
+export interface DeckImportResult {
+  cards: DeckCard[];
+  errors: { line: number; message: string }[];
+  warnings: { line: number; message: string }[];
 }
 
 export interface DeckAnalysisRequest {
@@ -68,6 +77,10 @@ export class RiftboundApiService {
     return this.http.get<Card[]>(`${this.apiUrl}/cards`);
   }
 
+  previewImport(text: string): Observable<DeckImportResult> {
+    return this.http.post<DeckImportResult>(`${this.apiUrl}/decks/import-preview`, { text });
+  }
+
   getFormats(): Observable<Format[]> {
     return this.http.get<Format[]>(`${this.apiUrl}/formats`);
   }
@@ -88,7 +101,7 @@ export class RiftboundApiService {
     return this.http.get<DeckVersion[]>(`${this.apiUrl}/decks/${deckId}/versions`);
   }
 
-  createDeck(payload: { name: string; formatId: string }): Observable<Deck> {
+  createDeck(payload: { name: string; formatId: string; cards?: DeckCard[] }): Observable<Deck> {
     return this.http.post<Deck>(`${this.apiUrl}/decks`, payload);
   }
 

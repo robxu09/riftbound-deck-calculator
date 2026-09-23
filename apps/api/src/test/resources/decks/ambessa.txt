@@ -1,0 +1,41 @@
+Legend:
+1 Ambessa, Matriarch of War [VEN-153]
+
+Champion:
+1 Ambessa, The Wolf [VEN-084]
+
+MainDeck:
+3 Carrion Dredger [UNL-153]
+2 Cull the Weak [OGN-209]
+2 Deathgrip [SFD-163]
+3 Escaped Grayback [VEN-124]
+3 Guttural Roar [VEN-072]
+3 Hidden Blade [OGN-213]
+2 Irresistible Faefolk [UNL-112]
+2 Kayle, Justified [VEN-134]
+1 Kennen, Keeper of Balance [VEN-135]
+1 Legion Marauder [VEN-074]
+2 Nidalee, Cat Form [UNL-114]
+3 Noxian Emissary [VEN-128]
+2 Public Execution [VEN-154]
+2 Punch First [SFD-097]
+2 Rampage [VEN-083]
+2 Sabotage [OGN-156]
+2 Shadow's Call [UNL-165]
+2 Vi, Peacekeeper [UNL-176]
+
+Battlefields:
+1 Risen Altar [VEN-163]
+1 Seat of Power [SFD-217]
+1 Windswept Hillock [OGN-297]
+
+Runes:
+6 Body Rune [OGN-126]
+6 Order Rune [OGN-214]
+
+Sideboard:
+2 Decree of Strength [VEN-085]
+2 Gangplank, Naval [VEN-086]
+2 Repulse [UNL-106]
+3 Salvage [OGN-224]
+1 Yone, Blademaster [SFD-116]

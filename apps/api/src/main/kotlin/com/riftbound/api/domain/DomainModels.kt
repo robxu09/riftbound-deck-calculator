@@ -22,9 +22,20 @@ data class Card(
     val contentHash: String? = null
 )
 
+enum class DeckSection { LEGEND, CHAMPION, MAIN_DECK, BATTLEFIELDS, RUNES, SIDEBOARD }
+
 data class DeckCard(
     val cardId: String,
-    val quantity: Int = 1
+    val quantity: Int = 1,
+    val section: DeckSection = DeckSection.MAIN_DECK
+)
+
+data class DeckImportRequest(val text: String)
+data class DeckImportIssue(val line: Int, val message: String)
+data class DeckImportResult(
+    val cards: List<DeckCard>,
+    val errors: List<DeckImportIssue>,
+    val warnings: List<DeckImportIssue>
 )
 
 data class Deck(
@@ -69,8 +80,11 @@ data class DeckAnalysisResult(
 
 data class CreateDeckRequest(
     val name: String,
-    val formatId: String
+    val formatId: String,
+    val cards: List<DeckCard> = emptyList()
 )
+
+class DuplicateDeckNameException(name: String) : IllegalArgumentException("A saved deck named '$name' already exists. Choose a different name.")
 
 data class AddDeckVersionRequest(
     val cards: List<DeckCard>,
