@@ -37,7 +37,7 @@ describe('Deck page workflows', () => {
 
   it('starts at Home and carries the selected deck into edit and analysis links', async () => {
     const home = await harness.navigateByUrl('/', HomeComponent);
-    expect(harness.routeNativeElement?.textContent).toContain('My decks');
+    expect(harness.routeNativeElement?.textContent).toContain('Selected deck');
     home.selectedDeckId = deck.id;
     harness.detectChanges();
     const links = Array.from(harness.routeNativeElement!.querySelectorAll('a')).map(a => a.getAttribute('href'));
@@ -87,7 +87,7 @@ describe('Deck page workflows', () => {
     const confirm = spyOn(window, 'confirm').and.returnValue(false);
     home.removeDeck(deck.id);
     expect(confirm.calls.mostRecent().args[0]).toContain('"Saved deck"');
-    expect(confirm.calls.mostRecent().args[0]).toContain('all its saved versions');
+    expect(confirm.calls.mostRecent().args[0]).toContain('its saved state');
     expect(api.deleteDeck).not.toHaveBeenCalled();
     confirm.and.returnValue(true);
     const response = new Subject<{ deleted: boolean }>();
@@ -133,7 +133,7 @@ describe('Deck page workflows', () => {
     expect(vm.selectedDeckCards.length).toBe(2);
     expect(vm.dirty).toBeTrue();
     const save = harness.routeNativeElement!.querySelector<HTMLButtonElement>('.save-row button')!;
-    expect(save.textContent).toContain('Save changes');
+    expect(save.textContent).toContain('Save deck');
     expect(save.disabled).toBeFalse();
   });
 

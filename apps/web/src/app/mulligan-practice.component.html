@@ -3,14 +3,41 @@
   <p *ngIf="loading" role="status">Loading practice deck...</p>
   <p *ngIf="error" role="alert">{{ error }} <button (click)="load()">Retry</button></p>
   <ng-container *ngIf="session as practice">
-    <p>Version {{ versionNumber }} ? 39 Main Deck cards</p>
-    <p *ngIf="practice.choosing">Select up to two cards to replace. Bottom order follows selection order.</p>
+    <div class="probability-panel">
+      <h3>Next draw chance</h3>
+      <div class="card-filters">
+        <div class="field-group">
+          <label for="probability-name">Card name (optional)</label>
+          <input id="probability-name" [(ngModel)]="filters.name" type="search" placeholder="Any name" />
+        </div>
+        <div class="field-group">
+          <label for="probability-type">Card type</label>
+          <select id="probability-type" [(ngModel)]="filters.type">
+            <option value="">All types</option>
+            <option *ngFor="let type of probabilityTypes" [value]="type">{{ type }}</option>
+          </select>
+        </div>
+        <div class="field-group">
+          <label for="probability-cost">Cost</label>
+          <select id="probability-cost" [(ngModel)]="filters.cost">
+            <option [ngValue]="null">Any cost</option>
+            <option *ngFor="let cost of probabilityCosts" [ngValue]="cost">{{ cost }}</option>
+          </select>
+        </div>
+        <div class="field-group">
+          <label for="draw-probability-count">Next draws</label>
+          <input id="draw-probability-count" [(ngModel)]="drawCount" type="number" min="1" step="1" />
+        </div>
+      </div>
+      <p *ngIf="practice.choosing">Confirm the mulligan to update odds after replacements.</p>
+      <p role="status">{{ probabilitySummary }}</p>
+      <p>{{ matchStateSummary }}</p>
+    </div>
     <div class="button-row">
       <button *ngIf="practice.choosing" (click)="practice.confirm()">{{ practice.selected.length ? 'Replace ' + practice.selected.length + ' selected' : 'Keep all four' }}</button>
       <button *ngIf="!practice.choosing" (click)="practice.draw()" [disabled]="!practice.remaining">Draw one</button>
       <button (click)="practice.reset()">Reset practice</button>
     </div>
-    <p role="status">{{ practice.remaining }} cards remaining. <ng-container *ngIf="practice.choosing">{{ practice.selected.length }} of 2 selected to put on the bottom.</ng-container><ng-container *ngIf="!practice.choosing">Mulligan complete. {{ practice.draws.length }} subsequent draws.</ng-container></p>
     <p *ngIf="!practice.remaining">No cards left to draw. Reset to practice another opening hand.</p>
     <p *ngIf="practice.draws.length" role="status">Last drawn: {{ catalog.get(practice.draws[practice.draws.length - 1].cardId)?.name }}</p>
     <h3>{{ practice.choosing ? 'Opening hand' : 'Cards in hand' }} ({{ practice.hand.length }})</h3>

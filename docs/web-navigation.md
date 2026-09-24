@@ -30,8 +30,8 @@ import, saved-deck management and editing state. Analysis loads independently.
 No API or database changes are required by this navigation milestone.
 
 Analysis focuses on [mulligan practice](mulligan-practice.md). The saved-deck
-summary is no longer displayed or requested by this page. Draw probabilities
-and deeper analysis remain future work.
+summary is no longer displayed or requested by this page. Combined-filter draw probabilities are available alongside practice; deeper
+analysis remains future work.
 
 Production web hosting must rewrite application routes to `index.html` so direct
 links and refreshes work; the Angular development server already does this.

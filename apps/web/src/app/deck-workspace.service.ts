@@ -101,7 +101,7 @@ export class DeckWorkspace {
         if (mode === 'rename' && this.deckId === updated.id) {
           this.deckName = updated.name;
         }
-        this.actionStatus = mode === 'rename' ? `Renamed to ${updated.name}.` : `Created ${updated.name} from the latest saved version. Select it to open the copy.`;
+        this.actionStatus = mode === 'rename' ? `Renamed to ${updated.name}.` : `Created ${updated.name} from the current deck state. Select it to open the copy.`;
       },
       error: error => {
         this.actionBusy = false;
@@ -119,7 +119,7 @@ export class DeckWorkspace {
       next: text => {
         this.actionBusy = false;
         this.deckFiles.download(text, deck.name);
-        this.actionStatus = `Exported the latest saved version of ${deck.name}.`;
+        this.actionStatus = `Exported the current deck state for ${deck.name}.`;
       },
       error: error => {
         this.actionBusy = false;
@@ -326,7 +326,7 @@ export class DeckWorkspace {
           this.homeDeckId = this.savedDecks[0]?.id ?? null;
         }
         this.deckAction = null;
-        this.actionStatus = 'Deck and saved versions deleted.';
+        this.actionStatus = 'Deck deleted.';
         if (this.deckId === deckId) {
           this.selectionGeneration++;
           this.deckId = null;
@@ -387,11 +387,11 @@ export class DeckWorkspace {
         this.loadSavedDecks();
         if (generation !== this.selectionGeneration || deckId !== this.deckId || cards !== this.selectedDeckCards) return;
         this.markSaved();
-        this.saveStatus = 'Version saved.';
+        this.saveStatus = 'Deck saved.';
       },
       error: () => {
         this.savingVersion = false;
-        if (generation === this.selectionGeneration) this.deckError = 'Failed to save deck version.';
+        if (generation === this.selectionGeneration) this.deckError = 'Failed to save deck.';
       }
     });
   }

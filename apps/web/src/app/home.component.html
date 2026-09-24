@@ -1,4 +1,3 @@
-<h1>My decks</h1>
 <section class="panel home-decks">
   <p *ngIf="vm.listError" role="alert">{{ vm.listError }} <button (click)="vm.loadSavedDecks()">Retry</button></p>
   <p *ngIf="vm.loadingDecks" role="status">Loading decks...</p>
@@ -16,7 +15,7 @@
   <ng-container *ngIf="selectedDeck as deck">
     <button class="more-actions secondary" (click)="showActions = !showActions" [attr.aria-expanded]="showActions" aria-controls="deckActions">More deck actions</button>
     <div id="deckActions" [hidden]="!showActions">
-      <p>Actions for <strong>{{ deck.name }}</strong>. Duplicate and export use the latest saved version.</p>
+      <p>Actions for <strong>{{ deck.name }}</strong>. Duplicate and export use the current deck state.</p>
       <div class="button-row">
         <button class="secondary" (click)="vm.beginDeckAction(deck, 'rename')" [disabled]="vm.actionBusy">Rename</button>
         <button class="secondary" (click)="vm.beginDeckAction(deck, 'duplicate')" [disabled]="vm.actionBusy">Duplicate</button>
@@ -38,8 +37,7 @@
     <p *ngIf="vm.actionStatus" role="status">{{ vm.actionStatus }}</p>
 
 </section>
-<section class="panel home-new" aria-labelledby="newDeckHeading">
-  <h2 id="newDeckHeading">Start a new deck</h2>
+<section class="panel home-new">
   <div class="button-row home-create">
     <a class="button secondary" routerLink="/builder/new">Create deck</a>
     <button class="secondary" (click)="showImport = !showImport" [attr.aria-expanded]="showImport" aria-controls="deckImport">{{ showImport ? 'Close import' : 'Import deck' }}</button>

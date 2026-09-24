@@ -8,7 +8,7 @@
   <div class="save-row">
     <div class="deck-identity"><strong [title]="vm.deckName || 'New deck'">{{ vm.deckName || 'New deck' }}</strong><span>{{ vm.dirty ? 'Unsaved changes' : (vm.deckId ? 'Saved' : 'Empty draft') }}</span></div>
     <button *ngIf="!vm.deckId" (click)="vm.createDeck(true)" [disabled]="vm.busy || vm.loadingDeck || cannotEdit || !vm.deckName.trim() || !vm.formats.length">{{ vm.creatingDeck ? 'Saving...' : 'Save deck' }}</button>
-    <button *ngIf="vm.deckId" (click)="vm.addDeckVersion()" [disabled]="vm.busy || vm.loadingDeck || cannotEdit || !vm.dirty">{{ vm.savingVersion ? 'Saving...' : 'Save changes' }}</button>
+    <button *ngIf="vm.deckId" (click)="vm.addDeckVersion()" [disabled]="vm.busy || vm.loadingDeck || cannotEdit || !vm.dirty">{{ vm.savingVersion ? 'Saving...' : 'Save deck' }}</button>
   </div>
   <div class="builder-tabs" role="group" aria-label="Builder view">
     <button (click)="mobileTab = 'deck'" [attr.aria-pressed]="mobileTab === 'deck'" aria-controls="deckPanel">Deck</button>

@@ -41,7 +41,7 @@ export class HomeComponent implements OnInit {
   removeDeck(id: string): void {
     const deck = this.vm.savedDecks.find(deck => deck.id === id);
     if (!deck || this.vm.actionBusy) return;
-    if (!window.confirm(`Delete "${deck.name}"? This permanently deletes the deck and all its saved versions.`)) return;
+    if (!window.confirm(`Delete "${deck.name}"? This permanently deletes the deck and its saved state.`)) return;
     this.vm.deleteDeck(id);
   }
 }

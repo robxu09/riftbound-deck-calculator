@@ -45,9 +45,9 @@ describe('MulliganPractice', () => {
   });
 
   it('rejects invalid quantities and Main Deck sizes without counting other sections', () => {
-    expect(() => new MulliganPractice(entries.slice(1))).toThrowError(/39 cards/);
-    expect(() => new MulliganPractice([{ cardId: 'x', quantity: 39, section: 'SIDEBOARD' }])).toThrowError(/39 cards/);
-    expect(() => new MulliganPractice([{ cardId: 'x', quantity: 38.5 }, { cardId: 'y', quantity: 0.5 }])).toThrowError(/39 cards/);
+    expect(() => new MulliganPractice(entries.slice(1))).toThrowError(/39 Main Deck cards/);
+    expect(() => new MulliganPractice([{ cardId: 'x', quantity: 39, section: 'SIDEBOARD' }])).toThrowError(/39 Main Deck cards/);
+    expect(() => new MulliganPractice([{ cardId: 'x', quantity: 38.5 }, { cardId: 'y', quantity: 0.5 }])).toThrowError(/39 Main Deck cards/);
   });
 
   it('replaces zero, one or two cards immediately and allows only one mulligan', () => {

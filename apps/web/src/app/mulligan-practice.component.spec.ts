@@ -43,7 +43,7 @@ describe('MulliganPracticeComponent', () => {
     api.getDeckVersions.and.returnValue(of([{ ...versions[0], cards: [{ cardId: 'unit', quantity: 4 }] }]));
     const fixture = TestBed.createComponent(MulliganPracticeComponent);
     fixture.componentRef.setInput('deckId', 'deck'); fixture.detectChanges();
-    expect(fixture.componentInstance.error).toContain('39 cards');
+    expect(fixture.componentInstance.error).toContain('39 Main Deck cards');
     api.getDeckVersions.and.returnValue(of(versions));
     api.getCards.and.returnValue(of([]));
     fixture.componentInstance.load();
@@ -66,5 +66,38 @@ describe('MulliganPracticeComponent', () => {
     expect(fixture.componentInstance.error).toBe('');
     expect(fixture.componentInstance.session?.hand.length).toBe(4);
     expect(api.getDeckVersions).toHaveBeenCalledWith('new');
+  });
+
+  it('combines name, type and cost through the UI and shows zero percent for no matches', async () => {
+    spyOn(Math, 'random').and.returnValue(0.999);
+    api.getCards.and.returnValue(of([
+      ...cards,
+      { ...cards[0], id: 'spell', name: 'Practice Spell', type: 'Spell' },
+      { ...cards[0], id: 'expensive', name: 'Practice Big Unit', cost: 12 },
+      { ...cards[0], id: 'free', name: 'Free Unit', cost: 0 }
+    ]));
+    api.getDeckVersions.and.returnValue(of([{ ...versions[0], cards: [
+      { cardId: 'spell', quantity: 4 }, { cardId: 'unit', quantity: 3 },
+      { cardId: 'expensive', quantity: 5 }, { cardId: 'spell', quantity: 27 }
+    ] }]));
+    const fixture = TestBed.createComponent(MulliganPracticeComponent);
+    fixture.componentRef.setInput('deckId', 'deck'); fixture.detectChanges(); await fixture.whenStable();
+    const select = (id: string, label: string) => {
+      const element = fixture.nativeElement.querySelector(id) as HTMLSelectElement;
+      element.value = Array.from(element.options).find(option => option.text === label)!.value;
+      element.dispatchEvent(new Event('change')); fixture.detectChanges();
+    };
+    select('#probability-type', 'Unit'); select('#probability-cost', '2');
+    const input = fixture.nativeElement.querySelector('#probability-name') as HTMLInputElement;
+    input.value = 'Practice'; input.dispatchEvent(new Event('input')); fixture.detectChanges();
+    fixture.componentInstance.drawCount = 1; fixture.detectChanges();
+    expect(fixture.componentInstance.probabilitySummary).toContain('8.6%');
+    expect(fixture.componentInstance.matchStateSummary).toContain('still in deck: 3');
+    select('#probability-cost', '12');
+    expect(fixture.componentInstance.probabilitySummary).toContain('14.3%');
+    select('#probability-cost', '0');
+    expect(fixture.componentInstance.probabilitySummary).toContain('0.0%');
+    input.value = 'missing'; input.dispatchEvent(new Event('input')); fixture.detectChanges();
+    expect(fixture.componentInstance.probabilitySummary).toContain('0.0%');
   });
 });
