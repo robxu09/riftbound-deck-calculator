@@ -52,6 +52,10 @@ export class DeckWorkspace {
   cardType = '';
   cardDomain = '';
   cardSet = '';
+  cardCost: number | null = null;
+  get cardCosts(): number[] {
+    return [...new Set(this.cards.map(card => card.cost).filter((cost): cost is number => cost !== null))].sort((a, b) => a - b);
+  }
   get cardSets(): string[] {
     return [...new Set(this.cards.map(card => card.setCode.trim().toUpperCase()).filter(Boolean))].sort();
   }

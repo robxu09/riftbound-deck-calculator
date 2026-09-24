@@ -186,6 +186,14 @@ describe('Deck page workflows', () => {
       element.dispatchEvent(new Event('change'));
       harness.detectChanges();
     };
+    expect(vm.cardCosts).toEqual([1]);
+    const costSelect = harness.routeNativeElement!.querySelector<HTMLSelectElement>('#cardCost')!;
+    select('#cardCost', costSelect.options[1].value);
+    expect(vm.cardCost).toBe(1);
+    expect(harness.routeNativeElement!.querySelectorAll('.card-item').length).toBe(1);
+    expect(harness.routeNativeElement!.querySelector('.card-item')!.textContent).toContain('Example Unit');
+    select('#cardCost', costSelect.options[0].value);
+    expect(vm.cardCost).toBeNull();
     expect(vm.cardSets).toEqual(['OGN', 'UNL']);
     select('#cardSet', 'OGN');
     select('#cardType', 'Legend');

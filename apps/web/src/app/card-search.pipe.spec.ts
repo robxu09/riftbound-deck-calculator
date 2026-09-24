@@ -59,4 +59,14 @@ describe('CardSearchPipe', () => {
     expect(pipe.transform(catalog, '', 'Unit', 'Mind', 'VEN')).toEqual([]);
     expect(pipe.transform(catalog, '', '', '', '')).toEqual([cards[1], cards[0]]);
   });
+  it('combines exact costs with other filters and distinguishes zero from missing cost', () => {
+    const free = { ...cards[0], id: 'free', cost: 0 };
+    const expensive = { ...cards[0], id: 'expensive', cost: 12 };
+    const catalog = [...cards, free, expensive];
+    expect(pipe.transform(catalog, 'scorcher', 'Unit', 'Fury', 'OGN', 5)).toEqual([cards[0]]);
+    expect(pipe.transform(catalog, '', '', '', '', 0)).toEqual([free]);
+    expect(pipe.transform(catalog, '', '', '', '', 12)).toEqual([expensive]);
+    expect(pipe.transform(catalog, '', 'Rune', '', '', 0)).toEqual([]);
+    expect(pipe.transform(catalog, '', '', '', '', null)).toEqual([cards[1], cards[0]]);
+  });
 });

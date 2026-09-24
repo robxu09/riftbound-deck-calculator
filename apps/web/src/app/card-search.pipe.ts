@@ -3,10 +3,11 @@ import { Card } from './riftbound-api.service';
 
 @Pipe({ name: 'cardSearch', standalone: true })
 export class CardSearchPipe implements PipeTransform {
-  transform(cards: Card[], query: string, type = '', domain = '', set = ''): Card[] {
+  transform(cards: Card[], query: string, type = '', domain = '', set = '', cost: number | null = null): Card[] {
     const terms = query.trim().toLowerCase().split(/\s+/).filter(Boolean);
     const displayedNames = new Set<string>();
     return cards.filter(card => {
+      if (cost !== null && card.cost !== cost) return false;
       if (set && card.setCode.trim().toUpperCase() !== set.trim().toUpperCase()) return false;
       if (type && card.type.toLowerCase() !== type.toLowerCase()) return false;
       if (domain) {
