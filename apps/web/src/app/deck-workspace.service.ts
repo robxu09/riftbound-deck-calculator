@@ -400,6 +400,10 @@ export class DeckWorkspace {
     });
   }
 
+  getCard(cardId: string): Card | undefined {
+    return this.cards.find(card => card.id === cardId);
+  }
+
   getCardName(cardId: string): string {
     return this.cards.find((card) => card.id === cardId)?.name ?? 'Unknown card';
   }

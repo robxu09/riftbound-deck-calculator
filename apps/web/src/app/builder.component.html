@@ -82,6 +82,7 @@
   <div class="field-group" *ngIf="vm.formats.length > 1"><label for="format">Format</label>
   <select id="format" [(ngModel)]="vm.selectedFormatId" [disabled]="!!vm.deckId"><option *ngFor="let format of vm.formats" [value]="format.id">{{ format.name }}</option></select></div>
 
+      <app-deck-curve [entries]="vm.selectedDeckCards" [catalog]="vm.cards" />
       <h2>Deck contents</h2>
       <div *ngIf="vm.selectedDeckCards.length === 0" class="empty-state">Pick cards to build a deck.</div>
 
@@ -89,7 +90,9 @@
         <h3>{{ group.label }} - {{ group.count }} / {{ group.target }}</h3>
         <ul class="selected-list">
           <li *ngFor="let deckCard of group.cards">
-            <span>{{ vm.getCardName(deckCard.cardId) }}</span>
+            <span>{{ vm.getCardName(deckCard.cardId) }}
+                <small class="selected-card-stats" *ngIf="vm.getCard(deckCard.cardId) as card">Energy: {{ card.cost ?? '—' }} &middot; Power: {{ card.power ?? '—' }}</small>
+              </span>
             <strong>x{{ deckCard.quantity }}</strong>
             <button type="button" class="secondary" (click)="vm.removeCardFromDeck(deckCard.cardId, group.id)">Remove</button>
           </li>

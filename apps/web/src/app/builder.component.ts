@@ -5,11 +5,12 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { CardSearchPipe } from './card-search.pipe';
 import { DeckSectionsPipe } from './deck-sections.pipe';
+import { DeckCurveComponent } from './deck-curve.component';
 import { DeckWorkspace } from './deck-workspace.service';
 
 @Component({
   standalone: true,
-  imports: [CommonModule, FormsModule, CardSearchPipe, DeckSectionsPipe],
+  imports: [CommonModule, FormsModule, CardSearchPipe, DeckSectionsPipe, DeckCurveComponent],
   templateUrl: './builder.component.html'
 })
 export class BuilderComponent implements OnInit, OnDestroy {

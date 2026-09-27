@@ -208,3 +208,15 @@ button.danger { background: #9f1239; }
 .mulligan-panel .button-row { margin-bottom: 16px; }
 .draw-history summary { cursor: pointer; padding: 12px 0; }
 @media (max-width: 760px) { .practice-hand { grid-template-columns: minmax(0, 1fr); } }
+.deck-curves { border-block: 1px solid #334155; margin-bottom: 20px; padding: 12px 0; }
+.deck-curves summary { cursor: pointer; font-weight: bold; padding: 8px 0; }
+.deck-curves .field-group { margin-top: 12px; }
+.curve-legend { display: flex; flex-wrap: wrap; list-style: none; padding: 0; gap: 12px; font-size: 13px; }
+.curve-key { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 5px; }
+.curve-rows { list-style: none; padding: 0; }
+.curve-rows li { margin: 12px 0; }
+.curve-row { display: grid; grid-template-columns: 28px minmax(0, 1fr) 32px; gap: 8px; align-items: center; }
+.curve-bar { display: flex; height: 18px; background: #1e293b; border-radius: 3px; overflow: hidden; }
+.curve-counts { margin: 4px 0 0 36px; display: flex; flex-wrap: wrap; gap: 8px; color: #cbd5e1; font-size: 12px; }
+
+.selected-card-stats { display: block; color: #cbd5e1; font-size: 12px; margin-top: 4px; }

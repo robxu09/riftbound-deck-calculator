@@ -40,3 +40,9 @@ Home is the navigation hub: Builder and Analysis each return Home instead of
 linking directly to each other. The builder shows its name and save status once,
 in the sticky toolbar. Existing decks omit the disabled name field, and the format
 control is hidden while only one format is available.
+
+The builder includes a collapsible live Energy cost / Power curve, broken down by
+card type and weighted by copy count. It uses the current draft, including unsaved
+edits. Choose main deck plus champion (default), main deck only, or sideboard;
+legends, battlefields and runes are excluded. Missing values are reported separately
+from zero. Selected card rows also show Energy and Power; Power is distinct from Might.

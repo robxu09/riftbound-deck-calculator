@@ -1,0 +1,38 @@
+<details class="deck-curves" open>
+  <summary>Cost and Power by card type</summary>
+  <div class="field-group">
+    <label for="curveMetric">Show</label>
+    <select id="curveMetric" [(ngModel)]="metric">
+      <option value="cost">Energy cost</option>
+      <option value="power">Power</option>
+    </select>
+  </div>
+  <div class="field-group">
+    <label for="curveScope">Count cards in</label>
+    <select id="curveScope" [(ngModel)]="scope">
+      <option value="mainChampion">Main deck + champion</option>
+      <option value="main">Main deck only</option>
+      <option value="sideboard">Sideboard</option>
+    </select>
+  </div>
+  <ng-container *ngIf="entries | deckCurve:catalog:metric:scope as curve">
+    <p>{{ curve.total }} cards &middot; {{ metric === 'cost' ? 'Energy cost' : 'Power' }} / Copies</p>
+    <ul class="curve-legend" aria-label="Card types">
+      <li *ngFor="let type of curve.types; let i = index"><span class="curve-key" [style.background]="colors[i % colors.length]" aria-hidden="true"></span>{{ type }}</li>
+    </ul>
+    <p *ngIf="!curve.total" class="empty-state">No cards in this section.</p>
+    <ol class="curve-rows" [attr.aria-label]="metric === 'cost' ? 'Energy cost by card type' : 'Power by card type'">
+      <li *ngFor="let row of curve.rows">
+        <div class="curve-row">
+          <strong>{{ row.value }}</strong>
+          <div class="curve-bar" aria-hidden="true">
+            <span *ngFor="let type of curve.types; let i = index" [style.width.%]="100 * (row.counts[type] || 0) / curve.max" [style.background]="colors[i % colors.length]"></span>
+          </div>
+          <strong>{{ row.total }}</strong>
+        </div>
+        <div class="curve-counts"><ng-container *ngFor="let type of curve.types"><span *ngIf="row.counts[type]">{{ type }}: {{ row.counts[type] }}</span></ng-container></div>
+      </li>
+    </ol>
+    <p *ngIf="curve.missing" class="empty-state">{{ curve.missing }} cards without {{ metric === 'cost' ? 'an Energy' : 'a Power' }} value.</p>
+  </ng-container>
+</details>
