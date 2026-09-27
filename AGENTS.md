@@ -10,15 +10,20 @@ The system will eventually include:
 - Kotlin backend/API
 - Python analysis and simulation services
 - Swift/iOS application
+- Native Android application using Kotlin and Jetpack Compose
 - Snowflake analytical data warehouse
 
 ## Architecture
 
 - Angular is the primary web client.
-- Kotlin owns the application/API layer.
+- Kotlin/Spring Boot owns the shared backend/API layer.
 - Python owns analytics, simulations, and data-processing workloads.
 - Snowflake stores analytical and historical data.
 - Swift is the native iOS client.
+- Kotlin with Jetpack Compose is the native Android client.
+
+Web, iOS, and Android share the backend API and analysis services. Each client
+has its own interface; the Angular mobile layout does not define the native UIs.
 
 The clients must not access Snowflake directly.
 
@@ -29,6 +34,7 @@ Expected top-level structure:
 - `apps/web` — Angular application
 - `apps/api` — Kotlin application/API
 - `apps/ios` — Swift/iOS application
+- `apps/android` — Native Android application using Kotlin and Jetpack Compose
 - `services/analyzer` — Python analysis services
 - `ingestion` — data ingestion and normalization
 - `data/snowflake` — Snowflake schemas, SQL, and migrations
