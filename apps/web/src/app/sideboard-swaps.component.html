@@ -1,0 +1,59 @@
+<details class="panel sideboard-panel">
+  <summary>Sideboard plans &amp; swaps <small *ngIf="applied.length">&middot; {{ applied.length }} applied</small><small *ngIf="pending"> &middot; pending changes</small></summary>
+  <p>Swap one copy at a time. Your saved deck stays unchanged.</p>
+  <fieldset [disabled]="busy">
+    <div class="field-group" *ngIf="plans.length">
+      <label for="sideboard-plan">Saved plan</label>
+      <select id="sideboard-plan" [(ngModel)]="selectedPlanId">
+        <option value="">Choose a plan</option>
+        <option *ngFor="let plan of plans" [value]="plan.id">{{ plan.name }}{{ plan.baseVersionId !== baseVersionId ? ' (older deck version)' : '' }}</option>
+      </select>
+      <button class="secondary" (click)="loadSelectedPlan()" [disabled]="!selectedPlan || stale">Load swaps</button>
+    </div>
+    <p *ngIf="stale">This plan uses an older deck version. Create a new plan for this lineup.</p>
+    <div class="sideboard-selectors">
+      <div class="field-group">
+        <label for="sideboard-out">Out of Main Deck</label>
+        <select id="sideboard-out" [(ngModel)]="outCardId">
+          <option value="">Choose a card</option>
+          <option *ngFor="let card of choices('MAIN_DECK')" [value]="card.cardId">{{ name(card.cardId) }} ({{ card.quantity }})</option>
+        </select>
+      </div>
+      <div class="field-group">
+        <label for="sideboard-in">In from Sideboard</label>
+        <select id="sideboard-in" [(ngModel)]="inCardId">
+          <option value="">Choose a card</option>
+          <option *ngFor="let card of choices('SIDEBOARD')" [value]="card.cardId">{{ name(card.cardId) }} ({{ card.quantity }})</option>
+        </select>
+      </div>
+    </div>
+    <button (click)="stageSwap()" [disabled]="!outCardId || !inCardId || outCardId === inCardId">Add swap</button>
+    <p *ngIf="!choices('SIDEBOARD').length && !swaps.length">No units or spells in the saved Sideboard.</p>
+    <ol class="sideboard-list" *ngIf="swaps.length">
+      <li *ngFor="let swap of swaps; let i = index">
+        <span>{{ name(swap.outCardId) }} &rarr; {{ name(swap.inCardId) }}</span>
+        <button class="secondary" (click)="undo(i)" [attr.aria-label]="'Undo swap ' + (i + 1)">Undo</button>
+      </li>
+    </ol>
+    <p *ngIf="error" role="alert">{{ error }}</p>
+    <div class="button-row sideboard-actions">
+      <button (click)="apply()" [disabled]="!pending">Apply &amp; restart practice</button>
+      <button class="secondary" (click)="restore()" [disabled]="!swaps.length && !applied.length">Restore saved lineup</button>
+    </div>
+    <details class="sideboard-plan-actions">
+      <summary>Save / manage plans</summary>
+      <div class="field-group">
+        <label for="sideboard-plan-name">Plan name</label>
+        <input id="sideboard-plan-name" [(ngModel)]="planName" maxlength="80" placeholder="Against aggressive decks" />
+      </div>
+      <div class="button-row">
+        <button (click)="savePlan()" [disabled]="!swaps.length || !planName.trim()">Save as new plan</button>
+        <button class="secondary" *ngIf="selectedPlan" (click)="savePlan(true)" [disabled]="stale || !swaps.length || !planName.trim()">Update selected plan</button>
+        <button class="danger" *ngIf="selectedPlan" (click)="deletePlan()">Delete selected plan</button>
+      </div>
+    </details>
+  </fieldset>
+  <p *ngIf="loadingPlans" role="status">Loading plans...</p>
+  <p *ngIf="planError" role="alert">{{ planError }} <button class="secondary" (click)="loadPlans()" [disabled]="loadingPlans || busy">Reload plans</button></p>
+  <p *ngIf="status" role="status">{{ status }}</p>
+</details>

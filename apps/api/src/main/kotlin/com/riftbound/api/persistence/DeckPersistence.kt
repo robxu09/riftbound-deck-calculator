@@ -32,6 +32,9 @@ class DeckEntity {
     @Column(nullable = false)
     var createdAt: Instant = Instant.now()
 
+    @Column(columnDefinition = "TEXT")
+    var sideboardPlansJson: String? = null
+
     @PrePersist
     @PreUpdate
     fun normalizeName() {
@@ -80,6 +83,10 @@ class DeckVersionEntity {
 
 @Repository
 interface DeckRepository : JpaRepository<DeckEntity, String> {
+    @org.springframework.data.jpa.repository.Lock(jakarta.persistence.LockModeType.PESSIMISTIC_WRITE)
+    @org.springframework.data.jpa.repository.Query("select d from DeckEntity d where d.id = :id")
+    fun findForPlanUpdate(@org.springframework.data.repository.query.Param("id") id: String): DeckEntity?
+
     fun existsByNameIgnoreCase(name: String): Boolean
     fun existsByNormalizedName(normalizedName: String): Boolean
     fun existsByNormalizedNameAndIdNot(normalizedName: String, id: String): Boolean

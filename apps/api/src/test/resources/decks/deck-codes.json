@@ -1,0 +1,595 @@
+{
+  "reference": "@piltoverarchive/riftbound-deck-codes@1.5.0",
+  "cases": [
+    {
+      "name": "azir-v3",
+      "code": "CMAAAAAAAAAQCAAAFIAACAIAADLACAADAMAAALJ22UAQMAYAEEVJSAM2AGQQDRQBAICAAJZKAIAQAABOAEBQBIYBAMAQAAFGAICAGAFRAHCQDUQB3EAQEBIADODQCAIBAUAIGAICAEAABYABAECQAKACAICABKIBWAAQCBIAEUAQGAFRAE",
+      "decoded": {
+        "mainDeck": [
+          {
+            "cardCode": "OGN-042",
+            "count": 7
+          },
+          {
+            "cardCode": "OGN-214",
+            "count": 5
+          },
+          {
+            "cardCode": "OGN-045",
+            "count": 3
+          },
+          {
+            "cardCode": "OGN-058",
+            "count": 3
+          },
+          {
+            "cardCode": "OGN-213",
+            "count": 3
+          },
+          {
+            "cardCode": "SFD-033",
+            "count": 3
+          },
+          {
+            "cardCode": "SFD-042",
+            "count": 3
+          },
+          {
+            "cardCode": "SFD-153",
+            "count": 3
+          },
+          {
+            "cardCode": "SFD-154",
+            "count": 3
+          },
+          {
+            "cardCode": "SFD-161",
+            "count": 3
+          },
+          {
+            "cardCode": "SFD-198",
+            "count": 3
+          },
+          {
+            "cardCode": "UNL-039",
+            "count": 3
+          },
+          {
+            "cardCode": "UNL-042",
+            "count": 3
+          },
+          {
+            "cardCode": "OGN-046",
+            "count": 2
+          },
+          {
+            "cardCode": "SFD-163",
+            "count": 2
+          },
+          {
+            "cardCode": "OGN-294",
+            "count": 1
+          },
+          {
+            "cardCode": "SFD-177",
+            "count": 1
+          },
+          {
+            "cardCode": "SFD-197",
+            "count": 1
+          },
+          {
+            "cardCode": "SFD-210",
+            "count": 1
+          },
+          {
+            "cardCode": "SFD-217",
+            "count": 1
+          },
+          {
+            "cardCode": "VEN-027",
+            "count": 1
+          },
+          {
+            "cardCode": "VEN-135",
+            "count": 1
+          }
+        ],
+        "sideboard": [
+          {
+            "cardCode": "VEN-131",
+            "count": 3
+          },
+          {
+            "cardCode": "OGN-224",
+            "count": 2
+          },
+          {
+            "cardCode": "VEN-040",
+            "count": 2
+          },
+          {
+            "cardCode": "UNL-169",
+            "count": 1
+          },
+          {
+            "cardCode": "UNL-176",
+            "count": 1
+          },
+          {
+            "cardCode": "VEN-037",
+            "count": 1
+          }
+        ],
+        "chosenChampion": "SFD-177"
+      },
+      "cards": [
+        {
+          "cardId": "sfd-197-221",
+          "quantity": 1,
+          "section": "LEGEND"
+        },
+        {
+          "cardId": "sfd-177-221",
+          "quantity": 1,
+          "section": "CHAMPION"
+        },
+        {
+          "cardId": "ogn-045-298",
+          "quantity": 3,
+          "section": "MAIN_DECK"
+        },
+        {
+          "cardId": "ogn-058-298",
+          "quantity": 3,
+          "section": "MAIN_DECK"
+        },
+        {
+          "cardId": "ogn-213-298",
+          "quantity": 3,
+          "section": "MAIN_DECK"
+        },
+        {
+          "cardId": "sfd-033-221",
+          "quantity": 3,
+          "section": "MAIN_DECK"
+        },
+        {
+          "cardId": "sfd-042-221",
+          "quantity": 3,
+          "section": "MAIN_DECK"
+        },
+        {
+          "cardId": "sfd-153-221",
+          "quantity": 3,
+          "section": "MAIN_DECK"
+        },
+        {
+          "cardId": "sfd-154-221",
+          "quantity": 3,
+          "section": "MAIN_DECK"
+        },
+        {
+          "cardId": "sfd-161-221",
+          "quantity": 3,
+          "section": "MAIN_DECK"
+        },
+        {
+          "cardId": "sfd-198-221",
+          "quantity": 3,
+          "section": "MAIN_DECK"
+        },
+        {
+          "cardId": "unl-039-219",
+          "quantity": 3,
+          "section": "MAIN_DECK"
+        },
+        {
+          "cardId": "unl-042-219",
+          "quantity": 3,
+          "section": "MAIN_DECK"
+        },
+        {
+          "cardId": "ogn-046-298",
+          "quantity": 2,
+          "section": "MAIN_DECK"
+        },
+        {
+          "cardId": "sfd-163-221",
+          "quantity": 2,
+          "section": "MAIN_DECK"
+        },
+        {
+          "cardId": "ven-027-166",
+          "quantity": 1,
+          "section": "MAIN_DECK"
+        },
+        {
+          "cardId": "ven-135-166",
+          "quantity": 1,
+          "section": "MAIN_DECK"
+        },
+        {
+          "cardId": "ogn-294-298",
+          "quantity": 1,
+          "section": "BATTLEFIELDS"
+        },
+        {
+          "cardId": "sfd-210-221",
+          "quantity": 1,
+          "section": "BATTLEFIELDS"
+        },
+        {
+          "cardId": "sfd-217-221",
+          "quantity": 1,
+          "section": "BATTLEFIELDS"
+        },
+        {
+          "cardId": "ogn-042-298",
+          "quantity": 7,
+          "section": "RUNES"
+        },
+        {
+          "cardId": "ogn-214-298",
+          "quantity": 5,
+          "section": "RUNES"
+        },
+        {
+          "cardId": "ven-131-166",
+          "quantity": 3,
+          "section": "SIDEBOARD"
+        },
+        {
+          "cardId": "ogn-224-298",
+          "quantity": 2,
+          "section": "SIDEBOARD"
+        },
+        {
+          "cardId": "ven-040-166",
+          "quantity": 2,
+          "section": "SIDEBOARD"
+        },
+        {
+          "cardId": "unl-169-219",
+          "quantity": 1,
+          "section": "SIDEBOARD"
+        },
+        {
+          "cardId": "unl-176-219",
+          "quantity": 1,
+          "section": "SIDEBOARD"
+        },
+        {
+          "cardId": "ven-037-166",
+          "quantity": 1,
+          "section": "SIDEBOARD"
+        }
+      ]
+    },
+    {
+      "name": "rune-v4",
+      "code": "CQAQCBIAAEBAAAAAAAAAAAAAAEAQGAAAWEAQAAAAAAAACAYAACYQC",
+      "decoded": {
+        "mainDeck": [
+          {
+            "cardCode": "VEN-R02",
+            "count": 12
+          },
+          {
+            "cardCode": "SFD-177",
+            "count": 3
+          }
+        ],
+        "sideboard": [],
+        "chosenChampion": "SFD-177"
+      }
+    },
+    {
+      "name": "high-count-v5",
+      "code": "CUAADAQBAEAQAAABAECACAIAAAWQA",
+      "decoded": {
+        "mainDeck": [
+          {
+            "cardCode": "OGN-001",
+            "count": 130
+          }
+        ],
+        "sideboard": [
+          {
+            "cardCode": "OGN-045",
+            "count": 4
+          }
+        ]
+      }
+    },
+    {
+      "name": "special-v5",
+      "code": "CUAQGDABAECQAAICAMAQCBIAAIBQCAIBAMAABMIBAAAQGAAAWEAQ",
+      "decoded": {
+        "mainDeck": [
+          {
+            "cardCode": "VEN-R02",
+            "count": 12
+          },
+          {
+            "cardCode": "VEN-SP3",
+            "count": 3
+          },
+          {
+            "cardCode": "SFD-177",
+            "count": 1
+          }
+        ],
+        "sideboard": [],
+        "chosenChampion": "SFD-177"
+      }
+    },
+    {
+      "name": "variants-v4",
+      "code": "CQAQCBQBAEBAAAAAAAAAAAAAAAAQCAACAAAQEAIAAEAACAIAAMAACAAAAAAA",
+      "decoded": {
+        "mainDeck": [
+          {
+            "cardCode": "RAD-R02a",
+            "count": 12
+          },
+          {
+            "cardCode": "OGN-001s",
+            "count": 2
+          },
+          {
+            "cardCode": "OGN-001a",
+            "count": 1
+          },
+          {
+            "cardCode": "OGN-001b",
+            "count": 1
+          }
+        ],
+        "sideboard": []
+      }
+    },
+    {
+      "name": "additional-legends-v6",
+      "code": "CYAACAICAEBQBMIBAECQBGIBAAAQGAFRAEBQAAEYAIAABIACAAAKIAQ",
+      "decoded": {
+        "mainDeck": [
+          {
+            "cardCode": "SFD-177",
+            "count": 1
+          },
+          {
+            "cardCode": "VEN-153",
+            "count": 1
+          }
+        ],
+        "sideboard": [],
+        "chosenChampion": "SFD-177",
+        "additionalLegends": [
+          "OGN-280",
+          "OGN-288",
+          "OGN-292"
+        ]
+      }
+    },
+    {
+      "name": "empty-v3",
+      "code": "CMAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "decoded": {
+        "mainDeck": [],
+        "sideboard": []
+      }
+    },
+    {
+      "name": "published-kaisa-v2",
+      "code": "CIAAAAAAAAAQCAAAA4AACAIAABMQAAILAAAAICIMDMOVOX3AM5UHIAIDAAACO6XYAEAQKAAABX3QDGACUABKIAQAAEBQAAAWDBOQCAQAABMHE",
+      "decoded": {
+        "mainDeck": [
+          {
+            "cardCode": "OGN-007",
+            "count": 7
+          },
+          {
+            "cardCode": "OGN-089",
+            "count": 5
+          },
+          {
+            "cardCode": "OGN-004",
+            "count": 3
+          },
+          {
+            "cardCode": "OGN-009",
+            "count": 3
+          },
+          {
+            "cardCode": "OGN-012",
+            "count": 3
+          },
+          {
+            "cardCode": "OGN-027",
+            "count": 3
+          },
+          {
+            "cardCode": "OGN-029",
+            "count": 3
+          },
+          {
+            "cardCode": "OGN-087",
+            "count": 3
+          },
+          {
+            "cardCode": "OGN-095",
+            "count": 3
+          },
+          {
+            "cardCode": "OGN-096",
+            "count": 3
+          },
+          {
+            "cardCode": "OGN-103",
+            "count": 3
+          },
+          {
+            "cardCode": "OGN-104",
+            "count": 3
+          },
+          {
+            "cardCode": "OGN-116",
+            "count": 3
+          },
+          {
+            "cardCode": "OGN-039",
+            "count": 2
+          },
+          {
+            "cardCode": "OGN-122",
+            "count": 2
+          },
+          {
+            "cardCode": "OGN-248",
+            "count": 2
+          },
+          {
+            "cardCode": "OGN-013",
+            "count": 1
+          },
+          {
+            "cardCode": "OGN-247",
+            "count": 1
+          },
+          {
+            "cardCode": "OGN-280",
+            "count": 1
+          },
+          {
+            "cardCode": "OGN-288",
+            "count": 1
+          },
+          {
+            "cardCode": "OGN-292",
+            "count": 1
+          }
+        ],
+        "sideboard": [
+          {
+            "cardCode": "OGN-022",
+            "count": 2
+          },
+          {
+            "cardCode": "OGN-024",
+            "count": 2
+          },
+          {
+            "cardCode": "OGN-093",
+            "count": 2
+          },
+          {
+            "cardCode": "OGN-088",
+            "count": 1
+          },
+          {
+            "cardCode": "OGN-114",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "name": "azir-legacy-v1",
+      "code": "CEAAAAAAAAAQCAAAFIAACAIAADLACAADAMAAALJ22UAQMAYAEEVJSAM2AGQQDRQBAICAAJZKAIAQAABOAEBQBIYBAMAQAAFGAICAGAFRAHCQDUQB3EAQEBIADODQC",
+      "decoded": {
+        "mainDeck": [
+          {
+            "cardCode": "OGN-042",
+            "count": 7
+          },
+          {
+            "cardCode": "OGN-214",
+            "count": 5
+          },
+          {
+            "cardCode": "OGN-045",
+            "count": 3
+          },
+          {
+            "cardCode": "OGN-058",
+            "count": 3
+          },
+          {
+            "cardCode": "OGN-213",
+            "count": 3
+          },
+          {
+            "cardCode": "SFD-033",
+            "count": 3
+          },
+          {
+            "cardCode": "SFD-042",
+            "count": 3
+          },
+          {
+            "cardCode": "SFD-153",
+            "count": 3
+          },
+          {
+            "cardCode": "SFD-154",
+            "count": 3
+          },
+          {
+            "cardCode": "SFD-161",
+            "count": 3
+          },
+          {
+            "cardCode": "SFD-198",
+            "count": 3
+          },
+          {
+            "cardCode": "UNL-039",
+            "count": 3
+          },
+          {
+            "cardCode": "UNL-042",
+            "count": 3
+          },
+          {
+            "cardCode": "OGN-046",
+            "count": 2
+          },
+          {
+            "cardCode": "SFD-163",
+            "count": 2
+          },
+          {
+            "cardCode": "OGN-294",
+            "count": 1
+          },
+          {
+            "cardCode": "SFD-177",
+            "count": 1
+          },
+          {
+            "cardCode": "SFD-197",
+            "count": 1
+          },
+          {
+            "cardCode": "SFD-210",
+            "count": 1
+          },
+          {
+            "cardCode": "SFD-217",
+            "count": 1
+          },
+          {
+            "cardCode": "VEN-027",
+            "count": 1
+          },
+          {
+            "cardCode": "VEN-135",
+            "count": 1
+          }
+        ],
+        "sideboard": []
+      }
+    }
+  ]
+}

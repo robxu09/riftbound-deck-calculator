@@ -2,23 +2,34 @@ import { CommonModule } from '@angular/common';
 import { Component, Input, OnChanges, OnDestroy } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { forkJoin, Subscription } from 'rxjs';
-import { Card, RiftboundApiService } from './riftbound-api.service';
+import { SideboardSwapsComponent, AnalysisLineup } from './sideboard-swaps.component';
+import { OpeningHandOddsComponent } from './opening-hand-odds.component';
+import { Card, DeckCard, RiftboundApiService } from './riftbound-api.service';
+import { RunePractice } from './rune-practice';
 import { DrawFilters, MulliganPractice } from './mulligan-practice';
+import { keywordChoices } from './card-keywords';
 
 @Component({
   selector: 'app-mulligan-practice',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, OpeningHandOddsComponent, SideboardSwapsComponent],
   templateUrl: './mulligan-practice.component.html'
 })
 export class MulliganPracticeComponent implements OnChanges, OnDestroy {
   @Input({ required: true }) deckId!: string;
   session: MulliganPractice | null = null;
+  runes: RunePractice | null = null;
+  runeError = '';
+  savedEntries: DeckCard[] = [];
+  analysisEntries: DeckCard[] = [];
+  baseVersionId = '';
+  swapCount = 0;
   catalog = new Map<string, Card>();
   loading = false;
   error = '';
   versionNumber = 0;
-  filters: DrawFilters = { name: '', type: '', cost: null };
+  filters: DrawFilters = { name: '', keyword: '', type: '', cost: null };
+  get keywords(): string[] { return keywordChoices(this.catalog.values()); }
   drawCount = 3;
   get probabilityTypes(): string[] { return [...new Set([...this.catalog.values()].map(card => card.type))].sort(); }
   get probabilityCosts(): number[] {
@@ -40,12 +51,34 @@ export class MulliganPracticeComponent implements OnChanges, OnDestroy {
 
   get matchStateSummary(): string {
     const status = this.session?.matchStatus(this.filters, this.catalog);
-    return status ? 'In hand: ' + status.inHand + '; still in deck: ' + status.inDeck + '; cards left: ' + status.cardsLeft + '.' : '';
+    return status ? 'In hand: ' + status.inHand + '; removed: ' + status.removed + '; still in deck: ' + status.inDeck + '; cards left: ' + status.cardsLeft + '.' : '';
+  }
+
+  changeLineup(lineup: AnalysisLineup): void {
+    this.startPractice(lineup.entries);
+    this.analysisEntries = lineup.entries;
+    this.swapCount = lineup.swapCount;
+  }
+
+  resetPractice(): void {
+    this.session?.reset();
+    this.runes?.reset();
+  }
+
+  private startPractice(entries: DeckCard[]): void {
+    this.session = new MulliganPractice(entries);
+    this.runes = null;
+    this.runeError = '';
+    try { this.runes = new RunePractice(entries, this.catalog); }
+    catch (error) { this.runeError = (error as Error).message; }
   }
 
   load(): void {
     this.subscription?.unsubscribe();
     this.session = null;
+    this.runes = null; this.runeError = '';
+    this.savedEntries = [];
+    this.analysisEntries = []; this.baseVersionId = ''; this.swapCount = 0;
     this.error = '';
     this.loading = true;
     this.subscription = forkJoin({ versions: this.api.getDeckVersions(this.deckId), cards: this.api.getCards() })
@@ -57,11 +90,13 @@ export class MulliganPracticeComponent implements OnChanges, OnDestroy {
           if (!latest) { this.error = 'Save a deck version before starting practice.'; return; }
           this.versionNumber = versions.length;
           try {
-            const session = new MulliganPractice(latest.cards);
             if (latest.cards.some(entry => (entry.section ?? 'MAIN_DECK') === 'MAIN_DECK' && !this.catalog.has(entry.cardId))) {
               throw new Error('Some Main Deck cards are missing from the catalog. Refresh the catalog before practicing.');
             }
-            this.session = session;
+            this.savedEntries = latest.cards;
+            this.analysisEntries = latest.cards;
+            this.baseVersionId = latest.id;
+            this.startPractice(latest.cards);
           } catch (error) {
             this.error = error instanceof Error ? error.message : 'Unable to start practice.';
           }

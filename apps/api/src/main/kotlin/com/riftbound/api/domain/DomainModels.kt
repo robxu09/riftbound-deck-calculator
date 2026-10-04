@@ -35,7 +35,8 @@ data class DeckImportIssue(val line: Int, val message: String)
 data class DeckImportResult(
     val cards: List<DeckCard>,
     val errors: List<DeckImportIssue>,
-    val warnings: List<DeckImportIssue>
+    val warnings: List<DeckImportIssue>,
+    val cardNames: Map<String, String> = emptyMap()
 )
 
 data class Deck(

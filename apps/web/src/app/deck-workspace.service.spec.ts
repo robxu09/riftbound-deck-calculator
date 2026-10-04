@@ -117,6 +117,55 @@ describe('DeckWorkspace', () => {
     expect(app.actionBusy).toBeFalse();
   });
 
+  it('copies a code for the saved deck and waits for clipboard completion', async () => {
+    const deck = { id: 'saved', name: 'My deck', formatId: 'format-constructed' };
+    const response = new Subject<string>();
+    const exportDeckCode = jasmine.createSpy('exportDeckCode').and.returnValue(response);
+    const files = jasmine.createSpyObj<DeckFileService>('DeckFileService', ['copy']);
+    let finish!: () => void;
+    files.copy.and.returnValue(new Promise<void>(resolve => finish = resolve));
+    const app = new DeckWorkspace({ ...apiStub, exportDeckCode } as unknown as RiftboundApiService, files);
+    app.selectedDeckCards = [{ cardId: 'unsaved', quantity: 2 }];
+    app.copySavedDeckCode(deck);
+    app.copySavedDeckCode(deck);
+    expect(exportDeckCode).toHaveBeenCalledOnceWith('saved');
+    expect(files.copy).not.toHaveBeenCalled();
+    response.next('CMAAAA');
+    expect(files.copy).toHaveBeenCalledWith('CMAAAA');
+    expect(app.actionBusy).toBeTrue();
+    expect(app.actionStatus).not.toContain('copied');
+    finish();
+    await Promise.resolve();
+    expect(app.actionBusy).toBeFalse();
+    expect(app.actionStatus).toBe('Deck code copied.');
+    expect(app.selectedDeckCards).toEqual([{ cardId: 'unsaved', quantity: 2 }]);
+  });
+
+  it('keeps a selectable code when clipboard access fails and allows retry', async () => {
+    const files = jasmine.createSpyObj<DeckFileService>('DeckFileService', ['copy']);
+    files.copy.and.callFake(() => Promise.reject(new Error('Clipboard denied')));
+    const app = new DeckWorkspace({ ...apiStub, exportDeckCode: () => of('CMAAAA') } as unknown as RiftboundApiService, files);
+    app.copySavedDeckCode({ id: 'saved', name: 'My deck', formatId: 'format-constructed' });
+    await Promise.resolve();
+    expect(app.exportedCode).toEqual({ deckId: 'saved', text: 'CMAAAA' });
+    expect(app.actionStatus).toContain('Select and copy');
+    expect(app.actionBusy).toBeFalse();
+    files.copy.and.returnValue(Promise.resolve());
+    await app.copyExportedCode();
+    expect(app.actionStatus).toBe('Deck code copied.');
+  });
+
+  it('clears a previous code and shows API export errors without copying', () => {
+    const files = jasmine.createSpyObj<DeckFileService>('DeckFileService', ['copy']);
+    const app = new DeckWorkspace({ ...apiStub, exportDeckCode: () => throwError(() => ({ error: '{"error":"Unknown card ID"}' })) } as unknown as RiftboundApiService, files);
+    app.exportedCode = { deckId: 'old', text: 'OLD' };
+    app.copySavedDeckCode({ id: 'saved', name: 'My deck', formatId: 'format-constructed' });
+    expect(files.copy).not.toHaveBeenCalled();
+    expect(app.exportedCode).toBeNull();
+    expect(app.actionBusy).toBeFalse();
+    expect(app.actionError).toBe('Unknown card ID');
+  });
+
   it('keeps main-deck and sideboard copies independent when adding and removing', () => {
     const app = TestBed.inject(DeckWorkspace);
     app.addCardToDeck('same-card');

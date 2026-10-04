@@ -8,6 +8,8 @@ import tempfile
 from datetime import datetime, timezone
 from urllib.request import Request, urlopen
 
+from riot_gallery import GALLERY_URL, fetch_gallery, flatten_gallery
+
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_OUTPUT = ROOT / "apps/api/src/main/resources/catalog/cards.json"
 DATASET_URL = "https://raw.githubusercontent.com/slimtreble/Riftbound-card-data/main/cards.json"
@@ -52,6 +54,8 @@ def number(value):
 
 
 def normalize(record, source):
+    if source == "riot-gallery":
+        record = flatten_gallery(record)
     if source == "riftcodex":
         meta = record["metadata"]
         if meta["alternate_art"] or meta["signature"]:
@@ -72,7 +76,7 @@ def normalize(record, source):
             return None
         card = {
             "id": record["id"].lower(), "name": record["name"], "type": record["type"] or "Unknown",
-            "supertype": None, "cost": number(record.get("energy")),
+            "supertype": record.get("supertype"), "cost": number(record.get("energy")),
             "power": number(record.get("power")), "might": number(record.get("might")),
             "domains": record["domains"], "rarity": record["rarity"], "text": record["text"],
             "setCode": record["set"], "sourceId": record["id"], "sourceUpdatedAt": None,
@@ -89,7 +93,7 @@ def normalize(record, source):
     return card
 
 
-def build_snapshot(records, source, previous=None):
+def build_snapshot(records, source, previous=None, additions_only=False):
     if not isinstance(records, list) or not records:
         raise ValueError("Refusing to import an empty or invalid catalog")
     now = datetime.now(timezone.utc).isoformat()
@@ -107,11 +111,14 @@ def build_snapshot(records, source, previous=None):
         cards[card["id"]] = card
     if not cards:
         raise ValueError("No base printings found")
+    excluded = len(records) - len(cards)
+    if additions_only:
+        cards.update(old)
     return {
         "schemaVersion": 1, "source": source,
-        "sourceUrl": RIFTCODEX_URL if source == "riftcodex" else DATASET_URL,
+        "sourceUrl": {"riftcodex": RIFTCODEX_URL, "riot-gallery": GALLERY_URL, "gallery-dataset": DATASET_URL}[source],
         "fetchedAt": now, "textStatus": "unverified-errata" if source == "riftcodex" else "printed",
-        "sourceRecordCount": len(records), "excludedVariants": len(records) - len(cards),
+        "sourceRecordCount": len(records), "excludedVariants": excluded,
         "cards": sorted(cards.values(), key=lambda card: (card["name"], card["id"])),
     }
 
@@ -133,16 +140,18 @@ def write_snapshot(snapshot, output):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--source", choices=["gallery-dataset", "riftcodex"], default="gallery-dataset")
+    parser.add_argument("--source", choices=["riot-gallery", "gallery-dataset", "riftcodex"], default="riot-gallery")
+    parser.add_argument("--additions-only", action="store_true", help="Keep all existing IDs and details; add only new printings")
     parser.add_argument("--input", type=Path, help="Import a previously downloaded JSON array, without network access")
     parser.add_argument("--output", type=Path, default=DEFAULT_OUTPUT)
     args = parser.parse_args()
     try:
         records = json.loads(args.input.read_text(encoding="utf-8-sig")) if args.input else (
+            fetch_gallery() if args.source == "riot-gallery" else
             fetch_riftcodex() if args.source == "riftcodex" else fetch_json(DATASET_URL)
         )
         previous = json.loads(args.output.read_text(encoding="utf-8")) if args.output.exists() else None
-        snapshot = build_snapshot(records, args.source, previous)
+        snapshot = build_snapshot(records, args.source, previous, additions_only=args.additions_only)
         write_snapshot(snapshot, args.output)
     except (OSError, ValueError, KeyError, TypeError) as error:
         parser.exit(1, f"Card import failed; existing snapshot was not replaced: {error}\n")

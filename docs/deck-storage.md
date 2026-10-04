@@ -39,3 +39,16 @@ Run with JDK 21 from `apps/api`:
 
 Directly constructed `DeckService()` instances still use the lightweight in-memory
 fallback for domain tests. The running Spring application injects the JPA repositories.
+
+## Sideboard plans
+
+Plans are stored as JSON in a nullable TEXT column on the deck row. Existing rows
+with null have no plans; the local schema update adds this column without replacing
+decks or versions. Plan writes lock the deck row to avoid concurrent plan updates
+losing one another. Deleting the deck removes its plans; plan saves do not add a
+DeckVersion. The restart test covers retained plans and deck deletion.
+
+Routes under /api/decks/{deckId}/sideboard-plans: GET lists, POST creates,
+POST /{planId} updates, POST /{planId}/delete removes. Save requests contain name,
+baseVersionId, and swaps (outCardId/inCardId pairs, each exchanging one copy).
+The API validates version ownership, current version, type and copy availability.

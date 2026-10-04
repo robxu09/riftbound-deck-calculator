@@ -45,10 +45,15 @@ export interface DeckCard {
   section?: DeckSection;
 }
 
+export interface SideboardSwap { outCardId: string; inCardId: string; }
+export interface SideboardPlan { id: string; name: string; baseVersionId: string; swaps: SideboardSwap[]; }
+export type SaveSideboardPlan = Omit<SideboardPlan, 'id'>;
+
 export interface DeckImportResult {
   cards: DeckCard[];
   errors: { line: number; message: string }[];
   warnings: { line: number; message: string }[];
+  cardNames?: Record<string, string>;
 }
 
 export interface DeckAnalysisRequest {
@@ -72,6 +77,18 @@ export class RiftboundApiService {
   private readonly apiUrl = 'http://localhost:8082/api';
 
   constructor(private http: HttpClient) {}
+
+  getSideboardPlans(deckId: string): Observable<SideboardPlan[]> {
+    return this.http.get<SideboardPlan[]>(`${this.apiUrl}/decks/${deckId}/sideboard-plans`);
+  }
+
+  saveSideboardPlan(deckId: string, plan: SaveSideboardPlan, planId?: string): Observable<SideboardPlan> {
+    return this.http.post<SideboardPlan>(`${this.apiUrl}/decks/${deckId}/sideboard-plans${planId ? '/' + planId : ''}`, plan);
+  }
+
+  deleteSideboardPlan(deckId: string, planId: string): Observable<{ deleted: boolean }> {
+    return this.http.post<{ deleted: boolean }>(`${this.apiUrl}/decks/${deckId}/sideboard-plans/${planId}/delete`, {});
+  }
 
   getCards(): Observable<Card[]> {
     return this.http.get<Card[]>(`${this.apiUrl}/cards`);
@@ -103,6 +120,10 @@ export class RiftboundApiService {
 
   exportDeck(deckId: string): Observable<string> {
     return this.http.get(`${this.apiUrl}/decks/${deckId}/export`, { responseType: 'text' });
+  }
+
+  exportDeckCode(deckId: string): Observable<string> {
+    return this.http.get(`${this.apiUrl}/decks/${deckId}/export-code`, { responseType: 'text' });
   }
 
   deleteDeck(deckId: string): Observable<{ deleted: boolean }> {

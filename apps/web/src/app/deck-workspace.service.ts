@@ -80,6 +80,7 @@ export class DeckWorkspace {
   actionBusy = false;
   actionError = '';
   actionStatus = '';
+  exportedCode: { deckId: string; text: string } | null = null;
 
   beginDeckAction(deck: Deck, mode: 'rename' | 'duplicate'): void {
     if (this.actionBusy) return;
@@ -132,6 +133,38 @@ export class DeckWorkspace {
         catch { this.actionError = 'Unable to export this deck.'; }
       }
     });
+  }
+
+  copySavedDeckCode(deck: Deck): void {
+    if (this.actionBusy) return;
+    this.actionBusy = true;
+    this.actionError = '';
+    this.actionStatus = '';
+    this.exportedCode = null;
+    this.api.exportDeckCode(deck.id).subscribe({
+      next: code => {
+        this.exportedCode = { deckId: deck.id, text: code };
+        void this.copyExportedCode();
+      },
+      error: error => {
+        this.actionBusy = false;
+        try { this.actionError = JSON.parse(error.error).error ?? 'Unable to export this deck code.'; }
+        catch { this.actionError = 'Unable to export this deck code.'; }
+      }
+    });
+  }
+
+  async copyExportedCode(): Promise<void> {
+    if (!this.exportedCode) return;
+    this.actionBusy = true;
+    try {
+      await this.deckFiles.copy(this.exportedCode.text);
+      this.actionStatus = 'Deck code copied.';
+    } catch {
+      this.actionStatus = 'Select and copy the deck code below.';
+    } finally {
+      this.actionBusy = false;
+    }
   }
 
   resetImportPreview(): void {

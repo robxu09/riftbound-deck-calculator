@@ -72,6 +72,32 @@ class DeckTextImporterTest {
     }
 
     @Test
+    fun nameOnlyListsAcceptPunctuationWhitespaceAndMixedPrintingCodes() {
+        val result = importer.parse("\uFEFFMain Deck:\r\n1 doran\u2019s   shield\r\n2 Doran's Shield [SFD-033]\r\nSideboard:\r\n1 B.F. Sword\r\n1 Guards!")
+        assertTrue(result.errors.isEmpty(), result.errors.toString())
+        assertEquals(3, result.cards.single { it.cardId == "sfd-033-221" }.quantity)
+        assertEquals(2, result.cards.filter { it.section == DeckSection.SIDEBOARD }.sumOf { it.quantity })
+        val bad = importer.parse("MainDeck:\n1 Not a real card\n1 Defy [BAD-123]\n1 Defy [OGN-045\n1 Defy []")
+        assertEquals(listOf(2, 3, 4, 5), bad.errors.map { it.line })
+        assertTrue(bad.cards.isEmpty())
+    }
+
+    @Test
+    fun nameOnlyPrintingChoiceIsStableAndAmbiguousCardIdentitiesRequireCodes() {
+        val cards = listOf(Card("ogn-001-100", "Same", "Unit", 1, "", "OGN"),
+            Card("ven-001-100", "Same", "Unit", 1, "", "VEN"))
+        for (order in listOf(cards, cards.reversed())) {
+            val result = DeckTextImporter(order).parse("MainDeck:\n1 Same")
+            assertEquals("ogn-001-100", result.cards.single().cardId)
+            assertTrue(result.warnings.single().message.contains("Multiple printings"))
+        }
+        val ambiguous = DeckTextImporter(cards + cards.first().copy(id = "sfd-001-100", type = "Legend"))
+            .parse("MainDeck:\n1 Same")
+        assertTrue(ambiguous.cards.isEmpty())
+        assertTrue(ambiguous.errors.single().message.contains("Ambiguous"))
+    }
+
+    @Test
     fun `legacy deck entries default to main deck and sections round trip in JSON`() {
         val mapper = jacksonObjectMapper()
         val old = mapper.readValue<DeckCard>("""{"cardId":"ogn-001-298","quantity":2}""")

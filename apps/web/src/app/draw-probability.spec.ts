@@ -15,6 +15,32 @@ describe('Conditional draw probabilities', () => {
   const make = (ids: string[]) => new MulliganPractice(ids.map(cardId => ({ cardId, quantity: 1 })), () => 0.999);
   const other = (n: number) => Array<string>(n).fill('other');
 
+  it('uses declared keywords for odds and matching counts through draws, removal and reset', () => {
+    const keywordCatalog = new Map([
+      ['target', { ...catalog.get('target')!, text: '[Hidden] (Hide now.)' }],
+      ['other', { ...catalog.get('other')!, name: 'Hidden supporter', text: 'Return a card with [Hidden] to your hand.' }]
+    ]);
+    const query: DrawFilters = { name: '', keyword: 'hidden', type: '', cost: null };
+    const session = make(['target', ...other(3), 'target', 'target', 'target', ...other(32)]);
+    expect(session.matchStatus(query, keywordCatalog)).toEqual({ inHand: 1, inDeck: 3, removed: 0, totalMatches: 4, cardsLeft: 35 });
+    expect(session.probabilityFor(query, 1, keywordCatalog)?.percent).toBeCloseTo(100 * 3 / 35, 10);
+    expect(session.probabilityFor({ ...query, type: 'Unit', cost: 2, name: 'scout' }, 1, keywordCatalog))
+      .toEqual(session.probabilityFor(query, 1, keywordCatalog));
+    expect(session.probabilityFor({ ...query, cost: 3 }, 1, keywordCatalog)?.percent).toBe(0);
+    expect(session.probabilityFor({ ...query, keyword: 'missing' }, 1, keywordCatalog)?.percent).toBe(0);
+    expect(session.probabilityFor({ ...query, keyword: '   ' }, 1, keywordCatalog)).toBeNull();
+    session.confirm(); session.draw();
+    expect(session.probabilityFor(query, 1, keywordCatalog)?.percent).toBeCloseTo(100 * 2 / 34, 10);
+    session.removeFromHand(session.hand[0].copyId);
+    expect(session.matchStatus(query, keywordCatalog)).toEqual({ inHand: 1, inDeck: 2, removed: 1, totalMatches: 4, cardsLeft: 34 });
+    session.reset();
+    expect(session.probabilityFor(query, 1, keywordCatalog)?.percent).toBeCloseTo(100 * 3 / 35, 10);
+    // A selected Hidden card on the known bottom cannot be drawn early.
+    session.toggle(session.hand[0].copyId); session.confirm();
+    expect(session.probabilityFor(query, 1, keywordCatalog)?.percent).toBeCloseTo(100 * 2 / 34, 10);
+    expect(session.probabilityFor(query, 35, keywordCatalog)?.percent).toBe(100);
+  });
+
   it('ANDs partial names, exact types, and exact numeric costs; zero differs from unknown', () => {
     const session = make([...other(4), 'target', 'unit3', 'spell2', 'zero', 'null', ...other(30)]);
     expect(session.matchStatus({ ...filters, name: ' SCOUT ' }, catalog)?.inDeck).toBe(1);
@@ -88,6 +114,21 @@ describe('Conditional draw probabilities', () => {
     }
     expect(session.probabilityFor(filters, 2, catalog)?.percent).toBeCloseTo(100 * hits / total, 10);
     expect(session.probabilityFor(filters, 4, catalog)?.percent).toBe(100);
+  });
+
+  it('keeps draw odds and known bottom order unchanged when hand cards are removed or restored', () => {
+    const session = make(['target', 'target', 'other', 'other', 'target', ...other(34)]);
+    session.toggle(0); session.confirm();
+    const odds = session.probabilityFor(filters, 34, catalog);
+    const pile = session.remainingDeck;
+    const id = session.hand.find(c => c.cardId === 'target')!.copyId;
+    session.removeFromHand(id);
+    expect(session.matchStatus(filters, catalog)).toEqual({ inHand: 1, inDeck: 1, removed: 1, totalMatches: 3, cardsLeft: 35 });
+    expect(session.probabilityFor(filters, 34, catalog)).toEqual(odds);
+    expect(session.probabilityFor(filters, 35, catalog)?.percent).toBe(100);
+    session.returnToHand(id);
+    expect(session.matchStatus(filters, catalog)?.removed).toBe(0);
+    expect(session.remainingDeck).toEqual(pile);
   });
 
   it('does not peek at the unknown next card', () => {

@@ -66,6 +66,11 @@ class DeckController(
         .contentType(MediaType("text", "plain", Charsets.UTF_8))
         .body(deckService.exportDeck(deckId))
 
+    @GetMapping("/decks/{deckId}/export-code")
+    fun exportDeckCode(@PathVariable deckId: String): ResponseEntity<String> = ResponseEntity.ok()
+        .contentType(MediaType("text", "plain", Charsets.UTF_8))
+        .body(deckService.exportDeckCode(deckId))
+
     @ExceptionHandler(DuplicateDeckNameException::class)
     fun duplicateName(error: DuplicateDeckNameException) = ResponseEntity.status(409).body(mapOf("error" to error.message))
 

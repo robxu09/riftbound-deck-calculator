@@ -5,6 +5,49 @@ describe('MulliganPractice', () => {
   const entries: DeckCard[] = Array.from({ length: 39 }, (_, i) => ({ cardId: `card-${i}`, quantity: 1, section: 'MAIN_DECK' }));
   const unchangedShuffle = () => 0.999;
 
+  it('tracks turns manually without drawing cards or changing points and resets to turn one', () => {
+    const session = new MulliganPractice(entries, unchangedShuffle);
+    const pile = session.remainingDeck;
+    const hand = [...session.hand];
+    session.previousTurn(); expect(session.turn).toBe(1);
+    session.nextTurn(); session.nextTurn(); session.previousTurn();
+    expect(session.turn).toBe(2); expect(session.points).toBe(0);
+    expect(session.remainingDeck).toEqual(pile); expect(session.hand).toEqual(hand);
+    session.confirm(); session.draw(); session.addPoint();
+    expect(session.turn).toBe(2);
+    session.reset(); expect(session.turn).toBe(1); expect(session.points).toBe(0);
+  });
+
+  it('keeps manual points independent of cards and clears them for a new practice run', () => {
+    const session = new MulliganPractice(entries, unchangedShuffle);
+    const pile = session.remainingDeck;
+    const hand = [...session.hand];
+    session.subtractPoint(); expect(session.points).toBe(0);
+    for (let i = 0; i < 12; i++) session.addPoint();
+    session.subtractPoint(); expect(session.points).toBe(11);
+    expect(session.remainingDeck).toEqual(pile); expect(session.hand).toEqual(hand);
+    session.confirm(); session.draw(); session.removeFromHand(session.hand[0].copyId);
+    expect(session.points).toBe(11);
+    session.reset(); expect(session.points).toBe(0); expect(session.hand).toEqual(hand);
+  });
+
+  it('removes and restores individual hand copies without affecting the draw pile', () => {
+    const session = new MulliganPractice([{ cardId: 'copies', quantity: 39 }], unchangedShuffle);
+    session.removeFromHand(0); expect(session.hand.length).toBe(4);
+    session.confirm(); const pile = session.remainingDeck;
+    session.removeFromHand(0); session.removeFromHand(0); session.removeFromHand(999);
+    expect(session.hand.map(c => c.copyId)).toEqual([1, 2, 3]);
+    expect(session.removed.map(c => c.copyId)).toEqual([0]);
+    expect(session.remainingDeck).toEqual(pile);
+    session.draw(); expect(session.draws[0].copyId).toBe(4);
+    session.returnToHand(0); session.returnToHand(0); session.returnToHand(999);
+    expect(session.removed).toEqual([]); expect(session.hand.length).toBe(5);
+    expect(new Set(session.hand.map(c => c.copyId)).size).toBe(5);
+    for (const copy of [...session.hand]) session.removeFromHand(copy.copyId);
+    expect(session.hand).toEqual([]); expect(session.removed.length).toBe(5);
+    session.reset(); expect(session.removed).toEqual([]); expect(session.hand.length).toBe(4); expect(session.remaining).toBe(35);
+  });
+
   it('deals four individual copies using only Main Deck cards', () => {
     const session = new MulliganPractice([
       { cardId: 'copies', quantity: 39 },

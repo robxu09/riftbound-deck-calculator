@@ -23,6 +23,7 @@ export class HomeComponent implements OnInit {
     this.vm.deckAction = null;
     this.vm.actionError = '';
     this.vm.actionStatus = '';
+    this.vm.exportedCode = null;
   }
   constructor(public vm: DeckWorkspace, private router: Router) {}
 

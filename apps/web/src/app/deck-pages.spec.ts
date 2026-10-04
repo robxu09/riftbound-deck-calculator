@@ -17,7 +17,8 @@ describe('Deck page workflows', () => {
   let vm: DeckWorkspace;
 
   beforeEach(async () => {
-    api = jasmine.createSpyObj('api', ['getCards', 'getFormats', 'getDecks', 'getDeck', 'getDeckVersions', 'createDeck', 'addDeckVersion', 'analyzeDeck', 'previewImport', 'deleteDeck']);
+    api = jasmine.createSpyObj('api', ['getSideboardPlans', 'getCards', 'getFormats', 'getDecks', 'getDeck', 'getDeckVersions', 'createDeck', 'addDeckVersion', 'analyzeDeck', 'previewImport', 'deleteDeck']);
+    api.getSideboardPlans.and.returnValue(of([]));
     api.getCards.and.returnValue(of([
       { id: 'legend', name: 'Example Legend', type: 'Legend', cost: null, text: '', setCode: 'OGN', domains: ['Chaos', 'Order'] },
       { id: 'unit', name: 'Example Unit', type: 'Unit', cost: 1, text: '', setCode: 'UNL', domains: ['Mind'] }
@@ -158,6 +159,40 @@ describe('Deck page workflows', () => {
     home.acceptImport();
     expect(TestBed.inject(Router).url).toBe('/');
     expect(api.createDeck).not.toHaveBeenCalled();
+  });
+
+  it('previews deck codes in the existing import field with expandable card details', async () => {
+    const home = await harness.navigateByUrl('/', HomeComponent);
+    home.showImport = true;
+    harness.detectChanges();
+    await harness.fixture.whenStable();
+    const textarea = harness.routeNativeElement!.querySelector<HTMLTextAreaElement>('#deckText')!;
+    textarea.value = 'CMAAAAAAAAAAAAAA';
+    textarea.dispatchEvent(new Event('input'));
+    harness.detectChanges();
+    api.previewImport.and.returnValue(of({ cards, cardNames: { unit: 'Example Unit' }, errors: [], warnings: [{ line: 0, message: 'Code notice' }] }));
+    const previewButton = Array.from(harness.routeNativeElement!.querySelectorAll('button')).find(b => b.textContent?.trim() === 'Preview import')!;
+    previewButton.click();
+    harness.detectChanges();
+    expect(api.previewImport).toHaveBeenCalledWith('CMAAAAAAAAAAAAAA');
+    const details = harness.routeNativeElement!.querySelector<HTMLDetailsElement>('.import-cards')!;
+    expect(details.open).toBeFalse();
+    expect(details.textContent).toContain('2 Example Unit');
+    expect(harness.routeNativeElement!.textContent).toContain('Code notice');
+    expect(harness.routeNativeElement!.textContent).not.toContain('Line 0');
+    expect(api.createDeck).not.toHaveBeenCalled();
+  });
+
+  it('clears an exported code when the selected deck changes', async () => {
+    api.getDecks.and.returnValue(of([deck, { ...deck, id: 'next' }]));
+    const home = await harness.navigateByUrl('/', HomeComponent);
+    vm.exportedCode = { deckId: deck.id, text: 'CMAAAA' };
+    harness.detectChanges();
+    expect(harness.routeNativeElement!.querySelector('#exportedDeckCode')).not.toBeNull();
+    home.selectedDeckId = 'next';
+    harness.detectChanges();
+    expect(vm.exportedCode).toBeNull();
+    expect(harness.routeNativeElement!.querySelector('#exportedDeckCode')).toBeNull();
   });
 
   it('does not resurrect an imported draft when creating another deck after discarding it', async () => {

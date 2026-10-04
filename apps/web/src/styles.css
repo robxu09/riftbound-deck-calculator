@@ -170,6 +170,10 @@ a.secondary { background: #1d4ed8; }
 input, select, textarea { max-width: 100%; min-width: 0; }
 .panel, .layout > * { min-width: 0; }
 .home-decks, .home-new { max-width: 680px; }
+.import-cards summary { cursor: pointer; padding: 12px 0; }
+.import-cards li { overflow-wrap: anywhere; }
+.import-cards small { color: #94a3b8; }
+#exportedDeckCode { overflow-wrap: anywhere; font-family: monospace; }
 .home-primary, .home-create { margin-bottom: 20px; }
 .home-primary > *, .home-create > * { flex: 1; text-align: center; }
 .home-create { margin-bottom: 0; }
@@ -203,10 +207,8 @@ button.danger { background: #9f1239; }
 }
 .practice-hand { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; margin: 16px 0; }
 .practice-hand .card-item { padding: 16px; }
-.practice-hand .card-item:disabled { opacity: 1; cursor: default; }
-.practice-hand .card-item[aria-pressed="true"] { background: #312e81; }
+.practice-hand .card-item.mulligan-selected { background: #312e81; }
 .mulligan-panel .button-row { margin-bottom: 16px; }
-.draw-history summary { cursor: pointer; padding: 12px 0; }
 @media (max-width: 760px) { .practice-hand { grid-template-columns: minmax(0, 1fr); } }
 .deck-curves { border-block: 1px solid #334155; margin-bottom: 20px; padding: 12px 0; }
 .deck-curves summary { cursor: pointer; font-weight: bold; padding: 8px 0; }
@@ -220,3 +222,36 @@ button.danger { background: #9f1239; }
 .curve-counts { margin: 4px 0 0 36px; display: flex; flex-wrap: wrap; gap: 8px; color: #cbd5e1; font-size: 12px; }
 
 .selected-card-stats { display: block; color: #cbd5e1; font-size: 12px; margin-top: 4px; }
+
+.opening-odds summary, .probability-panel summary, .draw-history summary { cursor: pointer; font-weight: bold; padding: 8px 0; }
+
+.sideboard-panel summary { cursor: pointer; font-weight: bold; padding: 8px 0; }
+.sideboard-selectors { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.sideboard-list { padding-left: 20px; }
+.sideboard-list li { display: flex; align-items: center; gap: 10px; padding: 8px 0; }
+.sideboard-list li span { flex: 1; min-width: 0; overflow-wrap: anywhere; }
+.sideboard-list button { flex-shrink: 0; margin-top: 0; }
+.sideboard-actions, .sideboard-plan-actions { margin-top: 16px; }
+.lineup-indicator { color: #c4b5fd; font-weight: bold; }
+@media (max-width: 600px) {
+  .sideboard-selectors { grid-template-columns: minmax(0, 1fr); }
+  .sideboard-actions > button { width: 100%; }
+}
+
+.practice-runes { padding: 0; list-style: none; }
+.practice-runes li { display: flex; align-items: center; gap: 12px; margin-top: 10px; }
+.practice-runes li span { flex: 1; min-width: 0; overflow-wrap: anywhere; }
+.practice-runes button { flex-shrink: 0; margin: 0; }
+.removed-cards summary { cursor: pointer; padding: 12px 0; }
+.practice-hand article { border-radius: 10px; }
+.practice-hand article > button { margin-top: auto; min-height: 44px; }
+
+app-mulligan-practice { display: block; }
+.practice-controls { display: flex; flex-wrap: wrap; align-items: center; gap: 16px; margin-bottom: 16px; }
+.practice-counters { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
+.practice-actions button { min-height: 44px; }
+.rune-practice summary { cursor: pointer; font-weight: bold; padding: 8px 0; }
+.practice-counter { display: grid; grid-template-columns: 44px minmax(2ch, auto) 44px; gap: 4px; align-items: center; }
+.practice-counter > span { grid-column: 1 / -1; text-align: center; font-size: 14px; }
+.practice-counter button { min-width: 44px; min-height: 44px; padding: 0; margin: 0; font-size: 22px; }
+.practice-counter output { min-width: 2ch; text-align: center; font-size: 22px; font-weight: bold; font-variant-numeric: tabular-nums; }

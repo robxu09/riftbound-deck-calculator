@@ -1,7 +1,8 @@
 import { Card, DeckCard } from './riftbound-api.service';
+import { matchesKeywords } from './card-keywords';
 
-export interface DrawFilters { name: string; type: string; cost: number | null; }
-type ProbabilityCard = Pick<Card, 'name' | 'type' | 'cost'>;
+export interface DrawFilters { name: string; keyword?: string; type: string; cost: number | null; }
+type ProbabilityCard = Pick<Card, 'name' | 'type' | 'cost'> & Partial<Pick<Card, 'text'>>;
 
 export interface PracticeCard {
   copyId: number;
@@ -16,7 +17,18 @@ export class MulliganPractice {
   hand: PracticeCard[] = [];
   selected: number[] = [];
   draws: PracticeCard[] = [];
+  removed: PracticeCard[] = [];
   choosing = true;
+  private pointCount = 0;
+  private turnCount = 1;
+
+  get points(): number { return this.pointCount; }
+  addPoint(): void { this.pointCount++; }
+  subtractPoint(): void { this.pointCount = Math.max(0, this.pointCount - 1); }
+
+  get turn(): number { return this.turnCount; }
+  nextTurn(): void { this.turnCount++; }
+  previousTurn(): void { this.turnCount = Math.max(1, this.turnCount - 1); }
 
   constructor(entries: DeckCard[], private readonly random: () => number = Math.random) {
     const main = entries.filter(entry => (entry.section ?? 'MAIN_DECK') === 'MAIN_DECK');
@@ -39,11 +51,12 @@ export class MulliganPractice {
     const type = filters.type.trim().toLowerCase();
     return (!type || info.type.toLowerCase() === type) &&
       (filters.cost === null || info.cost === filters.cost) &&
+      matchesKeywords(info.text, filters.keyword) &&
       filters.name.trim().toLowerCase().split(/\s+/).filter(Boolean).every(term => info.name.toLowerCase().includes(term));
   }
 
   private hasFilters(filters: DrawFilters): boolean {
-    return !!(filters.name.trim() || filters.type.trim() || filters.cost !== null);
+    return !!(filters.name.trim() || filters.keyword?.trim() || filters.type.trim() || filters.cost !== null);
   }
 
   matchStatus(filters: DrawFilters, catalog: ReadonlyMap<string, ProbabilityCard>) {
@@ -51,7 +64,8 @@ export class MulliganPractice {
     const count = (cards: PracticeCard[]) => cards.filter(card => this.matches(card, filters, catalog)).length;
     const inHand = count(this.hand);
     const inDeck = count(this.pile);
-    return { inHand, inDeck, cardsLeft: this.remaining, totalMatches: inHand + inDeck };
+    const removed = count(this.removed);
+    return { inHand, inDeck, removed, cardsLeft: this.remaining, totalMatches: inHand + inDeck + removed };
   }
 
   probabilityFor(filters: DrawFilters, drawCount: number, catalog: ReadonlyMap<string, ProbabilityCard>): { drawCount: number; percent: number } | null {
@@ -85,6 +99,8 @@ export class MulliganPractice {
   }
 
   reset(): void {
+    this.pointCount = 0;
+    this.turnCount = 1;
     this.bottomIds.clear();
     this.pile = [...this.original];
     for (let i = this.pile.length - 1; i > 0; i--) {
@@ -94,6 +110,7 @@ export class MulliganPractice {
     this.hand = this.pile.splice(0, 4);
     this.selected = [];
     this.draws = [];
+    this.removed = [];
     this.choosing = true;
   }
 
@@ -101,6 +118,22 @@ export class MulliganPractice {
     if (!this.choosing || !this.hand.some(card => card.copyId === copyId)) return;
     if (this.selected.includes(copyId)) this.selected = this.selected.filter(id => id !== copyId);
     else if (this.selected.length < 2) this.selected = [...this.selected, copyId];
+  }
+
+  removeFromHand(copyId: number): void {
+    if (this.choosing) return;
+    const card = this.hand.find(copy => copy.copyId === copyId);
+    if (!card) return;
+    this.hand = this.hand.filter(copy => copy.copyId !== copyId);
+    this.removed = [...this.removed, card];
+  }
+
+  returnToHand(copyId: number): void {
+    if (this.choosing) return;
+    const card = this.removed.find(copy => copy.copyId === copyId);
+    if (!card) return;
+    this.removed = this.removed.filter(copy => copy.copyId !== copyId);
+    this.hand = [...this.hand, card];
   }
 
   draw(): void {

@@ -11,6 +11,8 @@ import com.riftbound.api.domain.DeckCard
 import com.riftbound.api.domain.DeckSection
 import com.riftbound.api.domain.DeckTextImporter
 import com.riftbound.api.domain.DeckTextExporter
+import com.riftbound.api.domain.DeckCodeImporter
+import com.riftbound.api.domain.DeckCodeExporter
 import com.riftbound.api.domain.DeckNotFoundException
 import com.riftbound.api.domain.DeckVersion
 import com.riftbound.api.domain.DuplicateDeckNameException
@@ -37,12 +39,23 @@ class DeckService(
     private val cards = CardCatalog.load()
     private val textImporter = DeckTextImporter(cards)
     private val textExporter = DeckTextExporter(cards)
+    private val codeImporter = DeckCodeImporter(cards)
+    private val codeExporter = DeckCodeExporter(cards)
     private val objectMapper = jacksonObjectMapper()
     private val formats = mutableListOf(
         Format("format-constructed", "Constructed", 60, 30, 3, "1.0")
     )
 
-    fun previewImport(text: String) = textImporter.parse(text)
+    fun previewImport(text: String): com.riftbound.api.domain.DeckImportResult {
+        if (text.length > 100_000) return textImporter.parse(text)
+        val input = text.removePrefix("\uFEFF").trim()
+        // Section headings and quantity/name rows identify text lists. All other
+        // nonempty input goes to the codec so malformed codes get useful errors.
+        val isList = ':' in input || Regex("(?m)^\\s*\\d+\\s+\\S").containsMatchIn(input)
+        val result = if (input.isEmpty() || isList) textImporter.parse(text) else codeImporter.parse(input)
+        val matchedIds = result.cards.map { it.cardId }.toSet()
+        return result.copy(cardNames = cards.filter { it.id in matchedIds }.associate { it.id to it.name })
+    }
 
     fun getCards(): List<Card> = cards.toList()
 
@@ -84,6 +97,12 @@ class DeckService(
     fun exportDeck(deckId: String): String {
         getDeck(deckId) ?: throw DeckNotFoundException(deckId)
         return textExporter.export(getDeckVersions(deckId).lastOrNull()?.cards ?: emptyList())
+    }
+
+    @Transactional(readOnly = true)
+    fun exportDeckCode(deckId: String): String {
+        getDeck(deckId) ?: throw DeckNotFoundException(deckId)
+        return codeExporter.export(getDeckVersions(deckId).lastOrNull()?.cards ?: emptyList())
     }
 
     @Transactional(readOnly = true)

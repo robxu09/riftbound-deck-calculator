@@ -1,7 +1,8 @@
 package com.riftbound.api.domain
 
 /** Parses deck lists without applying game legality rules or mutating saved decks. */
-class DeckTextImporter(private val catalog: List<Card>) {
+class DeckTextImporter(catalog: List<Card>) {
+    private val matcher = ImportCardMatcher(catalog)
     private val headings = mapOf(
         "legend" to DeckSection.LEGEND,
         "champion" to DeckSection.CHAMPION,
@@ -11,7 +12,7 @@ class DeckTextImporter(private val catalog: List<Card>) {
         "sideboard" to DeckSection.SIDEBOARD,
         "sidedeck" to DeckSection.SIDEBOARD
     )
-    private val entry = Regex("""^(\d+)\s+(.+?)\s+\[([^\[\]]+)]$""")
+    private val entry = Regex("""^(\d+)\s+([^\[\]]+?)(?:\s+\[([^\[\]]+)])?$""")
 
     fun parse(text: String): DeckImportResult {
         val errors = mutableListOf<DeckImportIssue>()
@@ -39,7 +40,7 @@ class DeckTextImporter(private val catalog: List<Card>) {
             }
             val match = entry.matchEntire(line)
             if (match == null) {
-                errors.add(DeckImportIssue(lineNumber, "Expected: quantity Card Name [SET-123]."))
+                errors.add(DeckImportIssue(lineNumber, "Expected: quantity Card Name, optionally followed by [SET-123]."))
                 return@forEachIndexed
             }
             val quantity = match.groupValues[1].toIntOrNull()
@@ -48,21 +49,17 @@ class DeckTextImporter(private val catalog: List<Card>) {
                 return@forEachIndexed
             }
             val name = match.groupValues[2].trim()
-            val code = match.groupValues[3].trim().lowercase().replace('/', '-')
-            val exact = catalog.filter { it.id.lowercase() == code }
-            val candidates = exact.ifEmpty {
-                catalog.filter {
-                    val id = it.id.lowercase()
-                    id.startsWith("$code-") && id.removePrefix("$code-").matches(Regex("\\d+"))
-                }
-            }
-            if (candidates.size != 1) {
-                val reason = if (candidates.isEmpty()) "Unknown card code" else "Ambiguous card code; use the full printing ID"
-                errors.add(DeckImportIssue(lineNumber, "$reason: ${match.groupValues[3]}."))
+            val code = match.groupValues[3].trim()
+            val resolved = try {
+                if (code.isNotEmpty()) ImportCardMatcher.Match(matcher.byCode(code))
+                else matcher.byName(name, currentSection)
+            } catch (error: IllegalArgumentException) {
+                errors.add(DeckImportIssue(lineNumber, error.message ?: "Unable to match card."))
                 return@forEachIndexed
             }
-            val card = candidates.single()
-            if (!card.name.equals(name, ignoreCase = true)) {
+            val card = resolved.card
+            resolved.notice?.let { warnings.add(DeckImportIssue(lineNumber, it)) }
+            if (code.isNotEmpty() && !card.name.equals(name, ignoreCase = true)) {
                 warnings.add(DeckImportIssue(lineNumber, "Code ${match.groupValues[3]} matched '${card.name}' (listed as '$name')."))
             }
             val key = currentSection to card.id

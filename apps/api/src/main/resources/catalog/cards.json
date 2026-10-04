@@ -1,11 +1,11 @@
 {
   "schemaVersion": 1,
-  "source": "gallery-dataset",
-  "sourceUrl": "https://raw.githubusercontent.com/slimtreble/Riftbound-card-data/main/cards.json",
-  "fetchedAt": "2026-09-23T02:14:19.120699+00:00",
+  "source": "riot-gallery",
+  "sourceUrl": "https://playriftbound.com/en-us/card-gallery/",
+  "fetchedAt": "2026-10-03T16:24:53.788711+00:00",
   "textStatus": "printed",
-  "sourceRecordCount": 1180,
-  "excludedVariants": 138,
+  "sourceRecordCount": 1318,
+  "excludedVariants": 156,
   "cards": [
     {
       "id": "unl-131-219",
@@ -156,6 +156,50 @@
       "createdAt": "2026-09-23T02:14:19.120699+00:00"
     },
     {
+      "id": "rad-153-167",
+      "name": "Agony's Embrace",
+      "type": "Legend",
+      "supertype": null,
+      "cost": null,
+      "power": null,
+      "might": null,
+      "domains": [
+        "Body",
+        "Chaos"
+      ],
+      "rarity": "Rare",
+      "text": "Once each turn, when you play a card from face down, draw 1. Then, if it's not your turn, discard 1.",
+      "setCode": "RAD",
+      "sourceId": "rad-153-167",
+      "sourceUpdatedAt": null,
+      "source": "riot-gallery",
+      "contentHash": "0bcc53209ee0369eba00fb1dab6fadc7340d62c29039b742ddf6106260e63ac6",
+      "version": 1,
+      "createdAt": "2026-10-03T16:24:53.788711+00:00"
+    },
+    {
+      "id": "rad-175-167",
+      "name": "Agony's Embrace",
+      "type": "Legend",
+      "supertype": null,
+      "cost": null,
+      "power": null,
+      "might": null,
+      "domains": [
+        "Body",
+        "Chaos"
+      ],
+      "rarity": "Showcase",
+      "text": "Once each turn, when you play a card from face down, draw 1. Then, if it's not your turn, discard 1.",
+      "setCode": "RAD",
+      "sourceId": "rad-175-167",
+      "sourceUpdatedAt": null,
+      "source": "riot-gallery",
+      "contentHash": "cfb12b995ff434aa3cc19997de2c1a24371a04c3889545b8336c30043789015c",
+      "version": 1,
+      "createdAt": "2026-10-03T16:24:53.788711+00:00"
+    },
+    {
       "id": "ogn-066-298",
       "name": "Ahri, Alluring",
       "type": "Unit",
@@ -175,6 +219,27 @@
       "contentHash": "1e50de089253746eedba5ddcaee36af197029b686049e3f3f3fe102e07394a9f",
       "version": 1,
       "createdAt": "2026-09-23T02:14:19.120699+00:00"
+    },
+    {
+      "id": "rad-038-167",
+      "name": "Ahri, Confident",
+      "type": "Unit",
+      "supertype": "Champion",
+      "cost": 4,
+      "power": 1,
+      "might": 4,
+      "domains": [
+        "Calm"
+      ],
+      "rarity": "Rare",
+      "text": "[Disarm] (When I attack, give an enemy unit here -1 {might} this turn.)\nWhen you reduce the Might of an enemy unit here by 1 or more, give me +1 {might} this turn.",
+      "setCode": "RAD",
+      "sourceId": "rad-038-167",
+      "sourceUpdatedAt": null,
+      "source": "riot-gallery",
+      "contentHash": "6374108d81bb65aa5adabeba9f31d9dcfb9619156e33a29371cdbd9d78fa3b14",
+      "version": 1,
+      "createdAt": "2026-10-03T16:24:53.788711+00:00"
     },
     {
       "id": "ogn-119-298",
@@ -238,6 +303,48 @@
       "contentHash": "891e57301631616a93fe698da673494aebd3fb0a09ab18a2ffdc8b465e70deb6",
       "version": 1,
       "createdAt": "2026-09-23T02:14:19.120699+00:00"
+    },
+    {
+      "id": "rad-015-167",
+      "name": "Akali, Brash",
+      "type": "Unit",
+      "supertype": "Champion",
+      "cost": 5,
+      "power": 1,
+      "might": 5,
+      "domains": [
+        "Fury"
+      ],
+      "rarity": "Rare",
+      "text": "The first time I move each turn, [Add] {energy:1}{power:any}.\nThe second time I move each turn, banish the top card of your Main Deck. Until your next Ending Phase, you may play that card. (You still pay its costs.)",
+      "setCode": "RAD",
+      "sourceId": "rad-015-167",
+      "sourceUpdatedAt": null,
+      "source": "riot-gallery",
+      "contentHash": "3b521c713bb7d6b9775a4d168f7087f8fc56e88f871e01e35ff44085c031bab2",
+      "version": 1,
+      "createdAt": "2026-10-03T16:24:53.788711+00:00"
+    },
+    {
+      "id": "rad-sp2-005",
+      "name": "Akali, Brash",
+      "type": "Unit",
+      "supertype": "Champion",
+      "cost": 5,
+      "power": 1,
+      "might": 5,
+      "domains": [
+        "Fury"
+      ],
+      "rarity": "Showcase",
+      "text": "The first time I move each turn, [Add] {energy:1}{power:any}.\nThe second time I move each turn, banish the top card of your Main Deck. Until your next Ending Phase, you may play that card.",
+      "setCode": "RAD",
+      "sourceId": "rad-sp2-005",
+      "sourceUpdatedAt": null,
+      "source": "riot-gallery",
+      "contentHash": "b61f1458e546a6b4cb587890aa89aa45aef2abfac61256d51ffc890bd3b983b5",
+      "version": 1,
+      "createdAt": "2026-10-03T16:24:53.788711+00:00"
     },
     {
       "id": "ven-021-166",
@@ -449,6 +556,27 @@
       "contentHash": "dabf0d2feb2816cf6eff28dd1728ca46f7a07039c5c9da95491649965b90b1fe",
       "version": 1,
       "createdAt": "2026-09-23T02:14:19.120699+00:00"
+    },
+    {
+      "id": "rad-001-167",
+      "name": "Amateur Demolitionist",
+      "type": "Unit",
+      "supertype": null,
+      "cost": 2,
+      "power": null,
+      "might": 1,
+      "domains": [
+        "Chaos"
+      ],
+      "rarity": "Common",
+      "text": "When you play me, play a Bomb gear token to a battlefield. (It has [Deploy]. When it dies, deal 2 to an enemy there and kill your other Bombs there.)",
+      "setCode": "RAD",
+      "sourceId": "rad-001-167",
+      "sourceUpdatedAt": null,
+      "source": "riot-gallery",
+      "contentHash": "a628d7c925018956abdfef27cb485c44cd07deb035140e924a89677cac14c378",
+      "version": 1,
+      "createdAt": "2026-10-03T16:24:53.788711+00:00"
     },
     {
       "id": "unl-207-219",
@@ -680,6 +808,27 @@
       "contentHash": "8aeea10a245aac1e2dc92559cabe1dd20a52d170725272601e0db65db66b35d8",
       "version": 1,
       "createdAt": "2026-09-23T02:14:19.120699+00:00"
+    },
+    {
+      "id": "rad-179-167",
+      "name": "Aphelios, Exalted",
+      "type": "Unit",
+      "supertype": "Champion",
+      "cost": 4,
+      "power": 1,
+      "might": 4,
+      "domains": [
+        "Calm"
+      ],
+      "rarity": "Showcase",
+      "text": "When you attach an Equipment to me, choose one that hasn't been chosen this turn —Ready 2 runes.Channel 1 rune exhausted.[Buff] a friendly unit.",
+      "setCode": "RAD",
+      "sourceId": "rad-179-167",
+      "sourceUpdatedAt": null,
+      "source": "riot-gallery",
+      "contentHash": "1971d40ebcfa2a853b7e32838bc8adabe1e474db4124fb82b4eb84e6a517172c",
+      "version": 1,
+      "createdAt": "2026-10-03T16:24:53.788711+00:00"
     },
     {
       "id": "sfd-049-221",
@@ -1083,6 +1232,27 @@
       "createdAt": "2026-09-23T02:14:19.120699+00:00"
     },
     {
+      "id": "rad-079-167",
+      "name": "Avalanche",
+      "type": "Spell",
+      "supertype": null,
+      "cost": 5,
+      "power": 2,
+      "might": null,
+      "domains": [
+        "Body"
+      ],
+      "rarity": "Uncommon",
+      "text": "Deal 3 to all units in bases.",
+      "setCode": "RAD",
+      "sourceId": "rad-079-167",
+      "sourceUpdatedAt": null,
+      "source": "riot-gallery",
+      "contentHash": "31122592e1a71551caccb7c2e2d23331f021a3e23f3d1c14c7ec6821668a8720",
+      "version": 1,
+      "createdAt": "2026-10-03T16:24:53.788711+00:00"
+    },
+    {
       "id": "sfd-050-221",
       "name": "Azir, Ascendant",
       "type": "Unit",
@@ -1293,6 +1463,27 @@
       "createdAt": "2026-09-23T02:14:19.120699+00:00"
     },
     {
+      "id": "rad-157-167",
+      "name": "Bandle Scouts' Academy",
+      "type": "Battlefield",
+      "supertype": null,
+      "cost": null,
+      "power": null,
+      "might": null,
+      "domains": [
+        "Colorless"
+      ],
+      "rarity": "Uncommon",
+      "text": "When you hide a card here, play a Gold gear token exhausted. (It has \"[Reaction][>] Kill this, {exhaust}: [Add] {power:any}.\")",
+      "setCode": "RAD",
+      "sourceId": "rad-157-167",
+      "sourceUpdatedAt": null,
+      "source": "riot-gallery",
+      "contentHash": "f44350e58c12756485b1f8dfd9c6ca0c45c0f37ef082bbde6e23126e5e62838f",
+      "version": 1,
+      "createdAt": "2026-10-03T16:24:53.788711+00:00"
+    },
+    {
       "id": "unl-151-219",
       "name": "Bandle Soldier",
       "type": "Unit",
@@ -1333,6 +1524,27 @@
       "contentHash": "6e246ff9681234a3a2a3d3f673b20d71876a42e2a5038765bc0f50c58321ab34",
       "version": 1,
       "createdAt": "2026-09-23T02:14:19.120699+00:00"
+    },
+    {
+      "id": "rad-002-167",
+      "name": "Banner of Conquest",
+      "type": "Gear",
+      "supertype": null,
+      "cost": 1,
+      "power": 1,
+      "might": null,
+      "domains": [
+        "Fury"
+      ],
+      "rarity": "Common",
+      "text": "[Deploy] (Play this only to a battlefield. When an opponent holds here, kill this.)\nFriendly units here have [Assault]. (+1 {might} while they're attackers.)",
+      "setCode": "RAD",
+      "sourceId": "rad-002-167",
+      "sourceUpdatedAt": null,
+      "source": "riot-gallery",
+      "contentHash": "657feda4fdbef0538df8fb239008e18e3896168608eb96c6b057d5fc2e189ccc",
+      "version": 1,
+      "createdAt": "2026-10-03T16:24:53.788711+00:00"
     },
     {
       "id": "sfd-079-221",
@@ -1570,6 +1782,27 @@
       "createdAt": "2026-09-23T02:14:19.120699+00:00"
     },
     {
+      "id": "rad-107-167",
+      "name": "Bedeviling Stranger",
+      "type": "Unit",
+      "supertype": null,
+      "cost": 2,
+      "power": null,
+      "might": 2,
+      "domains": [
+        "Chaos"
+      ],
+      "rarity": "Rare",
+      "text": "[Hidden] (Hide now for {power:any} to react with later for {energy:0}.)\nWhen you play me, choose a battlefield. If there are 4 or more units there, you may return an enemy unit there to its owner's hand.",
+      "setCode": "RAD",
+      "sourceId": "rad-107-167",
+      "sourceUpdatedAt": null,
+      "source": "riot-gallery",
+      "contentHash": "386aebe7b4ae0962d950d1a03e64e69b03588ec148b699c03b258cb706e295b4",
+      "version": 1,
+      "createdAt": "2026-10-03T16:24:53.788711+00:00"
+    },
+    {
       "id": "sfd-080-221",
       "name": "Bellows Breath",
       "type": "Spell",
@@ -1633,6 +1866,27 @@
       "createdAt": "2026-09-23T02:14:19.120699+00:00"
     },
     {
+      "id": "rad-003-167",
+      "name": "Bilgewater Tracker",
+      "type": "Unit",
+      "supertype": null,
+      "cost": 3,
+      "power": null,
+      "might": 3,
+      "domains": [
+        "Body"
+      ],
+      "rarity": "Common",
+      "text": "When you play me, deal 1 to each of up to 2 units.",
+      "setCode": "RAD",
+      "sourceId": "rad-003-167",
+      "sourceUpdatedAt": null,
+      "source": "riot-gallery",
+      "contentHash": "5d5e5affcbcf49a199b5c935d9df60c888f7d68d2dd94d991d7d9b5954a3c2d2",
+      "version": 1,
+      "createdAt": "2026-10-03T16:24:53.788711+00:00"
+    },
+    {
       "id": "unl-t02",
       "name": "Bird",
       "type": "Unit",
@@ -1673,6 +1927,27 @@
       "contentHash": "dd1d4d578cbb9c00762270e55837c21babb65b4753a51f4e274c3492e5644fe6",
       "version": 1,
       "createdAt": "2026-09-23T02:14:19.120699+00:00"
+    },
+    {
+      "id": "rad-158-167",
+      "name": "Black Market",
+      "type": "Battlefield",
+      "supertype": null,
+      "cost": null,
+      "power": null,
+      "might": null,
+      "domains": [
+        "Colorless"
+      ],
+      "rarity": "Uncommon",
+      "text": "{power:any}{power:any}: Draw 1. Each player may use this ability once on their turn (even if they don't control this battlefield).",
+      "setCode": "RAD",
+      "sourceId": "rad-158-167",
+      "sourceUpdatedAt": null,
+      "source": "riot-gallery",
+      "contentHash": "0e77166656c53ccccb0f08f2cf09cbd61a2c3b813073e061b0fcb99cd87ce226",
+      "version": 1,
+      "createdAt": "2026-10-03T16:24:53.788711+00:00"
     },
     {
       "id": "sfd-121-221",
@@ -1780,6 +2055,28 @@
       "contentHash": "f59ec37d8598ea30b0bb3cda113ccccbd9e57b05879c56a2e4bb3dfcca786145",
       "version": 1,
       "createdAt": "2026-09-23T02:14:19.120699+00:00"
+    },
+    {
+      "id": "rad-150-167",
+      "name": "Blade of the Exile",
+      "type": "Gear",
+      "supertype": "Signature",
+      "cost": 3,
+      "power": 1,
+      "might": 3,
+      "domains": [
+        "Calm",
+        "Chaos"
+      ],
+      "rarity": "Epic",
+      "text": "[Equip] — {power:any} or exhaust a friendly unit. (Pay the cost: Attach this to a unit you control.)",
+      "setCode": "RAD",
+      "sourceId": "rad-150-167",
+      "sourceUpdatedAt": null,
+      "source": "riot-gallery",
+      "contentHash": "1e99da85623093281e97b2c2f498dd8135abac5969efbeec4698df7a39512e4f",
+      "version": 1,
+      "createdAt": "2026-10-03T16:24:53.788711+00:00"
     },
     {
       "id": "sfd-178-221",
@@ -2143,6 +2440,27 @@
       "createdAt": "2026-09-23T02:14:19.120699+00:00"
     },
     {
+      "id": "rad-024-167",
+      "name": "Blossoming Dreamroot",
+      "type": "Gear",
+      "supertype": null,
+      "cost": 2,
+      "power": null,
+      "might": null,
+      "domains": [
+        "Chaos"
+      ],
+      "rarity": "Common",
+      "text": "[Deploy] (Play this only to a battlefield. When an opponent holds here, kill this.)\nWhen you win a combat here, draw 1.",
+      "setCode": "RAD",
+      "sourceId": "rad-024-167",
+      "sourceUpdatedAt": null,
+      "source": "riot-gallery",
+      "contentHash": "4fd7bb0caa484933f82b45cd235828d670df76d6716030e4140c85f2186fa0aa",
+      "version": 1,
+      "createdAt": "2026-10-03T16:24:53.788711+00:00"
+    },
+    {
       "id": "unl-087-219",
       "name": "Blue Sentinel",
       "type": "Unit",
@@ -2183,6 +2501,48 @@
       "contentHash": "1e8a21f0ccfa8055001b48e5527bfc7886e46add6c2c7383ff5c3f7f16b9baf1",
       "version": 1,
       "createdAt": "2026-09-23T02:14:19.120699+00:00"
+    },
+    {
+      "id": "rad-r04",
+      "name": "Body Rune",
+      "type": "Rune",
+      "supertype": "Basic",
+      "cost": null,
+      "power": null,
+      "might": null,
+      "domains": [
+        "Body"
+      ],
+      "rarity": "Common",
+      "text": "",
+      "setCode": "RAD",
+      "sourceId": "rad-r04",
+      "sourceUpdatedAt": null,
+      "source": "riot-gallery",
+      "contentHash": "cdf5fae4ac0622789cd0db01aeb0b416eca54fe3af4f752edbda78acc2e879b1",
+      "version": 1,
+      "createdAt": "2026-10-03T16:24:53.788711+00:00"
+    },
+    {
+      "id": "rad-r04a",
+      "name": "Body Rune",
+      "type": "Rune",
+      "supertype": "Basic",
+      "cost": null,
+      "power": null,
+      "might": null,
+      "domains": [
+        "Body"
+      ],
+      "rarity": "Showcase",
+      "text": "[NO TEXT]",
+      "setCode": "RAD",
+      "sourceId": "rad-r04a",
+      "sourceUpdatedAt": null,
+      "source": "riot-gallery",
+      "contentHash": "53414304a0082e895da3035925faa8b5736a011d72bbcd5a3ca5746892b91021",
+      "version": 1,
+      "createdAt": "2026-10-03T16:24:53.788711+00:00"
     },
     {
       "id": "ven-r04",
@@ -2353,6 +2713,71 @@
       "contentHash": "39d3f155043b4ca58057e484068ac50e756db33afe7588461f4b5849ee8f10e8",
       "version": 1,
       "createdAt": "2026-09-23T02:14:19.120699+00:00"
+    },
+    {
+      "id": "rad-139-167",
+      "name": "Boy Who Shattered Time",
+      "type": "Legend",
+      "supertype": null,
+      "cost": null,
+      "power": null,
+      "might": null,
+      "domains": [
+        "Fury",
+        "Mind"
+      ],
+      "rarity": "Rare",
+      "text": "[Empower] —  {energy:1}, {exhaust} (Use only if not Empowered.)\nDisempower me, {exhaust}: Reduce the cost of the next unit you play this turn by {energy:2}{power:any} and give it \"Kill me at end of turn.\"",
+      "setCode": "RAD",
+      "sourceId": "rad-139-167",
+      "sourceUpdatedAt": null,
+      "source": "riot-gallery",
+      "contentHash": "9c4701c9f95add94a704009c1e1117bc7ae04682a1423e71c3c7e72d8afa38dc",
+      "version": 1,
+      "createdAt": "2026-10-03T16:24:53.788711+00:00"
+    },
+    {
+      "id": "rad-168-167",
+      "name": "Boy Who Shattered Time",
+      "type": "Legend",
+      "supertype": null,
+      "cost": null,
+      "power": null,
+      "might": null,
+      "domains": [
+        "Fury",
+        "Mind"
+      ],
+      "rarity": "Showcase",
+      "text": "[Empower] —  {energy:1}, {exhaust}\nDisempower me, {exhaust}: Reduce the cost of the next unit you play this turn by {energy:2}{power:any} and give it \"Kill me at end of turn.\"",
+      "setCode": "RAD",
+      "sourceId": "rad-168-167",
+      "sourceUpdatedAt": null,
+      "source": "riot-gallery",
+      "contentHash": "1f5bd3a0bcb9869a4bc81bcbf7f43f975243a3614aadb9a2178b6836dccc73b0",
+      "version": 1,
+      "createdAt": "2026-10-03T16:24:53.788711+00:00"
+    },
+    {
+      "id": "rad-004-167",
+      "name": "Brawl",
+      "type": "Spell",
+      "supertype": null,
+      "cost": 3,
+      "power": 1,
+      "might": null,
+      "domains": [
+        "Chaos"
+      ],
+      "rarity": "Common",
+      "text": "[Action] (Play on your turn or in showdowns.)\nGive a unit [Assault] this turn equal to its Might. (+1 {might} for each instance of Assault while it's an attacker.)",
+      "setCode": "RAD",
+      "sourceId": "rad-004-167",
+      "sourceUpdatedAt": null,
+      "source": "riot-gallery",
+      "contentHash": "de46c27de7ea9eac129f6643b87bde1c74748624d00849f5fb1702ac2ee24393",
+      "version": 1,
+      "createdAt": "2026-10-03T16:24:53.788711+00:00"
     },
     {
       "id": "ogn-002-298",
@@ -2757,6 +3182,48 @@
       "createdAt": "2026-09-23T02:14:19.120699+00:00"
     },
     {
+      "id": "rad-r02",
+      "name": "Calm Rune",
+      "type": "Rune",
+      "supertype": "Basic",
+      "cost": null,
+      "power": null,
+      "might": null,
+      "domains": [
+        "Calm"
+      ],
+      "rarity": "Common",
+      "text": "",
+      "setCode": "RAD",
+      "sourceId": "rad-r02",
+      "sourceUpdatedAt": null,
+      "source": "riot-gallery",
+      "contentHash": "1ad8fa74e38877c5267794fb73bcb96b732b6940dfd8a3999288265c42c67785",
+      "version": 1,
+      "createdAt": "2026-10-03T16:24:53.788711+00:00"
+    },
+    {
+      "id": "rad-r02a",
+      "name": "Calm Rune",
+      "type": "Rune",
+      "supertype": "Basic",
+      "cost": null,
+      "power": null,
+      "might": null,
+      "domains": [
+        "Calm"
+      ],
+      "rarity": "Showcase",
+      "text": "[NO TEXT]",
+      "setCode": "RAD",
+      "sourceId": "rad-r02a",
+      "sourceUpdatedAt": null,
+      "source": "riot-gallery",
+      "contentHash": "3a09cc15527306f87031b33c15b460faff6ab18bffb301f1442d920921023709",
+      "version": 1,
+      "createdAt": "2026-10-03T16:24:53.788711+00:00"
+    },
+    {
       "id": "ven-r02",
       "name": "Calm Rune",
       "type": "Rune",
@@ -2883,6 +3350,27 @@
       "createdAt": "2026-09-23T02:14:19.120699+00:00"
     },
     {
+      "id": "rad-084-167",
+      "name": "Cataclysm",
+      "type": "Spell",
+      "supertype": null,
+      "cost": 4,
+      "power": 1,
+      "might": null,
+      "domains": [
+        "Body"
+      ],
+      "rarity": "Rare",
+      "text": "Opponents can't play spells this turn.\nMove a friendly unit to an occupied enemy battlefield.",
+      "setCode": "RAD",
+      "sourceId": "rad-084-167",
+      "sourceUpdatedAt": null,
+      "source": "riot-gallery",
+      "contentHash": "3c3f1e8d19e106aa4ac22ec38e4ebf04d03c8c8d9e00151123feb6d3287541bf",
+      "version": 1,
+      "createdAt": "2026-10-03T16:24:53.788711+00:00"
+    },
+    {
       "id": "ven-090-166",
       "name": "Cataclysmic Duel",
       "type": "Spell",
@@ -3007,6 +3495,48 @@
       "contentHash": "05a68c17b63adc2359a44d8fd3a9d7a70b6b41f4748a1e117acf20b5098c939b",
       "version": 1,
       "createdAt": "2026-09-23T02:14:19.120699+00:00"
+    },
+    {
+      "id": "rad-r05",
+      "name": "Chaos Rune",
+      "type": "Rune",
+      "supertype": "Basic",
+      "cost": null,
+      "power": null,
+      "might": null,
+      "domains": [
+        "Chaos"
+      ],
+      "rarity": "Common",
+      "text": "",
+      "setCode": "RAD",
+      "sourceId": "rad-r05",
+      "sourceUpdatedAt": null,
+      "source": "riot-gallery",
+      "contentHash": "61b01a29661e78e5bbd8c5e145eda5b5c7f0272a2e76a56f9f8b69fdf1451dee",
+      "version": 1,
+      "createdAt": "2026-10-03T16:24:53.788711+00:00"
+    },
+    {
+      "id": "rad-r05a",
+      "name": "Chaos Rune",
+      "type": "Rune",
+      "supertype": "Basic",
+      "cost": null,
+      "power": null,
+      "might": null,
+      "domains": [
+        "Chaos"
+      ],
+      "rarity": "Showcase",
+      "text": "[NO TEXT]",
+      "setCode": "RAD",
+      "sourceId": "rad-r05a",
+      "sourceUpdatedAt": null,
+      "source": "riot-gallery",
+      "contentHash": "06497634f9129491c29d598ffec441e4f0de23a2e9dc4d9e8bcb408e7835e9cb",
+      "version": 1,
+      "createdAt": "2026-10-03T16:24:53.788711+00:00"
     },
     {
       "id": "ven-r05",
@@ -3137,6 +3667,28 @@
       "createdAt": "2026-09-23T02:14:19.120699+00:00"
     },
     {
+      "id": "rad-140-167",
+      "name": "Chronobreak",
+      "type": "Spell",
+      "supertype": "Signature",
+      "cost": 2,
+      "power": null,
+      "might": null,
+      "domains": [
+        "Fury",
+        "Mind"
+      ],
+      "rarity": "Epic",
+      "text": "As an additional cost to play this, pay any amount of Power.\nBanish that many units you control, then for each, its owner plays that unit back to the same location or to their base, ignoring its cost. (You choose the order.)",
+      "setCode": "RAD",
+      "sourceId": "rad-140-167",
+      "sourceUpdatedAt": null,
+      "source": "riot-gallery",
+      "contentHash": "c2f4818e2aa9a57c43aa0e1a0b30299c1899a5590c51302fd9886b67581ceb02",
+      "version": 1,
+      "createdAt": "2026-10-03T16:24:53.788711+00:00"
+    },
+    {
       "id": "ogn-139-298",
       "name": "Cithria of Cloudfield",
       "type": "Unit",
@@ -3179,6 +3731,27 @@
       "createdAt": "2026-09-23T02:14:19.120699+00:00"
     },
     {
+      "id": "rad-055-167",
+      "name": "Clanging Sentry",
+      "type": "Unit",
+      "supertype": null,
+      "cost": 3,
+      "power": null,
+      "might": 2,
+      "domains": [
+        "Mind"
+      ],
+      "rarity": "Uncommon",
+      "text": "Your Mechs have [Disarm]. (When each of us attacks, give an enemy unit there -1 {might} this turn.)",
+      "setCode": "RAD",
+      "sourceId": "rad-055-167",
+      "sourceUpdatedAt": null,
+      "source": "riot-gallery",
+      "contentHash": "944ef0408ccd533c5e34fe89cc6ed945501fafab70d4c1e0d784baa2ec18a8f0",
+      "version": 1,
+      "createdAt": "2026-10-03T16:24:53.788711+00:00"
+    },
+    {
       "id": "unl-110-219",
       "name": "Clash of Giants",
       "type": "Spell",
@@ -3219,6 +3792,27 @@
       "contentHash": "7e3524e91e30aa6537157a04cac5031cb33d12d876a7331c2df228f4aa5e342f",
       "version": 1,
       "createdAt": "2026-09-23T02:14:19.120699+00:00"
+    },
+    {
+      "id": "rad-067-167",
+      "name": "Clocktower Guardian",
+      "type": "Unit",
+      "supertype": null,
+      "cost": 8,
+      "power": 2,
+      "might": 8,
+      "domains": [
+        "Fury"
+      ],
+      "rarity": "Epic",
+      "text": "When you play me or when I hold, [Predict 3].\n[Deathknell][>] Banish the top card of your Main Deck. You may play it, ignoring its Energy cost.",
+      "setCode": "RAD",
+      "sourceId": "rad-067-167",
+      "sourceUpdatedAt": null,
+      "source": "riot-gallery",
+      "contentHash": "47bfab0d1ce483f939732c452d619c0a1bfe05788dbda408e92b6bbab30806c8",
+      "version": 1,
+      "createdAt": "2026-10-03T16:24:53.788711+00:00"
     },
     {
       "id": "ogn-044-298",
@@ -3284,6 +3878,27 @@
       "createdAt": "2026-09-23T02:14:19.120699+00:00"
     },
     {
+      "id": "rad-016-167",
+      "name": "Coalesced Energy",
+      "type": "Spell",
+      "supertype": null,
+      "cost": 4,
+      "power": 2,
+      "might": 4,
+      "domains": [
+        "Mind"
+      ],
+      "rarity": "Rare",
+      "text": "At the end of your turn, recycle all your runes, then channel 4 runes exhausted.",
+      "setCode": "RAD",
+      "sourceId": "rad-016-167",
+      "sourceUpdatedAt": null,
+      "source": "riot-gallery",
+      "contentHash": "f0361fcd8295539f1b3c97faa4667997a8c5096cda2fa10a11cc6cbbebc856a4",
+      "version": 1,
+      "createdAt": "2026-10-03T16:24:53.788711+00:00"
+    },
+    {
       "id": "sfd-092-221",
       "name": "Combat Chef",
       "type": "Unit",
@@ -3324,6 +3939,27 @@
       "contentHash": "149aed7dce99272d88fe93d53343df052893f97426c83d714a994cd2321e5467",
       "version": 1,
       "createdAt": "2026-09-23T02:14:19.120699+00:00"
+    },
+    {
+      "id": "rad-033-167",
+      "name": "Command: Attack",
+      "type": "Gear",
+      "supertype": null,
+      "cost": 1,
+      "power": 1,
+      "might": null,
+      "domains": [
+        "Calm"
+      ],
+      "rarity": "Uncommon",
+      "text": "Choose one —Move a friendly gear with [Deploy] to a battlefield.Look at the top 5 cards of your Main Deck. You may reveal a gear from among them and draw it. Recycle the rest.",
+      "setCode": "RAD",
+      "sourceId": "rad-033-167",
+      "sourceUpdatedAt": null,
+      "source": "riot-gallery",
+      "contentHash": "7e52ea17e4ed7a135c363f6eeaa45c480b0a920ad3797a2f434c74838814b218",
+      "version": 1,
+      "createdAt": "2026-10-03T16:24:53.788711+00:00"
     },
     {
       "id": "ogn-231-298",
@@ -3368,6 +4004,27 @@
       "createdAt": "2026-09-23T02:14:19.120699+00:00"
     },
     {
+      "id": "rad-116-167",
+      "name": "Concert Poster",
+      "type": "Gear",
+      "supertype": null,
+      "cost": 1,
+      "power": null,
+      "might": null,
+      "domains": [
+        "Order"
+      ],
+      "rarity": "Common",
+      "text": "[Deploy] (Play this only to a battlefield. When an opponent holds here, kill this.)\nWhen you play this or when you conquer here, you may pay {energy:1} to play a 1 {might} Recruit unit token to your base.",
+      "setCode": "RAD",
+      "sourceId": "rad-116-167",
+      "sourceUpdatedAt": null,
+      "source": "riot-gallery",
+      "contentHash": "959a9bcade747256a7408ee68852c03ce21048b1b8f2088149d651de180f2323",
+      "version": 1,
+      "createdAt": "2026-10-03T16:24:53.788711+00:00"
+    },
+    {
       "id": "ogn-129-298",
       "name": "Confront",
       "type": "Spell",
@@ -3408,6 +4065,27 @@
       "contentHash": "47787982be8fa16cac3bcfb0b9e3ae5f41612b635181ebc37eac7400783e2294",
       "version": 1,
       "createdAt": "2026-09-23T02:14:19.120699+00:00"
+    },
+    {
+      "id": "rad-025-167",
+      "name": "Consult the Heavens",
+      "type": "Unit",
+      "supertype": null,
+      "cost": 1,
+      "power": null,
+      "might": null,
+      "domains": [
+        "Calm"
+      ],
+      "rarity": "Common",
+      "text": "[Reaction] (Play any time, even before spells and abilities resolve.)\nGive a unit [Shield 2] this turn. (+2 {might} while it's a defender.)\n[Predict]. (Look at the top card of your Main Deck. You may recycle it.)",
+      "setCode": "RAD",
+      "sourceId": "rad-025-167",
+      "sourceUpdatedAt": null,
+      "source": "riot-gallery",
+      "contentHash": "a890b845cf26c990d463dd3ba163310c6d5cf8e93ced709c655fd001507f7e6f",
+      "version": 1,
+      "createdAt": "2026-10-03T16:24:53.788711+00:00"
     },
     {
       "id": "ogn-083-298",
@@ -3534,6 +4212,27 @@
       "contentHash": "939f3a408e715fb1e0b5220c6cd265f47c2a2eef0ae6cce30d0bc9f79dbc377a",
       "version": 1,
       "createdAt": "2026-09-23T02:14:19.120699+00:00"
+    },
+    {
+      "id": "rad-160-167",
+      "name": "Cosmic Vista",
+      "type": "Battlefield",
+      "supertype": null,
+      "cost": null,
+      "power": null,
+      "might": null,
+      "domains": [
+        "Colorless"
+      ],
+      "rarity": "Uncommon",
+      "text": "When you hold here, if your Rune Deck is empty, you score 1 point.",
+      "setCode": "RAD",
+      "sourceId": "rad-160-167",
+      "sourceUpdatedAt": null,
+      "source": "riot-gallery",
+      "contentHash": "83227111ec45815ee01e71389e1c48a212a265bebe2eac4368c6320648def827",
+      "version": 1,
+      "createdAt": "2026-10-03T16:24:53.788711+00:00"
     },
     {
       "id": "sfd-194-221",
@@ -4582,6 +5281,28 @@
       "createdAt": "2026-09-23T02:14:19.120699+00:00"
     },
     {
+      "id": "rad-156-167",
+      "name": "Demacian Standard",
+      "type": "Gear",
+      "supertype": "Signature",
+      "cost": 2,
+      "power": 1,
+      "might": null,
+      "domains": [
+        "Body",
+        "Order"
+      ],
+      "rarity": "Epic",
+      "text": "[Deploy] (Play this only to a battlefield. When an opponent holds here, kill this.)\nWhen one or more friendly units attack here, give one of them +2 {might} this turn.\nWhen you hold here, you may return this to its owner's hand.",
+      "setCode": "RAD",
+      "sourceId": "rad-156-167",
+      "sourceUpdatedAt": null,
+      "source": "riot-gallery",
+      "contentHash": "9f10c0a3d7f95dbb04a243a6c86df628ce8a1d0fcee87eabd4a93bb3d6a048b2",
+      "version": 1,
+      "createdAt": "2026-10-03T16:24:53.788711+00:00"
+    },
+    {
       "id": "sfd-031-221",
       "name": "Desert's Call",
       "type": "Spell",
@@ -4813,6 +5534,27 @@
       "createdAt": "2026-09-23T02:14:19.120699+00:00"
     },
     {
+      "id": "rad-093-167",
+      "name": "Disposal Expert",
+      "type": "Unit",
+      "supertype": null,
+      "cost": 4,
+      "power": null,
+      "might": 3,
+      "domains": [
+        "Fury"
+      ],
+      "rarity": "Common",
+      "text": "I enter ready if you control no other units.\n[Disarm 2] (When I attack, give an enemy unit here -2 {might} this turn.)",
+      "setCode": "RAD",
+      "sourceId": "rad-093-167",
+      "sourceUpdatedAt": null,
+      "source": "riot-gallery",
+      "contentHash": "56493e36407328c0c4b2729402eed470851e1ab919ce7e3ab433a9f490e34891",
+      "version": 1,
+      "createdAt": "2026-10-03T16:24:53.788711+00:00"
+    },
+    {
       "id": "unl-103-219",
       "name": "Disposal Order",
       "type": "Spell",
@@ -4874,6 +5616,27 @@
       "contentHash": "af7f72b0de90b5858de3ff26cedfd2c5ec6beb20a5de94bcfd08756d7ddfe8a1",
       "version": 1,
       "createdAt": "2026-09-23T02:14:19.120699+00:00"
+    },
+    {
+      "id": "rad-136-167",
+      "name": "Dockside Lock-Up",
+      "type": "Unit",
+      "supertype": null,
+      "cost": 6,
+      "power": 2,
+      "might": null,
+      "domains": [
+        "Order"
+      ],
+      "rarity": "Epic",
+      "text": "[Deploy] (Play this only to a battlefield. When an opponent holds here, kill this.)\nWhen you play this, banish a unit here.\nWhen you hold here, kill this to play the banished card, ignoring its cost. (Tokens aren't cards.)",
+      "setCode": "RAD",
+      "sourceId": "rad-136-167",
+      "sourceUpdatedAt": null,
+      "source": "riot-gallery",
+      "contentHash": "59f29bb250b1fb09d8f04c0be56c87e136f90870dea35dbc4bbf4370792fcad9",
+      "version": 1,
+      "createdAt": "2026-10-03T16:24:53.788711+00:00"
     },
     {
       "id": "ven-142-166",
@@ -5298,6 +6061,27 @@
       "createdAt": "2026-09-23T02:14:19.120699+00:00"
     },
     {
+      "id": "rad-125-167",
+      "name": "Dune Devourer",
+      "type": "Unit",
+      "supertype": null,
+      "cost": 7,
+      "power": 1,
+      "might": 7,
+      "domains": [
+        "Order"
+      ],
+      "rarity": "Uncommon",
+      "text": "You may kill a friendly unit as an additional cost to play me. If you do, I cost {energy:2} less.\n[Deflect] (Opponents must pay {power:any} to choose me with a spell or ability.)",
+      "setCode": "RAD",
+      "sourceId": "rad-125-167",
+      "sourceUpdatedAt": null,
+      "source": "riot-gallery",
+      "contentHash": "daf6d90f28395e97ae2e9ee1f31d7356202e3667d6a0530eb8d233c3f711df1c",
+      "version": 1,
+      "createdAt": "2026-10-03T16:24:53.788711+00:00"
+    },
+    {
       "id": "ogn-131-298",
       "name": "Dune Drake",
       "type": "Unit",
@@ -5359,6 +6143,27 @@
       "contentHash": "fa9d648164f34eb54009c9a966d275d0d7b3f0c5224a6b9f328448a86cd53334",
       "version": 1,
       "createdAt": "2026-09-23T02:14:19.120699+00:00"
+    },
+    {
+      "id": "rad-161-167",
+      "name": "Durand Memorial",
+      "type": "Battlefield",
+      "supertype": null,
+      "cost": null,
+      "power": null,
+      "might": null,
+      "domains": [
+        "Colorless"
+      ],
+      "rarity": "Uncommon",
+      "text": "When you defend here, choose a unit you control here. Give it [Tank] this combat. (It must be assigned combat damage first.)",
+      "setCode": "RAD",
+      "sourceId": "rad-161-167",
+      "sourceUpdatedAt": null,
+      "source": "riot-gallery",
+      "contentHash": "1e3ee582dc351df6383f8d90c2ad32806ef52a25abe96385852d78b1f886b15d",
+      "version": 1,
+      "createdAt": "2026-10-03T16:24:53.788711+00:00"
     },
     {
       "id": "unl-209-219",
@@ -5508,6 +6313,27 @@
       "createdAt": "2026-09-23T02:14:19.120699+00:00"
     },
     {
+      "id": "rad-061-167",
+      "name": "Ekko, Ingenious",
+      "type": "Unit",
+      "supertype": "Champion",
+      "cost": 3,
+      "power": null,
+      "might": 4,
+      "domains": [
+        "Mind"
+      ],
+      "rarity": "Rare",
+      "text": "As an additional cost to play me, return a friendly unit to its owner's hand.\n[Ganking] (I can move from battlefield to battlefield.)",
+      "setCode": "RAD",
+      "sourceId": "rad-061-167",
+      "sourceUpdatedAt": null,
+      "source": "riot-gallery",
+      "contentHash": "96e7fb1708ae6c94686c8890d9d13dc933e3c1eaa7ec036259c3534d1615dbab",
+      "version": 1,
+      "createdAt": "2026-10-03T16:24:53.788711+00:00"
+    },
+    {
       "id": "ogn-110-298",
       "name": "Ekko, Recurrent",
       "type": "Unit",
@@ -5548,6 +6374,27 @@
       "contentHash": "993fdfd3ef096ccdc7441cf80efb113c4f0104397a99241520db04c0159c00c0",
       "version": 1,
       "createdAt": "2026-09-23T02:14:19.120699+00:00"
+    },
+    {
+      "id": "rad-081-167",
+      "name": "Elnuk Herd",
+      "type": "Unit",
+      "supertype": null,
+      "cost": 6,
+      "power": null,
+      "might": 5,
+      "domains": [
+        "Fury"
+      ],
+      "rarity": "Uncommon",
+      "text": "[Hidden] (Hide now for {power:any} to react with later for {energy:0}.)\nWhen you play me, give another friendly unit +3 {might} this turn, then recycle me if I was played from face down.",
+      "setCode": "RAD",
+      "sourceId": "rad-081-167",
+      "sourceUpdatedAt": null,
+      "source": "riot-gallery",
+      "contentHash": "58a771f1769cf14f320d002bc7c2d206b1a3c1bcd7452ed296a64aec82e95b12",
+      "version": 1,
+      "createdAt": "2026-10-03T16:24:53.788711+00:00"
     },
     {
       "id": "ogn-167-298",
@@ -5699,6 +6546,28 @@
       "createdAt": "2026-09-23T02:14:19.120699+00:00"
     },
     {
+      "id": "rad-152-167",
+      "name": "Encore",
+      "type": "Spell",
+      "supertype": "Signature",
+      "cost": 3,
+      "power": 1,
+      "might": null,
+      "domains": [
+        "Mind",
+        "Order"
+      ],
+      "rarity": "Epic",
+      "text": "Choose two —Deal 2 to a unit.Play two 1 {might} Recruit unit tokens.Give up to two units each +1 {might} this turn.Look at the top 2 cards of your Main Deck, draw 1 and recycle the other.",
+      "setCode": "RAD",
+      "sourceId": "rad-152-167",
+      "sourceUpdatedAt": null,
+      "source": "riot-gallery",
+      "contentHash": "c44d5ea24c827acb4d55985445e39ebc00ffbbadecff41d3f7bffacf3c86751d",
+      "version": 1,
+      "createdAt": "2026-10-03T16:24:53.788711+00:00"
+    },
+    {
       "id": "ven-022-166",
       "name": "Endless Riches",
       "type": "Gear",
@@ -5783,6 +6652,25 @@
       "createdAt": "2026-09-23T02:14:19.120699+00:00"
     },
     {
+      "id": "rad-026-167",
+      "name": "Entrenched Boar",
+      "type": "Unknown",
+      "supertype": null,
+      "cost": 2,
+      "power": null,
+      "might": 2,
+      "domains": [],
+      "rarity": "Common",
+      "text": "You may have me enter ready. If you do, I can't move this turn.",
+      "setCode": "RAD",
+      "sourceId": "rad-026-167",
+      "sourceUpdatedAt": null,
+      "source": "riot-gallery",
+      "contentHash": "77936a7dbf7a2eb48555974d4ab87d565bdf2bf3b16ada8da844cf4e127e92dc",
+      "version": 1,
+      "createdAt": "2026-10-03T16:24:53.788711+00:00"
+    },
+    {
       "id": "ven-124-166",
       "name": "Escaped Grayback",
       "type": "Unit",
@@ -5825,6 +6713,27 @@
       "createdAt": "2026-09-23T02:14:19.120699+00:00"
     },
     {
+      "id": "rad-090-167",
+      "name": "Evelynn, Consuming",
+      "type": "Unit",
+      "supertype": "Champion",
+      "cost": 5,
+      "power": 1,
+      "might": 5,
+      "domains": [
+        "Body"
+      ],
+      "rarity": "Epic",
+      "text": "[Ambush] (You may play me as a [Reaction] to a battlefield where you have units.)\nWhen you play a card from face down, ready me and give me +1 {might} this turn.",
+      "setCode": "RAD",
+      "sourceId": "rad-090-167",
+      "sourceUpdatedAt": null,
+      "source": "riot-gallery",
+      "contentHash": "6218256c80c5d0fdeb025a3623daf0e67546aaa8ab2dba1828c582be1c6122c5",
+      "version": 1,
+      "createdAt": "2026-10-03T16:24:53.788711+00:00"
+    },
+    {
       "id": "unl-141-219",
       "name": "Evelynn, Entrancing",
       "type": "Unit",
@@ -5846,6 +6755,48 @@
       "createdAt": "2026-09-23T02:14:19.120699+00:00"
     },
     {
+      "id": "rad-109-167",
+      "name": "Evelynn, In Control",
+      "type": "Unit",
+      "supertype": "Champion",
+      "cost": 4,
+      "power": 1,
+      "might": 4,
+      "domains": [
+        "Chaos"
+      ],
+      "rarity": "Rare",
+      "text": "[Disarm] (When I attack, give an enemy unit here -1 {might} this turn.)\nWhen I hold, if you control a facedown card here, score 1 point.",
+      "setCode": "RAD",
+      "sourceId": "rad-109-167",
+      "sourceUpdatedAt": null,
+      "source": "riot-gallery",
+      "contentHash": "56862d0c13a4bbb8aba070442bd5ddc5448e3415978256f76f62cf874f56ee3d",
+      "version": 1,
+      "createdAt": "2026-10-03T16:24:53.788711+00:00"
+    },
+    {
+      "id": "rad-sp3-005",
+      "name": "Evelynn, In Control",
+      "type": "Unit",
+      "supertype": "Champion",
+      "cost": 4,
+      "power": 1,
+      "might": 4,
+      "domains": [
+        "Chaos"
+      ],
+      "rarity": "Showcase",
+      "text": "[Disarm] (When I attack, give an enemy unit here -1 {might} this turn.)\nWhen I hold, if you control a facedown card here, score 1 point.",
+      "setCode": "RAD",
+      "sourceId": "rad-sp3-005",
+      "sourceUpdatedAt": null,
+      "source": "riot-gallery",
+      "contentHash": "7cf5152aca0bc971df691b99faeb5e6a9307706733040ed3279a1bfac3303d79",
+      "version": 1,
+      "createdAt": "2026-10-03T16:24:53.788711+00:00"
+    },
+    {
       "id": "unl-123-219",
       "name": "Evershade Stalker",
       "type": "Unit",
@@ -5865,6 +6816,50 @@
       "contentHash": "c06a18ac54d9143598fc81e991ec420747b987b5b28f97ff208ecbe15f21cf99",
       "version": 1,
       "createdAt": "2026-09-23T02:14:19.120699+00:00"
+    },
+    {
+      "id": "rad-155-167",
+      "name": "Exemplar of Demacia",
+      "type": "Legend",
+      "supertype": null,
+      "cost": null,
+      "power": null,
+      "might": null,
+      "domains": [
+        "Body",
+        "Order"
+      ],
+      "rarity": "Rare",
+      "text": "When you play a gear with [Deploy], you may exhaust me and pay {power:any} to move a friendly unit to that battlefield.",
+      "setCode": "RAD",
+      "sourceId": "rad-155-167",
+      "sourceUpdatedAt": null,
+      "source": "riot-gallery",
+      "contentHash": "a065a64aa82276b9c611c7280f64ef7422281e0759edddc264032012e601de75",
+      "version": 1,
+      "createdAt": "2026-10-03T16:24:53.788711+00:00"
+    },
+    {
+      "id": "rad-176-167",
+      "name": "Exemplar of Demacia",
+      "type": "Legend",
+      "supertype": null,
+      "cost": null,
+      "power": null,
+      "might": null,
+      "domains": [
+        "Body",
+        "Order"
+      ],
+      "rarity": "Showcase",
+      "text": "When you play a gear with [Deploy], you may exhaust me and pay {power:any} to move a friendly unit to that battlefield.",
+      "setCode": "RAD",
+      "sourceId": "rad-176-167",
+      "sourceUpdatedAt": null,
+      "source": "riot-gallery",
+      "contentHash": "72221e36671a3c6ffd24c0c8c3f4f42e3b7763ddff20337ee179354ccb5ddef1",
+      "version": 1,
+      "createdAt": "2026-10-03T16:24:53.788711+00:00"
     },
     {
       "id": "unl-134-219",
@@ -5972,6 +6967,27 @@
       "contentHash": "7db2715daf0e18757aeb41386cec45351a3ec816f979c7004bfd34c6da4e150f",
       "version": 1,
       "createdAt": "2026-09-23T02:14:19.120699+00:00"
+    },
+    {
+      "id": "rad-180-167",
+      "name": "Ezreal, Dashing",
+      "type": "Unit",
+      "supertype": "Champion",
+      "cost": 4,
+      "power": 1,
+      "might": 3,
+      "domains": [
+        "Mind"
+      ],
+      "rarity": "Showcase",
+      "text": "When I attack or defend, deal damage equal to my Might to an enemy unit here.\nI don't deal combat damage.\n{power:mind}: [Action] — Move me to your base.",
+      "setCode": "RAD",
+      "sourceId": "rad-180-167",
+      "sourceUpdatedAt": null,
+      "source": "riot-gallery",
+      "contentHash": "266c323d87944033bd5cd4ca608b6c2d05bc2bc3c3955a07620303755619495b",
+      "version": 1,
+      "createdAt": "2026-10-03T16:24:53.788711+00:00"
     },
     {
       "id": "sfd-082-221",
@@ -6224,6 +7240,25 @@
       "contentHash": "01223b282c35d665c00e489756b6450dd5957ef9b041fcfa4e568f1cf86f93a9",
       "version": 1,
       "createdAt": "2026-09-23T02:14:19.120699+00:00"
+    },
+    {
+      "id": "rad-047-167",
+      "name": "Fanfare",
+      "type": "Unknown",
+      "supertype": null,
+      "cost": 3,
+      "power": null,
+      "might": null,
+      "domains": [],
+      "rarity": "Common",
+      "text": "The next three times you play a unit this turn, draw 1.",
+      "setCode": "RAD",
+      "sourceId": "rad-047-167",
+      "sourceUpdatedAt": null,
+      "source": "riot-gallery",
+      "contentHash": "9c6dbc82abae0728b43f46f52d1bb841850709a15726e57a97eb2efa3c972e95",
+      "version": 1,
+      "createdAt": "2026-10-03T16:24:53.788711+00:00"
     },
     {
       "id": "unl-064-219",
@@ -6481,6 +7516,27 @@
       "createdAt": "2026-09-23T02:14:19.120699+00:00"
     },
     {
+      "id": "rad-162-167",
+      "name": "Firelights' Hideout",
+      "type": "Battlefield",
+      "supertype": null,
+      "cost": null,
+      "power": null,
+      "might": null,
+      "domains": [
+        "Colorless"
+      ],
+      "rarity": "Uncommon",
+      "text": "When you conquer here, the next unit you play this turn has [Accelerate]. (You may pay {energy:1} and a Power of its Domain as an additional cost to have it enter ready.)",
+      "setCode": "RAD",
+      "sourceId": "rad-162-167",
+      "sourceUpdatedAt": null,
+      "source": "riot-gallery",
+      "contentHash": "ffbd149c1d9e6d3162a77d258caf812881474416e12e0c0a4e95720d8143edb4",
+      "version": 1,
+      "createdAt": "2026-10-03T16:24:53.788711+00:00"
+    },
+    {
       "id": "ogs-002-024",
       "name": "Firestorm",
       "type": "Spell",
@@ -6626,6 +7682,27 @@
       "contentHash": "1550a97996bf61b60933209a58f55042cf4ca390376e24d362a14ec0d8513401",
       "version": 1,
       "createdAt": "2026-09-23T02:14:19.120699+00:00"
+    },
+    {
+      "id": "rad-117-167",
+      "name": "For Demacia!",
+      "type": "Spell",
+      "supertype": null,
+      "cost": 3,
+      "power": null,
+      "might": null,
+      "domains": [
+        "Order"
+      ],
+      "rarity": "Common",
+      "text": "[Reaction] (Play any time, even before spells and abilities resolve.)\nChoose a battlefield. Give friendly units there [Shield 2] this turn. (+2 {might} while they're defenders.)",
+      "setCode": "RAD",
+      "sourceId": "rad-117-167",
+      "sourceUpdatedAt": null,
+      "source": "riot-gallery",
+      "contentHash": "d6f2d400804318fe6d0bbff01ca79f73b0e2deb3552893c220f3e3eabcf46802",
+      "version": 1,
+      "createdAt": "2026-10-03T16:24:53.788711+00:00"
     },
     {
       "id": "unl-210-219",
@@ -7688,6 +8765,27 @@
       "createdAt": "2026-09-23T02:14:19.120699+00:00"
     },
     {
+      "id": "rad-085-167",
+      "name": "Graves, Blasting Through",
+      "type": "Unit",
+      "supertype": "Champion",
+      "cost": 5,
+      "power": 1,
+      "might": 4,
+      "domains": [
+        "Body"
+      ],
+      "rarity": "Rare",
+      "text": "When I attack or defend, deal damage equal to my Might to all enemy units here.\nI don't deal combat damage.",
+      "setCode": "RAD",
+      "sourceId": "rad-085-167",
+      "sourceUpdatedAt": null,
+      "source": "riot-gallery",
+      "contentHash": "37d9639728fb64055d5953b3296f11a49dc845e4ac1fdd4bbf620461fe8f6bbe",
+      "version": 1,
+      "createdAt": "2026-10-03T16:24:53.788711+00:00"
+    },
+    {
       "id": "unl-195-219",
       "name": "Green Father",
       "type": "Legend",
@@ -8262,6 +9360,27 @@
       "createdAt": "2026-09-23T02:14:19.120699+00:00"
     },
     {
+      "id": "rad-132-167",
+      "name": "Heimerdinger, Academy Instructor",
+      "type": "Unit",
+      "supertype": "Champion",
+      "cost": 6,
+      "power": 1,
+      "might": 5,
+      "domains": [
+        "Order"
+      ],
+      "rarity": "Rare",
+      "text": "If you would play a unit token to a location while I'm at a battlefield, you may play a 3 {might} Mech unit token to that same location instead.",
+      "setCode": "RAD",
+      "sourceId": "rad-132-167",
+      "sourceUpdatedAt": null,
+      "source": "riot-gallery",
+      "contentHash": "b1046658bc99fd4dab2d93f5b1f232d1d3ab1b07dbd91ba2c981f8ef63598549",
+      "version": 1,
+      "createdAt": "2026-10-03T16:24:53.788711+00:00"
+    },
+    {
       "id": "ogn-111-298",
       "name": "Heimerdinger, Inventor",
       "type": "Unit",
@@ -8411,6 +9530,27 @@
       "createdAt": "2026-09-23T02:14:19.120699+00:00"
     },
     {
+      "id": "rad-118-167",
+      "name": "Herald of the Emperor",
+      "type": "Unit",
+      "supertype": null,
+      "cost": 5,
+      "power": null,
+      "might": 3,
+      "domains": [
+        "Order"
+      ],
+      "rarity": "Common",
+      "text": "When you play me, choose a friendly unit. Its base Might becomes 5 this turn.",
+      "setCode": "RAD",
+      "sourceId": "rad-118-167",
+      "sourceUpdatedAt": null,
+      "source": "riot-gallery",
+      "contentHash": "1b8375b5398893c99c3902bc1743f2c049bf3d4c5afb7569643a530f0bd7f397",
+      "version": 1,
+      "createdAt": "2026-10-03T16:24:53.788711+00:00"
+    },
+    {
       "id": "sfd-111-221",
       "name": "Here to Help",
       "type": "Spell",
@@ -8472,6 +9612,72 @@
       "contentHash": "83b091694b7197439eb91e6e7aa1e38744a52c3de455c88652cf8dc117b9828d",
       "version": 1,
       "createdAt": "2026-09-23T02:14:19.120699+00:00"
+    },
+    {
+      "id": "rad-142-167",
+      "name": "Hexplosive Minefield",
+      "type": "Spell",
+      "supertype": "Signature",
+      "cost": 2,
+      "power": 1,
+      "might": null,
+      "domains": [
+        "Fury",
+        "Chaos"
+      ],
+      "rarity": "Epic",
+      "text": "[Action] (Play on your turn or in showdowns.)\nKill any number of friendly Bomb tokens. At end of turn, play that many Bomb tokens to a single battlefield.",
+      "setCode": "RAD",
+      "sourceId": "rad-142-167",
+      "sourceUpdatedAt": null,
+      "source": "riot-gallery",
+      "contentHash": "9f5ea8654bbb678c21caedf0b0c8f77e9c10cd8e46488b5aa5ab5f77818ba797",
+      "version": 1,
+      "createdAt": "2026-10-03T16:24:53.788711+00:00"
+    },
+    {
+      "id": "rad-141-167",
+      "name": "Hexplosives Expert",
+      "type": "Legend",
+      "supertype": null,
+      "cost": null,
+      "power": null,
+      "might": null,
+      "domains": [
+        "Fury",
+        "Chaos"
+      ],
+      "rarity": "Rare",
+      "text": "{energy:1}{power:any}, {exhaust}: Play a Bomb gear token to a battlefield. (It has [Deploy]. When it dies, deal 2 to an enemy there and kill your other Bombs there.)",
+      "setCode": "RAD",
+      "sourceId": "rad-141-167",
+      "sourceUpdatedAt": null,
+      "source": "riot-gallery",
+      "contentHash": "822b403c6d943c8eb347b1d8ed1550faccc042725ce27fff4f6835efff18be08",
+      "version": 1,
+      "createdAt": "2026-10-03T16:24:53.788711+00:00"
+    },
+    {
+      "id": "rad-169-167",
+      "name": "Hexplosives Expert",
+      "type": "Legend",
+      "supertype": null,
+      "cost": null,
+      "power": null,
+      "might": null,
+      "domains": [
+        "Fury",
+        "Chaos"
+      ],
+      "rarity": "Showcase",
+      "text": "{energy:1}{power:any}, {exhaust}: Play a Bomb gear token to a battlefield.",
+      "setCode": "RAD",
+      "sourceId": "rad-169-167",
+      "sourceUpdatedAt": null,
+      "source": "riot-gallery",
+      "contentHash": "3bc04fe063770b0e7b16629e63dc1238cf322eb6a4ccafa0759f1a7a2a2d093c",
+      "version": 1,
+      "createdAt": "2026-10-03T16:24:53.788711+00:00"
     },
     {
       "id": "sfd-083-221",
@@ -8601,6 +9807,27 @@
       "createdAt": "2026-09-23T02:14:19.120699+00:00"
     },
     {
+      "id": "rad-048-167",
+      "name": "High Note",
+      "type": "Spell",
+      "supertype": null,
+      "cost": 3,
+      "power": null,
+      "might": null,
+      "domains": [
+        "Mind"
+      ],
+      "rarity": "Common",
+      "text": "[Reaction] (Play any time, even before spells and abilities resolve.)\nGive a unit –{might} this turn equal to the number of exhausted units you control.",
+      "setCode": "RAD",
+      "sourceId": "rad-048-167",
+      "sourceUpdatedAt": null,
+      "source": "riot-gallery",
+      "contentHash": "0e6049827c96e9521c5ee88d97918ed58b3a8ab6252f8d2aa9d3bc146e43d3bc",
+      "version": 1,
+      "createdAt": "2026-10-03T16:24:53.788711+00:00"
+    },
+    {
       "id": "ogs-020-024",
       "name": "Highlander",
       "type": "Spell",
@@ -8621,6 +9848,27 @@
       "contentHash": "e9698e59a412776dff93c0783ebe3e7f3011080cbf8fa9f39a37a8f81172d06c",
       "version": 1,
       "createdAt": "2026-09-23T02:14:19.120699+00:00"
+    },
+    {
+      "id": "rad-070-167",
+      "name": "Hold 'Em",
+      "type": "Spell",
+      "supertype": null,
+      "cost": 3,
+      "power": null,
+      "might": null,
+      "domains": [
+        "Body"
+      ],
+      "rarity": "Common",
+      "text": "[Action] (Play on your turn or in showdowns.)\nThis costs {energy:2} less if you've played a unit or gear to a battlefield this turn.\nGive a unit +3 {might} this turn.",
+      "setCode": "RAD",
+      "sourceId": "rad-070-167",
+      "sourceUpdatedAt": null,
+      "source": "riot-gallery",
+      "contentHash": "0f94fee7a806ce4a01871e7753ebefb1e83949f3cf27876fcca4a28d27334586",
+      "version": 1,
+      "createdAt": "2026-10-03T16:24:53.788711+00:00"
     },
     {
       "id": "sfd-155-221",
@@ -8729,6 +9977,27 @@
       "createdAt": "2026-09-23T02:14:19.120699+00:00"
     },
     {
+      "id": "rad-034-167",
+      "name": "Hunker Down",
+      "type": "Unknown",
+      "supertype": null,
+      "cost": 1,
+      "power": null,
+      "might": null,
+      "domains": [
+        "Calm"
+      ],
+      "rarity": "Uncommon",
+      "text": "[Reaction] (Play any time, even before spells and abilities resolve.)\nReady a friendly unit. It can't move this turn. Draw 1.",
+      "setCode": "RAD",
+      "sourceId": "rad-034-167",
+      "sourceUpdatedAt": null,
+      "source": "riot-gallery",
+      "contentHash": "462eecf00fcfcd2d1522c8802f7222ac078a46155ae1cffd9da7278edd9841f7",
+      "version": 1,
+      "createdAt": "2026-10-03T16:24:53.788711+00:00"
+    },
+    {
       "id": "unl-096-219",
       "name": "Hunter's Machete",
       "type": "Gear",
@@ -8748,6 +10017,27 @@
       "contentHash": "9d55573c6d567921f3586495d82b0c30a552c14a276ef7c7e9c30d23fa319643",
       "version": 1,
       "createdAt": "2026-09-23T02:14:19.120699+00:00"
+    },
+    {
+      "id": "rad-163-167",
+      "name": "Hunters' Circle",
+      "type": "Battlefield",
+      "supertype": null,
+      "cost": null,
+      "power": null,
+      "might": null,
+      "domains": [
+        "Colorless"
+      ],
+      "rarity": "Uncommon",
+      "text": "For each player, the first unit or gear they play here on their turn costs {energy:1} less.",
+      "setCode": "RAD",
+      "sourceId": "rad-163-167",
+      "sourceUpdatedAt": null,
+      "source": "riot-gallery",
+      "contentHash": "6d6c43589d5616cc17fbe214dd65efd47f17a3d775bad44644d5d009c608482c",
+      "version": 1,
+      "createdAt": "2026-10-03T16:24:53.788711+00:00"
     },
     {
       "id": "unl-080-219",
@@ -8940,6 +10230,27 @@
       "createdAt": "2026-09-23T02:14:19.120699+00:00"
     },
     {
+      "id": "rad-056-167",
+      "name": "Improvised Projectile",
+      "type": "Gear",
+      "supertype": null,
+      "cost": 3,
+      "power": 1,
+      "might": null,
+      "domains": [
+        "Mind"
+      ],
+      "rarity": "Uncommon",
+      "text": "[Action] (Play on your turn or in showdowns.)\nChoose a friendly gear. Deal damage equal to its Energy cost to a unit at a battlefield.",
+      "setCode": "RAD",
+      "sourceId": "rad-056-167",
+      "sourceUpdatedAt": null,
+      "source": "riot-gallery",
+      "contentHash": "8c7666ce710ae85f403369240524997d44c22b41d42d6be0b46f02677ac3b1fa",
+      "version": 1,
+      "createdAt": "2026-10-03T16:24:53.788711+00:00"
+    },
+    {
       "id": "ogs-003-024",
       "name": "Incinerate",
       "type": "Spell",
@@ -9022,6 +10333,27 @@
       "contentHash": "fb2776c8fa9617acc3f1c32c7e5c5684989fccaa3629a3e6084d1e350d0db0bd",
       "version": 1,
       "createdAt": "2026-09-23T02:14:19.120699+00:00"
+    },
+    {
+      "id": "rad-035-167",
+      "name": "Invigorating Bloom",
+      "type": "Unit",
+      "supertype": null,
+      "cost": 3,
+      "power": null,
+      "might": null,
+      "domains": [
+        "Calm"
+      ],
+      "rarity": "Uncommon",
+      "text": "When you play this, give a friendly unit +3 {might} this turn.\nExhaust a friendly [Mighty] unit, {exhaust}: Draw 1. (A unit is Mighty while it has 5+ {might}.)",
+      "setCode": "RAD",
+      "sourceId": "rad-035-167",
+      "sourceUpdatedAt": null,
+      "source": "riot-gallery",
+      "contentHash": "710636878be7ae471b24f349d41df9f4da2130e03513311d3afe312662262149",
+      "version": 1,
+      "createdAt": "2026-10-03T16:24:53.788711+00:00"
     },
     {
       "id": "unl-027-219",
@@ -9148,6 +10480,50 @@
       "contentHash": "80f02e62bab21ea81d9c607cb2db3e9a4c15c20b548f26b92d923a9509d889a3",
       "version": 1,
       "createdAt": "2026-09-23T02:14:19.120699+00:00"
+    },
+    {
+      "id": "rad-143-167",
+      "name": "Iron Revenant",
+      "type": "Legend",
+      "supertype": null,
+      "cost": null,
+      "power": null,
+      "might": null,
+      "domains": [
+        "Fury",
+        "Order"
+      ],
+      "rarity": "Rare",
+      "text": "[Reaction][>] Banish a unit or gear from your trash, {exhaust}: [Add] {power:any}. Spend this Power only to play units or gear. (Abilities that add resources can't be reacted to.)",
+      "setCode": "RAD",
+      "sourceId": "rad-143-167",
+      "sourceUpdatedAt": null,
+      "source": "riot-gallery",
+      "contentHash": "e889b125cc2acb5fbb63aeb3526fb66712aa9c6533a936eec430eee960e516d0",
+      "version": 1,
+      "createdAt": "2026-10-03T16:24:53.788711+00:00"
+    },
+    {
+      "id": "rad-170-167",
+      "name": "Iron Revenant",
+      "type": "Legend",
+      "supertype": null,
+      "cost": null,
+      "power": null,
+      "might": null,
+      "domains": [
+        "Fury",
+        "Order"
+      ],
+      "rarity": "Showcase",
+      "text": "[Reaction][>] Banish a unit or gear from your trash, {exhaust}: [Add] {power:any}. Spend this Power to play units or gear.",
+      "setCode": "RAD",
+      "sourceId": "rad-170-167",
+      "sourceUpdatedAt": null,
+      "source": "riot-gallery",
+      "contentHash": "8631dc9a960b54ab1f3976c6adb8c9f47b3c9fb38ba4c4f0cb82dd6c83564dc8",
+      "version": 1,
+      "createdAt": "2026-10-03T16:24:53.788711+00:00"
     },
     {
       "id": "unl-112-219",
@@ -9316,6 +10692,27 @@
       "contentHash": "b1c149faf3b0fdb7089a4ad7b47e05d8a4d18c84240ab356912ac89d3763ec08",
       "version": 1,
       "createdAt": "2026-09-23T02:14:19.120699+00:00"
+    },
+    {
+      "id": "rad-091-167",
+      "name": "Jarvan IV, Martial Paragon",
+      "type": "Unit",
+      "supertype": "Champion",
+      "cost": 4,
+      "power": 1,
+      "might": 4,
+      "domains": [
+        "Body"
+      ],
+      "rarity": "Epic",
+      "text": "Your gear with [Deploy] have [Action]. (They can be played on your turn or in showdowns.)\nWhen I conquer, if there is a friendly gear with [Deploy] here, channel 1 rune exhausted.",
+      "setCode": "RAD",
+      "sourceId": "rad-091-167",
+      "sourceUpdatedAt": null,
+      "source": "riot-gallery",
+      "contentHash": "87afef29a755252f02628bb2a35178bfd19a38b26b50df4c873bae35412580d5",
+      "version": 1,
+      "createdAt": "2026-10-03T16:24:53.788711+00:00"
     },
     {
       "id": "sfd-103-221",
@@ -9591,6 +10988,69 @@
       "createdAt": "2026-09-23T02:14:19.120699+00:00"
     },
     {
+      "id": "rad-086-167",
+      "name": "K'Sante, Courageous",
+      "type": "Unit",
+      "supertype": "Champion",
+      "cost": 5,
+      "power": null,
+      "might": 4,
+      "domains": [
+        "Body"
+      ],
+      "rarity": "Rare",
+      "text": "[Accelerate] (You may pay {energy:1}{power:body} as an additional cost to have me enter ready.)\n[Shield 2] (+2 {might} while I'm a defender.)\nWhen I hold, channel 1 rune.",
+      "setCode": "RAD",
+      "sourceId": "rad-086-167",
+      "sourceUpdatedAt": null,
+      "source": "riot-gallery",
+      "contentHash": "d55bcfa8d758a97e787e58d327d578ef5717f0fff86d17f265cea342011d3c9f",
+      "version": 1,
+      "createdAt": "2026-10-03T16:24:53.788711+00:00"
+    },
+    {
+      "id": "rad-178-167",
+      "name": "K'Sante, Courageous",
+      "type": "Unit",
+      "supertype": "Champion",
+      "cost": 5,
+      "power": null,
+      "might": 4,
+      "domains": [
+        "Body"
+      ],
+      "rarity": "Showcase",
+      "text": "[Accelerate]\n[Shield 2]\nWhen I hold, channel 1 rune.",
+      "setCode": "RAD",
+      "sourceId": "rad-178-167",
+      "sourceUpdatedAt": null,
+      "source": "riot-gallery",
+      "contentHash": "05246b48ee3ed60b534a460c2a9dad6c206bcfc83a77c92e98c4bafdc675deda",
+      "version": 1,
+      "createdAt": "2026-10-03T16:24:53.788711+00:00"
+    },
+    {
+      "id": "rad-045-167",
+      "name": "K'Sante, Dauntless",
+      "type": "Unit",
+      "supertype": "Champion",
+      "cost": 4,
+      "power": 1,
+      "might": 4,
+      "domains": [
+        "Calm"
+      ],
+      "rarity": "Epic",
+      "text": "[Shield] (+1 {might} while I'm a defender.)\nWhen I attack or defend, double the [Shield] of a unit you control here this turn.",
+      "setCode": "RAD",
+      "sourceId": "rad-045-167",
+      "sourceUpdatedAt": null,
+      "source": "riot-gallery",
+      "contentHash": "3bceb37f1c2a081b0e05c05faf8b265c1c9c51cc6e345ce5de928802418ea726",
+      "version": 1,
+      "createdAt": "2026-10-03T16:24:53.788711+00:00"
+    },
+    {
       "id": "ogn-038-298",
       "name": "Kadregrin the Infernal",
       "type": "Unit",
@@ -9631,6 +11091,48 @@
       "contentHash": "de08d9e9ce631f7995e3f98856e57e8efd91224e52892f49f0c17391f0394b81",
       "version": 1,
       "createdAt": "2026-09-23T02:14:19.120699+00:00"
+    },
+    {
+      "id": "rad-063-167",
+      "name": "Kai'Sa, Rebel",
+      "type": "Unit",
+      "supertype": "Champion",
+      "cost": 5,
+      "power": 1,
+      "might": 5,
+      "domains": [
+        "Mind"
+      ],
+      "rarity": "Rare",
+      "text": "[Disarm] (When I attack, give an enemy unit here -1 {might} this turn).\nWhile I'm in a showdown, your spells have [Reaction]. (Play them any time, even before spells and abilities resolve.)",
+      "setCode": "RAD",
+      "sourceId": "rad-063-167",
+      "sourceUpdatedAt": null,
+      "source": "riot-gallery",
+      "contentHash": "bbe189174ff7859a1fe5dbfe0e22b9b129dfdc75453ab0984e3026126ae1e102",
+      "version": 1,
+      "createdAt": "2026-10-03T16:24:53.788711+00:00"
+    },
+    {
+      "id": "rad-sp4-005",
+      "name": "Kai'Sa, Rebel",
+      "type": "Unit",
+      "supertype": "Champion",
+      "cost": 5,
+      "power": 1,
+      "might": 4,
+      "domains": [
+        "Mind"
+      ],
+      "rarity": "Showcase",
+      "text": "[Disarm]\nWhile I'm in a showdown, your spells have [Reaction].",
+      "setCode": "RAD",
+      "sourceId": "rad-sp4-005",
+      "sourceUpdatedAt": null,
+      "source": "riot-gallery",
+      "contentHash": "d37cfc9edd34c4ce23a9b3b824fd3eda6202db89648993745c0201266ea6ba93",
+      "version": 1,
+      "createdAt": "2026-10-03T16:24:53.788711+00:00"
     },
     {
       "id": "ogn-039-298",
@@ -9841,6 +11343,27 @@
       "contentHash": "cb7723480a81bea927ffb62f1ee3154af91db8e5643f950f2580ba8c610b93e8",
       "version": 1,
       "createdAt": "2026-09-23T02:14:19.120699+00:00"
+    },
+    {
+      "id": "rad-182-167",
+      "name": "Kayn, Unleashed",
+      "type": "Unit",
+      "supertype": "Champion",
+      "cost": 6,
+      "power": 1,
+      "might": 6,
+      "domains": [
+        "Chaos"
+      ],
+      "rarity": "Showcase",
+      "text": "[Ganking]\nIf I have moved twice this turn, I don't take damage.",
+      "setCode": "RAD",
+      "sourceId": "rad-182-167",
+      "sourceUpdatedAt": null,
+      "source": "riot-gallery",
+      "contentHash": "9fb45e05fd53fa704aabc3b3af25caf28ea917b116a57127a296d2e576a8e2c0",
+      "version": 1,
+      "createdAt": "2026-10-03T16:24:53.788711+00:00"
     },
     {
       "id": "ven-119-166",
@@ -10264,6 +11787,50 @@
       "contentHash": "1b7d4296eebf9a00d4b2cb52b3b5a1f0c48a2f2b1f38c0c54098423fbccf0e8b",
       "version": 1,
       "createdAt": "2026-09-23T02:14:19.120699+00:00"
+    },
+    {
+      "id": "rad-145-167",
+      "name": "Lady of Clockwork",
+      "type": "Legend",
+      "supertype": null,
+      "cost": null,
+      "power": null,
+      "might": null,
+      "domains": [
+        "Calm",
+        "Mind"
+      ],
+      "rarity": "Rare",
+      "text": "At the start of your Main Phase, you may pay {energy:1} to choose a friendly gear. It becomes a unit gear with Might equal to its Energy cost until you choose another gear with me.",
+      "setCode": "RAD",
+      "sourceId": "rad-145-167",
+      "sourceUpdatedAt": null,
+      "source": "riot-gallery",
+      "contentHash": "7f8cef9977b000b0c904d39aafecd893ab79367a64b006b4c2f7f1f8b33c76b8",
+      "version": 1,
+      "createdAt": "2026-10-03T16:24:53.788711+00:00"
+    },
+    {
+      "id": "rad-171-167",
+      "name": "Lady of Clockwork",
+      "type": "Legend",
+      "supertype": null,
+      "cost": null,
+      "power": null,
+      "might": null,
+      "domains": [
+        "Calm",
+        "Mind"
+      ],
+      "rarity": "Showcase",
+      "text": "At the start of your Main Phase, you may pay {energy:1} to choose a friendly gear. It becomes a unit gear with Might equal to its Energy cost until you choose another gear with me.",
+      "setCode": "RAD",
+      "sourceId": "rad-171-167",
+      "sourceUpdatedAt": null,
+      "source": "riot-gallery",
+      "contentHash": "fdd519d7e189bae74f7ede4832d3776f2d9de917bc8982c0ec7392ce129e3468",
+      "version": 1,
+      "createdAt": "2026-10-03T16:24:53.788711+00:00"
     },
     {
       "id": "ogs-021-024",
@@ -10711,6 +12278,27 @@
       "createdAt": "2026-09-23T02:14:19.120699+00:00"
     },
     {
+      "id": "rad-005-167",
+      "name": "Lingering Animus",
+      "type": "Unit",
+      "supertype": null,
+      "cost": 2,
+      "power": null,
+      "might": 2,
+      "domains": [
+        "Fury"
+      ],
+      "rarity": "Common",
+      "text": "I enter ready if a friendly unit or gear died this turn.",
+      "setCode": "RAD",
+      "sourceId": "rad-005-167",
+      "sourceUpdatedAt": null,
+      "source": "riot-gallery",
+      "contentHash": "705b2c6f55d65ab42b2e12c5dd8655f88826a337d017dfbfa34283ab0526dd89",
+      "version": 1,
+      "createdAt": "2026-10-03T16:24:53.788711+00:00"
+    },
+    {
       "id": "sfd-036-221",
       "name": "Lonely Poro",
       "type": "Unit",
@@ -10839,6 +12427,27 @@
       "createdAt": "2026-09-23T02:14:19.120699+00:00"
     },
     {
+      "id": "rad-013-167",
+      "name": "Lost to the Sands",
+      "type": "Spell",
+      "supertype": null,
+      "cost": 3,
+      "power": 1,
+      "might": null,
+      "domains": [
+        "Fury"
+      ],
+      "rarity": "Uncommon",
+      "text": "[Action] (Play on your turn or in showdowns.)\nChoose one —Deal 4 to a unit at a battlefield.Kill a gear.",
+      "setCode": "RAD",
+      "sourceId": "rad-013-167",
+      "sourceUpdatedAt": null,
+      "source": "riot-gallery",
+      "contentHash": "9addac6a47a1fad1ce535f47a16a6126071d04bd80042abb3cbeba1376adda58",
+      "version": 1,
+      "createdAt": "2026-10-03T16:24:53.788711+00:00"
+    },
+    {
       "id": "unl-013-219",
       "name": "Lotus Trap",
       "type": "Spell",
@@ -10942,6 +12551,27 @@
       "contentHash": "bff117a135f985d948e543730acc93263ceae6ba2bcad5b73282ea96b333e312",
       "version": 1,
       "createdAt": "2026-09-23T02:14:19.120699+00:00"
+    },
+    {
+      "id": "rad-110-167",
+      "name": "Lulu, Whimsical",
+      "type": "Unit",
+      "supertype": "Champion",
+      "cost": 3,
+      "power": null,
+      "might": 3,
+      "domains": [
+        "Chaos"
+      ],
+      "rarity": "Rare",
+      "text": "When I move, you may have another unit's base Might become 4 this turn.",
+      "setCode": "RAD",
+      "sourceId": "rad-110-167",
+      "sourceUpdatedAt": null,
+      "source": "riot-gallery",
+      "contentHash": "442249b3dafaaee0aa5879e20a408d840462bb9c2c07ef7adcba778dded63e2f",
+      "version": 1,
+      "createdAt": "2026-10-03T16:24:53.788711+00:00"
     },
     {
       "id": "unl-125-219",
@@ -11686,6 +13316,48 @@
       "createdAt": "2026-09-23T02:14:19.120699+00:00"
     },
     {
+      "id": "rad-r03",
+      "name": "Mind Rune",
+      "type": "Rune",
+      "supertype": "Basic",
+      "cost": null,
+      "power": null,
+      "might": null,
+      "domains": [
+        "Mind"
+      ],
+      "rarity": "Common",
+      "text": "",
+      "setCode": "RAD",
+      "sourceId": "rad-r03",
+      "sourceUpdatedAt": null,
+      "source": "riot-gallery",
+      "contentHash": "2a438a548f6b813a255cb841796768f4b0129d22e10cf5519d349f8f6c74e53c",
+      "version": 1,
+      "createdAt": "2026-10-03T16:24:53.788711+00:00"
+    },
+    {
+      "id": "rad-r03a",
+      "name": "Mind Rune",
+      "type": "Rune",
+      "supertype": "Basic",
+      "cost": null,
+      "power": null,
+      "might": null,
+      "domains": [
+        "Mind"
+      ],
+      "rarity": "Showcase",
+      "text": "[NO TEXT]",
+      "setCode": "RAD",
+      "sourceId": "rad-r03a",
+      "sourceUpdatedAt": null,
+      "source": "riot-gallery",
+      "contentHash": "dc0c359fad97e1eb89ba8d38acfa15df50f8944954dafe873bf5b44050021f5e",
+      "version": 1,
+      "createdAt": "2026-10-03T16:24:53.788711+00:00"
+    },
+    {
       "id": "ven-r03",
       "name": "Mind Rune",
       "type": "Rune",
@@ -11918,6 +13590,27 @@
       "createdAt": "2026-09-23T02:14:19.120699+00:00"
     },
     {
+      "id": "rad-095-167",
+      "name": "Momentary Companion",
+      "type": "Unit",
+      "supertype": null,
+      "cost": 4,
+      "power": null,
+      "might": 4,
+      "domains": [
+        "Chaos"
+      ],
+      "rarity": "Common",
+      "text": "[Hidden] (Hide now for {power:any} to react with later for {energy:0}.)\nWhen you play me, if it's not your turn, give me [Temporary]. (Kill me at the start of my controller's Beginning Phase, before scoring.)",
+      "setCode": "RAD",
+      "sourceId": "rad-095-167",
+      "sourceUpdatedAt": null,
+      "source": "riot-gallery",
+      "contentHash": "ac935081b00b3709d748f786c301d943d4ed6b10208e26d09552e31f9fdd8ee2",
+      "version": 1,
+      "createdAt": "2026-10-03T16:24:53.788711+00:00"
+    },
+    {
       "id": "ogn-282-298",
       "name": "Monastery of Hirana",
       "type": "Battlefield",
@@ -12045,6 +13738,27 @@
       "createdAt": "2026-09-23T02:14:19.120699+00:00"
     },
     {
+      "id": "rad-137-167",
+      "name": "Mordekaiser, Dominating",
+      "type": "Unit",
+      "supertype": "Champion",
+      "cost": 9,
+      "power": 2,
+      "might": 8,
+      "domains": [
+        "Order"
+      ],
+      "rarity": "Epic",
+      "text": "When you play me or when I attack, you may discard 1 to kill a unit or gear.",
+      "setCode": "RAD",
+      "sourceId": "rad-137-167",
+      "sourceUpdatedAt": null,
+      "source": "riot-gallery",
+      "contentHash": "7600c32ced57981eaf764f853f7228bc3df7e8b57428a7ece85c3a8f7f1673dd",
+      "version": 1,
+      "createdAt": "2026-10-03T16:24:53.788711+00:00"
+    },
+    {
       "id": "ven-017-166",
       "name": "Morgana, Vindictive",
       "type": "Unit",
@@ -12127,6 +13841,27 @@
       "contentHash": "c23306a52bb0dc7f229ac0d2ff3f70d41334369730b1ef4bbdcf2ad0623acc71",
       "version": 1,
       "createdAt": "2026-09-23T02:14:19.120699+00:00"
+    },
+    {
+      "id": "rad-126-167",
+      "name": "Mournful Spirit",
+      "type": "Unit",
+      "supertype": null,
+      "cost": 4,
+      "power": null,
+      "might": 1,
+      "domains": [
+        "Order"
+      ],
+      "rarity": "Uncommon",
+      "text": "[Deathknell][>] You may kill a unit or gear here. (When I die, get the effect.)",
+      "setCode": "RAD",
+      "sourceId": "rad-126-167",
+      "sourceUpdatedAt": null,
+      "source": "riot-gallery",
+      "contentHash": "098f89d1067fd2bbb470ea68393e18701bd7b462d0e86eb32e40174fb319c67c",
+      "version": 1,
+      "createdAt": "2026-10-03T16:24:53.788711+00:00"
     },
     {
       "id": "ven-028-166",
@@ -12402,6 +14137,27 @@
       "createdAt": "2026-09-23T02:14:19.120699+00:00"
     },
     {
+      "id": "rad-071-167",
+      "name": "Nazuman Ntofo",
+      "type": "Gear",
+      "supertype": null,
+      "cost": 1,
+      "power": null,
+      "might": 0,
+      "domains": [
+        "Order"
+      ],
+      "rarity": "Common",
+      "text": "Equip {energy:1} ({energy:1}: Attach this to a unit you control.)",
+      "setCode": "RAD",
+      "sourceId": "rad-071-167",
+      "sourceUpdatedAt": null,
+      "source": "riot-gallery",
+      "contentHash": "a18c23992f54ce99c954c5b3cbd09a0db6aa7f27613c8ccbcbd7c0133601af45",
+      "version": 1,
+      "createdAt": "2026-10-03T16:24:53.788711+00:00"
+    },
+    {
       "id": "sfd-055-221",
       "name": "Needlessly Large Yordle",
       "type": "Unit",
@@ -12421,6 +14177,27 @@
       "contentHash": "e420bce5a44f41b2b6f8801ba7c96bc970b95366cdd369ff4634aa0b1e613cb9",
       "version": 1,
       "createdAt": "2026-09-23T02:14:19.120699+00:00"
+    },
+    {
+      "id": "rad-167-167",
+      "name": "Neeko, Blending In",
+      "type": "Unit",
+      "supertype": "Champion",
+      "cost": 6,
+      "power": 1,
+      "might": 4,
+      "domains": [
+        "Colorless"
+      ],
+      "rarity": "Epic",
+      "text": "(Neutral cards can go in decks of any Domain.)\nIf Neeko is in your deck, choose 3 different legends in addition to your starting legend. (Different means none match names.)\nWhen you play me, choose one of those legends and add it to your Legend Zone while I'm on the board.",
+      "setCode": "RAD",
+      "sourceId": "rad-167-167",
+      "sourceUpdatedAt": null,
+      "source": "riot-gallery",
+      "contentHash": "458f1a1119b58b9765e5429695daa85729c1acb7d0e7a623e3db2426ce54432d",
+      "version": 1,
+      "createdAt": "2026-10-03T16:24:53.788711+00:00"
     },
     {
       "id": "unl-114-219",
@@ -12678,6 +14455,28 @@
       "createdAt": "2026-09-23T02:14:19.120699+00:00"
     },
     {
+      "id": "rad-148-167",
+      "name": "Ntofo Strikes",
+      "type": "Spell",
+      "supertype": "Signature",
+      "cost": 2,
+      "power": 1,
+      "might": null,
+      "domains": [
+        "Calm",
+        "Body"
+      ],
+      "rarity": "Epic",
+      "text": "[Action] (Play on your turn or in showdowns.)\nGive a friendly unit [Shield 2] this turn, then deal damage equal to its [Shield] to an enemy unit. (A unit with Shield has +1 {might} for each instance of Shield while it's a defender.)",
+      "setCode": "RAD",
+      "sourceId": "rad-148-167",
+      "sourceUpdatedAt": null,
+      "source": "riot-gallery",
+      "contentHash": "92489e7b7789a1ca1b465d70804eb84449d4aa510d731f0e6ed215dfbbb70fa8",
+      "version": 1,
+      "createdAt": "2026-10-03T16:24:53.788711+00:00"
+    },
+    {
       "id": "ven-006-166",
       "name": "Oasis Raider",
       "type": "Unit",
@@ -12868,6 +14667,27 @@
       "createdAt": "2026-09-23T02:14:19.120699+00:00"
     },
     {
+      "id": "rad-068-167",
+      "name": "Orianna, Mechanical Marvel",
+      "type": "Unit",
+      "supertype": "Champion",
+      "cost": 5,
+      "power": null,
+      "might": 5,
+      "domains": [
+        "Mind"
+      ],
+      "rarity": "Epic",
+      "text": "Once each turn, while I'm at a battlefield, you may pay {energy:1}{power:any} less to play a gear.",
+      "setCode": "RAD",
+      "sourceId": "rad-068-167",
+      "sourceUpdatedAt": null,
+      "source": "riot-gallery",
+      "contentHash": "32c14a4e70cd052bd94e2f118a1acbf31abc04407dde39ef5ba467a02481141b",
+      "version": 1,
+      "createdAt": "2026-10-03T16:24:53.788711+00:00"
+    },
+    {
       "id": "sfd-213-221",
       "name": "Ornn's Forge",
       "type": "Battlefield",
@@ -12952,6 +14772,27 @@
       "createdAt": "2026-09-23T02:14:19.120699+00:00"
     },
     {
+      "id": "rad-072-167",
+      "name": "Overloaded Traveler",
+      "type": "Spell",
+      "supertype": null,
+      "cost": 2,
+      "power": null,
+      "might": 2,
+      "domains": [
+        "Body"
+      ],
+      "rarity": "Common",
+      "text": "While there's a friendly gear with [Deploy] at my battlefield, I have +1 {might}.",
+      "setCode": "RAD",
+      "sourceId": "rad-072-167",
+      "sourceUpdatedAt": null,
+      "source": "riot-gallery",
+      "contentHash": "b6a2b693e862539661078ce107a7b5b1c6446a1476ec6aa7b1f03e4872b7eea8",
+      "version": 1,
+      "createdAt": "2026-10-03T16:24:53.788711+00:00"
+    },
+    {
       "id": "ogn-153-298",
       "name": "Overt Operation",
       "type": "Spell",
@@ -13013,6 +14854,27 @@
       "contentHash": "63c49b226afb1e1b417a748ae99ae03eeeedad9f25dd77c8390d0c9ff4529c0a",
       "version": 1,
       "createdAt": "2026-09-23T02:14:19.120699+00:00"
+    },
+    {
+      "id": "rad-164-167",
+      "name": "Packed Amphitheater",
+      "type": "Battlefield",
+      "supertype": null,
+      "cost": null,
+      "power": null,
+      "might": null,
+      "domains": [
+        "Colorless"
+      ],
+      "rarity": "Uncommon",
+      "text": "Champion units here have +1 {might}.",
+      "setCode": "RAD",
+      "sourceId": "rad-164-167",
+      "sourceUpdatedAt": null,
+      "source": "riot-gallery",
+      "contentHash": "47032f4147b61a0559ba37a709b8c6c336d2dd603744674753c0ac1a542f8070",
+      "version": 1,
+      "createdAt": "2026-10-03T16:24:53.788711+00:00"
     },
     {
       "id": "ogn-135-298",
@@ -13288,6 +15150,27 @@
       "createdAt": "2026-09-23T02:14:19.120699+00:00"
     },
     {
+      "id": "rad-073-167",
+      "name": "Pillaged Armory",
+      "type": "Gear",
+      "supertype": null,
+      "cost": 1,
+      "power": null,
+      "might": null,
+      "domains": [
+        "Calm"
+      ],
+      "rarity": "Common",
+      "text": "[Deploy] (Play this only to a battlefield. When an opponent holds here, kill this.)\nWhen you play this or when you conquer here, [Buff] a friendly unit. (Give it a +1 {might} buff if it doesn't have one.)",
+      "setCode": "RAD",
+      "sourceId": "rad-073-167",
+      "sourceUpdatedAt": null,
+      "source": "riot-gallery",
+      "contentHash": "fcb4b3175e30a35bc36c0a6c65593351e7ebc0d5f9ab34dc30bddd895c31abac",
+      "version": 1,
+      "createdAt": "2026-10-03T16:24:53.788711+00:00"
+    },
+    {
       "id": "ven-161-166",
       "name": "Piltovan Forge",
       "type": "Battlefield",
@@ -13307,6 +15190,27 @@
       "contentHash": "34139239c2081eeefb526aa669545a5e4182ec8ba19887f29bc5324d2f92ad7b",
       "version": 1,
       "createdAt": "2026-09-23T02:14:19.120699+00:00"
+    },
+    {
+      "id": "rad-057-167",
+      "name": "Piltovan Guidebot",
+      "type": "Unit",
+      "supertype": null,
+      "cost": 4,
+      "power": null,
+      "might": 3,
+      "domains": [
+        "Mind"
+      ],
+      "rarity": "Uncommon",
+      "text": "When you play a card, you may have my base Might become equal to that card's Energy cost this turn.",
+      "setCode": "RAD",
+      "sourceId": "rad-057-167",
+      "sourceUpdatedAt": null,
+      "source": "riot-gallery",
+      "contentHash": "89c9700aa350eb009669d9785df1156d6fc620eb13587833e6a89afdca8a3c68",
+      "version": 1,
+      "createdAt": "2026-10-03T16:24:53.788711+00:00"
     },
     {
       "id": "unl-187-219",
@@ -13752,6 +15656,50 @@
       "createdAt": "2026-09-23T02:14:19.120699+00:00"
     },
     {
+      "id": "rad-147-167",
+      "name": "Pride of Nazumah",
+      "type": "Legend",
+      "supertype": null,
+      "cost": null,
+      "power": null,
+      "might": null,
+      "domains": [
+        "Calm",
+        "Body"
+      ],
+      "rarity": "Rare",
+      "text": "{energy:1}, {exhaust}: Give a friendly unit \"I have [Assault] equal to my [Shield]\" this turn. (+1 {might} for each instance of Assault while it's an attacker.)",
+      "setCode": "RAD",
+      "sourceId": "rad-147-167",
+      "sourceUpdatedAt": null,
+      "source": "riot-gallery",
+      "contentHash": "023b376e18a1e32fcd3793c7b942388216868c9f43e9c621110848b35096c2ed",
+      "version": 1,
+      "createdAt": "2026-10-03T16:24:53.788711+00:00"
+    },
+    {
+      "id": "rad-172-167",
+      "name": "Pride of Nazumah",
+      "type": "Legend",
+      "supertype": null,
+      "cost": null,
+      "power": null,
+      "might": null,
+      "domains": [
+        "Calm",
+        "Body"
+      ],
+      "rarity": "Showcase",
+      "text": "{energy:1}, {exhaust}: Give a friendly unit \"I have [Assault] equal to my [Shield]\" this turn.",
+      "setCode": "RAD",
+      "sourceId": "rad-172-167",
+      "sourceUpdatedAt": null,
+      "source": "riot-gallery",
+      "contentHash": "0eb2ed194d0c864d6316c11359f26ee4fb17a805c1b8e321e0eaf138f19a61c0",
+      "version": 1,
+      "createdAt": "2026-10-03T16:24:53.788711+00:00"
+    },
+    {
       "id": "unl-183-219",
       "name": "Pridestalker",
       "type": "Legend",
@@ -13815,6 +15763,27 @@
       "contentHash": "8384f2903af2f29c989ce27474df4198641cb105294da5e7b04c9ead6a0a68a4",
       "version": 1,
       "createdAt": "2026-09-23T02:14:19.120699+00:00"
+    },
+    {
+      "id": "rad-082-167",
+      "name": "Primordial Roar",
+      "type": "Spell",
+      "supertype": null,
+      "cost": 4,
+      "power": 2,
+      "might": null,
+      "domains": [
+        "Body"
+      ],
+      "rarity": "Uncommon",
+      "text": "[Show Off] a unit. (As you play this, you may reveal a unit from hand or pick a friendly unit.)\nIf you showed off a unit, deal damage equal to that unit's Might to a unit.",
+      "setCode": "RAD",
+      "sourceId": "rad-082-167",
+      "sourceUpdatedAt": null,
+      "source": "riot-gallery",
+      "contentHash": "7543074090009d63259f0efe0e4300ad9654229645fa1d6a61b03d03867f09ac",
+      "version": 1,
+      "createdAt": "2026-10-03T16:24:53.788711+00:00"
     },
     {
       "id": "sfd-075-221",
@@ -14308,6 +16277,27 @@
       "createdAt": "2026-09-23T02:14:19.120699+00:00"
     },
     {
+      "id": "rad-165-167",
+      "name": "Rakelstake",
+      "type": "Battlefield",
+      "supertype": null,
+      "cost": null,
+      "power": null,
+      "might": null,
+      "domains": [
+        "Colorless"
+      ],
+      "rarity": "Uncommon",
+      "text": "For each player, the first time they play a unit or gear here each turn, they [Predict]. (They look at the top card of their Main Deck. They may recycle it.)",
+      "setCode": "RAD",
+      "sourceId": "rad-165-167",
+      "sourceUpdatedAt": null,
+      "source": "riot-gallery",
+      "contentHash": "53fbf561036078c577b728e43ba7099a0b4b0fad7ce0266e3efdfc951fbcbe8b",
+      "version": 1,
+      "createdAt": "2026-10-03T16:24:53.788711+00:00"
+    },
+    {
       "id": "sfd-166-221",
       "name": "Rally the Troops",
       "type": "Spell",
@@ -14496,6 +16486,27 @@
       "contentHash": "bb08790cbe0f43e1e2f944df6251043b450a10483fe2e5c46683b8319fa3fa11",
       "version": 1,
       "createdAt": "2026-09-23T02:14:19.120699+00:00"
+    },
+    {
+      "id": "rad-105-167",
+      "name": "Reckless Innovator",
+      "type": "Unit",
+      "supertype": null,
+      "cost": 3,
+      "power": null,
+      "might": 3,
+      "domains": [
+        "Chaos"
+      ],
+      "rarity": "Uncommon",
+      "text": "[Accelerate] (You may pay {energy:1}{power:chaos} as an additional cost to have me enter ready.)\nWhen I become exhausted, choose one —Play a Gold gear token exhausted. (It has \"[Reaction][>] Kill this, {exhaust}: [Add] {power:any}.\")Pay {power:chaos} to draw 1.",
+      "setCode": "RAD",
+      "sourceId": "rad-105-167",
+      "sourceUpdatedAt": null,
+      "source": "riot-gallery",
+      "contentHash": "957c53c07a58d6a741d81a455617567b8de0eea4d29566fac1e312d66be1505e",
+      "version": 1,
+      "createdAt": "2026-10-03T16:24:53.788711+00:00"
     },
     {
       "id": "ogn-286-298",
@@ -15110,6 +17121,27 @@
       "createdAt": "2026-09-23T02:14:19.120699+00:00"
     },
     {
+      "id": "rad-046-167",
+      "name": "Resplendent Rostrum",
+      "type": "Spell",
+      "supertype": null,
+      "cost": 8,
+      "power": 1,
+      "might": null,
+      "domains": [
+        "Calm"
+      ],
+      "rarity": "Epic",
+      "text": "{exhaust}: Draw 1 and channel 1 rune exhausted.\nWhen I become exhausted, give a friendly unit +3 {might} this turn.",
+      "setCode": "RAD",
+      "sourceId": "rad-046-167",
+      "sourceUpdatedAt": null,
+      "source": "riot-gallery",
+      "contentHash": "19f6db228fe81c26749f9884e128c945aa2498d2d48ff814c30ceed718394993",
+      "version": 1,
+      "createdAt": "2026-10-03T16:24:53.788711+00:00"
+    },
+    {
       "id": "ogn-104-298",
       "name": "Retreat",
       "type": "Spell",
@@ -15300,6 +17332,27 @@
       "createdAt": "2026-09-23T02:14:19.120699+00:00"
     },
     {
+      "id": "rad-058-167",
+      "name": "Riptide Mage",
+      "type": "Unit",
+      "supertype": null,
+      "cost": 4,
+      "power": 1,
+      "might": 3,
+      "domains": [
+        "Mind"
+      ],
+      "rarity": "Uncommon",
+      "text": "[Accelerate] (You may pay {energy:1}{power:mind} as an additional cost to have me enter ready.)\nWhen you play me, give an enemy unit -3 {might} this turn.",
+      "setCode": "RAD",
+      "sourceId": "rad-058-167",
+      "sourceUpdatedAt": null,
+      "source": "riot-gallery",
+      "contentHash": "21bd2ee8eefb567adfd6bd5a448535af8d08134dabde9e8c6756720dd1cb1276",
+      "version": 1,
+      "createdAt": "2026-10-03T16:24:53.788711+00:00"
+    },
+    {
       "id": "ogn-092-298",
       "name": "Riptide Rex",
       "type": "Unit",
@@ -15470,6 +17523,27 @@
       "createdAt": "2026-09-23T02:14:19.120699+00:00"
     },
     {
+      "id": "rad-127-167",
+      "name": "Rousing Display",
+      "type": "Unknown",
+      "supertype": null,
+      "cost": 5,
+      "power": null,
+      "might": null,
+      "domains": [
+        "Order"
+      ],
+      "rarity": "Uncommon",
+      "text": "[Show Off] a card with Energy cost {energy:7} or more. (As you play this, you may reveal such a card from hand or pick a friendly one.)\nPlay two 1 {might} Recruit unit tokens to your base. If you showed off, play four to your base instead.disa",
+      "setCode": "RAD",
+      "sourceId": "rad-127-167",
+      "sourceUpdatedAt": null,
+      "source": "riot-gallery",
+      "contentHash": "4d9c0e6d97530cfcbce9f5a7e37c194a896066494cc4fdb9274c14ba3525cd1f",
+      "version": 1,
+      "createdAt": "2026-10-03T16:24:53.788711+00:00"
+    },
+    {
       "id": "sfd-039-221",
       "name": "Royal Entourage",
       "type": "Unit",
@@ -15531,6 +17605,27 @@
       "contentHash": "c0541483cb88cdf7274aad242c45211739283abd1eebad39f9dddafa83b9243f",
       "version": 1,
       "createdAt": "2026-09-23T02:14:19.120699+00:00"
+    },
+    {
+      "id": "rad-166-167",
+      "name": "Ruined Monastery",
+      "type": "Battlefield",
+      "supertype": null,
+      "cost": null,
+      "power": null,
+      "might": null,
+      "domains": [
+        "Colorless"
+      ],
+      "rarity": "Uncommon",
+      "text": "When you conquer here, you may discard 1 and channel 1 rune exhausted.",
+      "setCode": "RAD",
+      "sourceId": "rad-166-167",
+      "sourceUpdatedAt": null,
+      "source": "riot-gallery",
+      "contentHash": "1afdbb6320c16e012d16ef7b935360b10a7ad95c38ef0b11ef8a001f6a16be2d",
+      "version": 1,
+      "createdAt": "2026-10-03T16:24:53.788711+00:00"
     },
     {
       "id": "unl-067-219",
@@ -15615,6 +17710,27 @@
       "contentHash": "536c862183fdc65a18eebdcc2545902f9aa564e7afc9e5c465149d4683708e25",
       "version": 1,
       "createdAt": "2026-09-23T02:14:19.120699+00:00"
+    },
+    {
+      "id": "rad-012-167",
+      "name": "Runeblade Anvil",
+      "type": "Unit",
+      "supertype": null,
+      "cost": 1,
+      "power": null,
+      "might": null,
+      "domains": [
+        "Chaos"
+      ],
+      "rarity": "Uncommon",
+      "text": "When you play this or when this leaves the board, banish the top card of your Main Deck. Until your next Ending Phase, you may play that card. (You still pay its costs.)\n{energy:2}{power:chaos}, {exhaust}: Kill this.",
+      "setCode": "RAD",
+      "sourceId": "rad-012-167",
+      "sourceUpdatedAt": null,
+      "source": "riot-gallery",
+      "contentHash": "e45045480f6d8fa9c7242adc72bc5d3b2d18e5724e635c04c535967a93fcd1eb",
+      "version": 1,
+      "createdAt": "2026-10-03T16:24:53.788711+00:00"
     },
     {
       "id": "ven-008-166",
@@ -15867,6 +17983,27 @@
       "contentHash": "75c0ceb31678766e3e80cec6852fe8f9eef4ecad6a731c0c152968308e2aa6c2",
       "version": 1,
       "createdAt": "2026-09-23T02:14:19.120699+00:00"
+    },
+    {
+      "id": "rad-096-167",
+      "name": "Satchel Charge",
+      "type": "Spell",
+      "supertype": null,
+      "cost": 3,
+      "power": 1,
+      "might": null,
+      "domains": [
+        "Chaos"
+      ],
+      "rarity": "Common",
+      "text": "[Action] (Play on your turn or in showdowns.)\nMove a friendly unit, then play a Bomb gear token to a battlefield. (It has [Deploy]. When it dies, deal 2 to an enemy there and kill your other Bombs there.)",
+      "setCode": "RAD",
+      "sourceId": "rad-096-167",
+      "sourceUpdatedAt": null,
+      "source": "riot-gallery",
+      "contentHash": "be47137b2242633450338344c6d521750c16b289632c94400d72b28a8b847f6f",
+      "version": 1,
+      "createdAt": "2026-10-03T16:24:53.788711+00:00"
     },
     {
       "id": "unl-016-219",
@@ -16354,6 +18491,48 @@
       "createdAt": "2026-09-23T02:14:19.120699+00:00"
     },
     {
+      "id": "rad-138-167",
+      "name": "Seraphine, Not Alone",
+      "type": "Unit",
+      "supertype": "Champion",
+      "cost": 5,
+      "power": 1,
+      "might": 1,
+      "domains": [
+        "Order"
+      ],
+      "rarity": "Epic",
+      "text": "When you play me or when I become exhausted, play a 1 {might} Recruit unit token to your base.\nI have +1 {might} for each other exhausted unit you control.",
+      "setCode": "RAD",
+      "sourceId": "rad-138-167",
+      "sourceUpdatedAt": null,
+      "source": "riot-gallery",
+      "contentHash": "b94be0819ca85ec601b8451dbabc841eb44c05ea94ac0193877dff0ed3bf5821",
+      "version": 1,
+      "createdAt": "2026-10-03T16:24:53.788711+00:00"
+    },
+    {
+      "id": "rad-sp5-005",
+      "name": "Seraphine, Not Alone",
+      "type": "Unit",
+      "supertype": "Champion",
+      "cost": 5,
+      "power": 1,
+      "might": 1,
+      "domains": [
+        "Order"
+      ],
+      "rarity": "Showcase",
+      "text": "When you play me or when I become exhausted, play a 1 {might} Recruit unit token to your base.\nI have +1 {might} for each other exhausted unit you control.",
+      "setCode": "RAD",
+      "sourceId": "rad-sp5-005",
+      "sourceUpdatedAt": null,
+      "source": "riot-gallery",
+      "contentHash": "15acb9f45357f395fc9f247cc0c51dce797704042cc33cf08a19aa6ea0c8c34c",
+      "version": 1,
+      "createdAt": "2026-10-03T16:24:53.788711+00:00"
+    },
+    {
       "id": "ven-030-166",
       "name": "Serene Ascetic",
       "type": "Unit",
@@ -16478,6 +18657,27 @@
       "contentHash": "99048370062ca3c6cd812c6e65fec8bd5895a2ae335395e725c22256496e517a",
       "version": 1,
       "createdAt": "2026-09-23T02:14:19.120699+00:00"
+    },
+    {
+      "id": "rad-183-167",
+      "name": "Sett, Kingpin",
+      "type": "Unit",
+      "supertype": "Champion",
+      "cost": 4,
+      "power": 1,
+      "might": 5,
+      "domains": [
+        "Order"
+      ],
+      "rarity": "Showcase",
+      "text": "[Tank]\nI get +1 {might} for each buffed friendly unit at my battlefield.",
+      "setCode": "RAD",
+      "sourceId": "rad-183-167",
+      "sourceUpdatedAt": null,
+      "source": "riot-gallery",
+      "contentHash": "118ada4784fa1046734f109d41459316cd30d5753f21a36d5040a8ec966afef9",
+      "version": 1,
+      "createdAt": "2026-10-03T16:24:53.788711+00:00"
     },
     {
       "id": "unl-194-219",
@@ -16881,6 +19081,27 @@
       "createdAt": "2026-09-23T02:14:19.120699+00:00"
     },
     {
+      "id": "rad-014-167",
+      "name": "Shimmering Swimmer",
+      "type": "Unit",
+      "supertype": null,
+      "cost": 3,
+      "power": null,
+      "might": 3,
+      "domains": [
+        "Fury"
+      ],
+      "rarity": "Uncommon",
+      "text": "You may kill a friendly unit or gear as an additional cost to play me.\nWhen you play me, if you paid the additional cost, deal 2 to a unit.",
+      "setCode": "RAD",
+      "sourceId": "rad-014-167",
+      "sourceUpdatedAt": null,
+      "source": "riot-gallery",
+      "contentHash": "496978b303db136d6285963404c77edc86d5f2b5f381ab81bf00b47df28eee4d",
+      "version": 1,
+      "createdAt": "2026-10-03T16:24:53.788711+00:00"
+    },
+    {
       "id": "ogn-175-298",
       "name": "Shipyard Skulker",
       "type": "Unit",
@@ -17136,6 +19357,48 @@
       "contentHash": "a9f20413b08c7ecf4a423372adb99c76ab39d5a2705b9398d32f4d4d0e558c9f",
       "version": 1,
       "createdAt": "2026-09-23T02:14:19.120699+00:00"
+    },
+    {
+      "id": "rad-097-167",
+      "name": "Siren of the Shallows",
+      "type": "Spell",
+      "supertype": null,
+      "cost": 2,
+      "power": null,
+      "might": 1,
+      "domains": [
+        "Chaos"
+      ],
+      "rarity": "Common",
+      "text": "[Disarm] (When I attack, give an enemy unit here -1 {might} this turn.)\n[Ganking] (I can move from battlefield to battlefield.)",
+      "setCode": "RAD",
+      "sourceId": "rad-097-167",
+      "sourceUpdatedAt": null,
+      "source": "riot-gallery",
+      "contentHash": "ffdf4133bfab1fad75f82a20d748ebe0d7b4d1770e6d5e169a6c0207eb37aa6e",
+      "version": 1,
+      "createdAt": "2026-10-03T16:24:53.788711+00:00"
+    },
+    {
+      "id": "rad-098-167",
+      "name": "Siren's Song",
+      "type": "Spell",
+      "supertype": null,
+      "cost": 2,
+      "power": null,
+      "might": null,
+      "domains": [
+        "Chaos"
+      ],
+      "rarity": "Common",
+      "text": "[Reaction] (Play any time, even before spells and abilities resolve.)\nMove an enemy unit that moved this turn.",
+      "setCode": "RAD",
+      "sourceId": "rad-098-167",
+      "sourceUpdatedAt": null,
+      "source": "riot-gallery",
+      "contentHash": "ba381cddc70530c7e4e3b5dc48a7556f18017977e94724439955004d2ff262d5",
+      "version": 1,
+      "createdAt": "2026-10-03T16:24:53.788711+00:00"
     },
     {
       "id": "sfd-120-221",
@@ -18044,6 +20307,27 @@
       "createdAt": "2026-09-23T02:14:19.120699+00:00"
     },
     {
+      "id": "rad-083-167",
+      "name": "Stalwart Goatherd",
+      "type": "Unit",
+      "supertype": null,
+      "cost": 4,
+      "power": null,
+      "might": 2,
+      "domains": [
+        "Body"
+      ],
+      "rarity": "Uncommon",
+      "text": "[Shield 2] (+2 {might} while I'm a defender.)\nWhen you play me, you may kill a gear with Energy cost {energy:4} or less.",
+      "setCode": "RAD",
+      "sourceId": "rad-083-167",
+      "sourceUpdatedAt": null,
+      "source": "riot-gallery",
+      "contentHash": "202791b3a4981e9e910bebde1ffa22c38485c897af5633db64f1282ae6f1737b",
+      "version": 1,
+      "createdAt": "2026-10-03T16:24:53.788711+00:00"
+    },
+    {
       "id": "ogn-052-298",
       "name": "Stalwart Poro",
       "type": "Unit",
@@ -18191,6 +20475,50 @@
       "createdAt": "2026-09-23T02:14:19.120699+00:00"
     },
     {
+      "id": "rad-151-167",
+      "name": "Starry-Eyed Songstress",
+      "type": "Legend",
+      "supertype": null,
+      "cost": null,
+      "power": null,
+      "might": null,
+      "domains": [
+        "Mind",
+        "Order"
+      ],
+      "rarity": "Rare",
+      "text": "As an additional cost to play a spell, you may exhaust me and three friendly units to reduce the cost of that spell by {energy:2}.",
+      "setCode": "RAD",
+      "sourceId": "rad-151-167",
+      "sourceUpdatedAt": null,
+      "source": "riot-gallery",
+      "contentHash": "efce619f96e14f702de7d5be8a0d026ea99b2081b39b5421e9ab9f93a2bd284b",
+      "version": 1,
+      "createdAt": "2026-10-03T16:24:53.788711+00:00"
+    },
+    {
+      "id": "rad-174-167",
+      "name": "Starry-Eyed Songstress",
+      "type": "Legend",
+      "supertype": null,
+      "cost": null,
+      "power": null,
+      "might": null,
+      "domains": [
+        "Mind",
+        "Order"
+      ],
+      "rarity": "Showcase",
+      "text": "As an additional cost to play a spell, you may exhaust me and three friendly units to reduce the cost of that spell by {energy:2}.",
+      "setCode": "RAD",
+      "sourceId": "rad-174-167",
+      "sourceUpdatedAt": null,
+      "source": "riot-gallery",
+      "contentHash": "4df38c2279dd5bc1f44a6cc3196d3fe42903ea5df738dab84407c660340504d2",
+      "version": 1,
+      "createdAt": "2026-10-03T16:24:53.788711+00:00"
+    },
+    {
       "id": "ogn-288-298",
       "name": "Startipped Peak",
       "type": "Battlefield",
@@ -18210,6 +20538,27 @@
       "contentHash": "0e0e062eeb5b0852fd5615c8bed4293a576306497bfeb563ffabeadfbbb60ea8",
       "version": 1,
       "createdAt": "2026-09-23T02:14:19.120699+00:00"
+    },
+    {
+      "id": "rad-128-167",
+      "name": "Steadfast Outrider",
+      "type": "Unit",
+      "supertype": null,
+      "cost": 4,
+      "power": null,
+      "might": 3,
+      "domains": [
+        "Order"
+      ],
+      "rarity": "Uncommon",
+      "text": "[Tank] (I must be assigned combat damage first.)\nWhile there are 2 or more other friendly units and/or gear at my battlefield, I have +2 {might}.",
+      "setCode": "RAD",
+      "sourceId": "rad-128-167",
+      "sourceUpdatedAt": null,
+      "source": "riot-gallery",
+      "contentHash": "49c5282592bc6aab4798660ed82b3c6374c3c9490c562197ef2b6c8b5cffa30c",
+      "version": 1,
+      "createdAt": "2026-10-03T16:24:53.788711+00:00"
     },
     {
       "id": "ogn-177-298",
@@ -18294,6 +20643,27 @@
       "contentHash": "31ec9578cc3aaf1305054c743e7d10089fe22b3e8a1877536ef87ade711c2a39",
       "version": 1,
       "createdAt": "2026-09-23T02:14:19.120699+00:00"
+    },
+    {
+      "id": "rad-036-167",
+      "name": "Storm Raptor",
+      "type": "Unit",
+      "supertype": null,
+      "cost": 6,
+      "power": null,
+      "might": 6,
+      "domains": [
+        "Calm"
+      ],
+      "rarity": "Uncommon",
+      "text": "[Deflect] (Opponents must pay {power:any} to choose me with a spell or ability.)\nWhen a stunned enemy unit dies here, draw 1.",
+      "setCode": "RAD",
+      "sourceId": "rad-036-167",
+      "sourceUpdatedAt": null,
+      "source": "riot-gallery",
+      "contentHash": "321799364e87d1d9c040027a091558767f9050f0dc197f33b1986eeb8c4a50ec",
+      "version": 1,
+      "createdAt": "2026-10-03T16:24:53.788711+00:00"
     },
     {
       "id": "ogn-250-298",
@@ -18506,6 +20876,27 @@
       "contentHash": "cfe147b6c5a3b85c832b5bafc547340bc49eb3b6afe371deb11838ce4d9bbd5f",
       "version": 1,
       "createdAt": "2026-09-23T02:14:19.120699+00:00"
+    },
+    {
+      "id": "rad-059-167",
+      "name": "Supernova",
+      "type": "Unit",
+      "supertype": null,
+      "cost": 9,
+      "power": 1,
+      "might": null,
+      "domains": [
+        "Order"
+      ],
+      "rarity": "Uncommon",
+      "text": "Deal 10 to a unit. Draw 2.",
+      "setCode": "RAD",
+      "sourceId": "rad-059-167",
+      "sourceUpdatedAt": null,
+      "source": "riot-gallery",
+      "contentHash": "d4ffe4f7c59c3573588e0ab6066dc183d08ed310a31d7606002068bad8b5a72f",
+      "version": 1,
+      "createdAt": "2026-10-03T16:24:53.788711+00:00"
     },
     {
       "id": "sfd-059-221",
@@ -19058,6 +21449,27 @@
       "createdAt": "2026-09-23T02:14:19.120699+00:00"
     },
     {
+      "id": "rad-106-167",
+      "name": "The Good Stuff",
+      "type": "Gear",
+      "supertype": null,
+      "cost": 3,
+      "power": 1,
+      "might": null,
+      "domains": [
+        "Body"
+      ],
+      "rarity": "Uncommon",
+      "text": "[Deploy] (Play this only to a battlefield. When an opponent holds here, kill this.)\nWhen you play this, discard 1, then draw 3.\nWhen you hold here, return this to its owner's hand.",
+      "setCode": "RAD",
+      "sourceId": "rad-106-167",
+      "sourceUpdatedAt": null,
+      "source": "riot-gallery",
+      "contentHash": "052310d6cca2ca39a5abc4babab47c55e8b739e3f691880fe2245c05eb445372",
+      "version": 1,
+      "createdAt": "2026-10-03T16:24:53.788711+00:00"
+    },
+    {
       "id": "ogn-293-298",
       "name": "The Grand Plaza",
       "type": "Battlefield",
@@ -19501,6 +21913,27 @@
       "createdAt": "2026-09-23T02:14:19.120699+00:00"
     },
     {
+      "id": "rad-115-167",
+      "name": "Transpositionist",
+      "type": "Unit",
+      "supertype": null,
+      "cost": 6,
+      "power": null,
+      "might": 4,
+      "domains": [
+        "Chaos"
+      ],
+      "rarity": "Epic",
+      "text": "{power:chaos}, {exhaust}: Return a friendly unit to its owner's hand. You may play a unit with less Might than that unit had, ignoring its cost.",
+      "setCode": "RAD",
+      "sourceId": "rad-115-167",
+      "sourceUpdatedAt": null,
+      "source": "riot-gallery",
+      "contentHash": "3636102137af686ea5666f47eaf5970c1cb3a74f7fb76fcf114a9df6d2289f3d",
+      "version": 1,
+      "createdAt": "2026-10-03T16:24:53.788711+00:00"
+    },
+    {
       "id": "unl-217-219",
       "name": "Trapping Grounds",
       "type": "Battlefield",
@@ -19646,6 +22079,27 @@
       "contentHash": "be263c7c9aa1bce9a37ad86e6a3b59b1c2bf08a3d6dd6b098ec24d125d806a77",
       "version": 1,
       "createdAt": "2026-09-23T02:14:19.120699+00:00"
+    },
+    {
+      "id": "rad-129-167",
+      "name": "Trifarian Captain",
+      "type": "Unit",
+      "supertype": null,
+      "cost": 2,
+      "power": null,
+      "might": 1,
+      "domains": [
+        "Order"
+      ],
+      "rarity": "Uncommon",
+      "text": "When you play me, look at the top 4 cards of your Main Deck. You may reveal from among them a unit or gear with Energy cost no more than {energy:3} and with Power cost no more than {power:any} and draw it. Recycle the rest.",
+      "setCode": "RAD",
+      "sourceId": "rad-129-167",
+      "sourceUpdatedAt": null,
+      "source": "riot-gallery",
+      "contentHash": "e0b1c81c8ceead0568330e1270404b50eadf2e9f5879a92f97499c96f72898d0",
+      "version": 1,
+      "createdAt": "2026-10-03T16:24:53.788711+00:00"
     },
     {
       "id": "ogn-217-298",
@@ -21170,6 +23624,27 @@
       "createdAt": "2026-09-23T02:14:19.120699+00:00"
     },
     {
+      "id": "rad-037-167",
+      "name": "Watchful Curator",
+      "type": "Unit",
+      "supertype": null,
+      "cost": 3,
+      "power": 1,
+      "might": 4,
+      "domains": [
+        "Calm"
+      ],
+      "rarity": "Uncommon",
+      "text": "Your gear have [Deflect]. (Opponents must pay {power:any} to choose each with a spell or ability.)",
+      "setCode": "RAD",
+      "sourceId": "rad-037-167",
+      "sourceUpdatedAt": null,
+      "source": "riot-gallery",
+      "contentHash": "669d0ec776d3f15d6ffbe08969f40c1f767450255230278d8aff0120acdf1c8f",
+      "version": 1,
+      "createdAt": "2026-10-03T16:24:53.788711+00:00"
+    },
+    {
       "id": "ogn-096-298",
       "name": "Watchful Sentry",
       "type": "Unit",
@@ -21740,6 +24215,27 @@
       "createdAt": "2026-09-23T02:14:19.120699+00:00"
     },
     {
+      "id": "rad-181-167",
+      "name": "Yone, Blademaster",
+      "type": "Unit",
+      "supertype": "Champion",
+      "cost": 5,
+      "power": 1,
+      "might": 5,
+      "domains": [
+        "Body"
+      ],
+      "rarity": "Showcase",
+      "text": "[Weaponmaster]\nWhen I conquer a battlefield that was uncontrolled, deal damage equal to my Might to an enemy unit in a base.",
+      "setCode": "RAD",
+      "sourceId": "rad-181-167",
+      "sourceUpdatedAt": null,
+      "source": "riot-gallery",
+      "contentHash": "69de1acdce94ba8e9d5065d0b6c67908c3c51badac5ad1976aa12528aa9d487c",
+      "version": 1,
+      "createdAt": "2026-10-03T16:24:53.788711+00:00"
+    },
+    {
       "id": "sfd-116-221",
       "name": "Yone, Blademaster",
       "type": "Unit",
@@ -21993,6 +24489,27 @@
       "createdAt": "2026-09-23T02:14:19.120699+00:00"
     },
     {
+      "id": "rad-069-167",
+      "name": "Zero Point Inflection",
+      "type": "Spell",
+      "supertype": null,
+      "cost": 9,
+      "power": 2,
+      "might": null,
+      "domains": [
+        "Mind"
+      ],
+      "rarity": "Epic",
+      "text": "When you play a card, draw 2.\nWhen you draw 1 or more cards with 9 or more other cards in your hand, discard your hand, kill this, and choose an opponent. They score 1 point.",
+      "setCode": "RAD",
+      "sourceId": "rad-069-167",
+      "sourceUpdatedAt": null,
+      "source": "riot-gallery",
+      "contentHash": "ce30369fe9e5336ecfbb04350033bedd52fc5528c393bdaba406a29049465acf",
+      "version": 1,
+      "createdAt": "2026-10-03T16:24:53.788711+00:00"
+    },
+    {
       "id": "ogn-077-298",
       "name": "Zhonya's Hourglass",
       "type": "Gear",
@@ -22012,6 +24529,27 @@
       "contentHash": "c2f204a5e57113df876036a02f601157406fb79aeff3e736d009601485c2e48e",
       "version": 1,
       "createdAt": "2026-09-23T02:14:19.120699+00:00"
+    },
+    {
+      "id": "rad-023-167",
+      "name": "Ziggs, Short-Fused",
+      "type": "Unit",
+      "supertype": "Champion",
+      "cost": 5,
+      "power": 1,
+      "might": 5,
+      "domains": [
+        "Fury"
+      ],
+      "rarity": "Epic",
+      "text": "When you play me, play a Bomb gear token to a battlefield. (It has [Deploy]. When it dies, deal 2 to an enemy there and kill your other Bombs there.)\nAbilities of friendly gear deal 1 Bonus Damage.",
+      "setCode": "RAD",
+      "sourceId": "rad-023-167",
+      "sourceUpdatedAt": null,
+      "source": "riot-gallery",
+      "contentHash": "0c15d0e92adbce833c0bf6e80e62e10dced41cea3f78105d0eab3c1e3fdb3cda",
+      "version": 1,
+      "createdAt": "2026-10-03T16:24:53.788711+00:00"
     },
     {
       "id": "unl-086-219",

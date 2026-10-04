@@ -1,0 +1,50 @@
+<details class="panel opening-odds">
+  <summary>Opening hand odds</summary>
+  <p>Opening four before mulligan &middot; {{ adjusted ? 'adjusted Main Deck' : 'saved Main Deck' }}</p>
+  <div class="card-filters">
+    <div class="field-group">
+      <label for="opening-name">Card name (optional)</label>
+      <input id="opening-name" type="search" [(ngModel)]="filters.name" placeholder="Any name" />
+    </div>
+    <div class="field-group">
+      <label for="opening-keyword">Printed keyword</label>
+      <select id="opening-keyword" [(ngModel)]="filters.keyword">
+        <option value="">Any keyword</option>
+        <option *ngFor="let keyword of keywords" [value]="keyword">{{ keyword }}</option>
+      </select>
+    </div>
+    <div class="field-group">
+      <label for="opening-type">Card type</label>
+      <select id="opening-type" [(ngModel)]="filters.type">
+        <option value="">All types</option>
+        <option *ngFor="let type of types" [value]="type">{{ type }}</option>
+      </select>
+    </div>
+    <div class="field-group">
+      <label for="opening-comparison">Energy cost comparison</label>
+      <select id="opening-comparison" [(ngModel)]="filters.comparison">
+        <option value="exact">Exactly</option><option value="atMost">At most</option><option value="atLeast">At least</option>
+      </select>
+    </div>
+    <div class="field-group">
+      <label for="opening-cost">Energy cost</label>
+      <select id="opening-cost" [(ngModel)]="filters.cost">
+        <option [ngValue]="null">Any cost</option>
+        <option *ngFor="let cost of costs" [ngValue]="cost">{{ cost }}</option>
+      </select>
+    </div>
+    <div class="field-group">
+      <label for="opening-minimum">Matching cards in hand</label>
+      <select id="opening-minimum" [(ngModel)]="minimum">
+        <option *ngFor="let count of [1, 2, 3, 4]" [ngValue]="count">At least {{ count }}</option>
+      </select>
+    </div>
+  </div>
+  <ng-container *ngIf="result as odds">
+    <p *ngIf="odds.error" role="status">{{ odds.error }}</p>
+    <ng-container *ngIf="odds.percent !== null">
+      <p class="opening-result" role="status">At least {{ minimum }} {{ minimum === 1 ? 'match' : 'matches' }} in your opening four: <strong>{{ odds.percent | number:'1.1-1' }}%</strong></p>
+      <p>{{ odds.matches }} matching copies / 39 Main Deck cards</p>
+    </ng-container>
+  </ng-container>
+</details>

@@ -8,15 +8,34 @@ are needed. The only offered format is Constructed.
 ## Refresh from the repository root
 
 ```powershell
-python ingestion/import_cards.py
+python ingestion/import_cards.py --additions-only
 ```
 
 Restart the API after refreshing (rebuild the JAR if running a packaged build).
-The default source is [slimtreble/Riftbound-card-data](https://github.com/slimtreble/Riftbound-card-data),
-a community JSON export of Riot's gallery. The initial import has 1,042 records
-after excluding 138 flagged alternate/signed/variant records from 1,180 source records.
-The source's two untyped records (Buff and XP Tracker) are explicitly `Unknown`.
-No card type or missing numeric value is inferred.
+The default source is now [Riot's live card gallery](https://playriftbound.com/en-us/card-gallery/).
+Its public page embeds card details in JSON; no API key or image download is needed.
+The importer reads that data, reconstructs card subtitles, and retains printing IDs.
+Exact duplicate gallery records are deduplicated; conflicting duplicates fail.
+
+On 2026-10-03, the gallery provided 1,319 records (1,318 after removing one exact
+duplicate). After filtering 156 flagged variants/signed records, the library has
+**1,162 printings across 1,029 names**. This adds **120 RAD (Radiance) printings**,
+covering **94 new names**, to the previous 1,042-record library. Existing card
+records, names, revisions, and IDs were retained unchanged with --additions-only.
+The gallery's published cards can include previews; this is not a complete-set
+or Constructed-legality guarantee.
+
+The initial source was [slimtreble/Riftbound-card-data](https://github.com/slimtreble/Riftbound-card-data),
+a community gallery export that still contained the same 1,180 source records
+when checked. It remains available with --source gallery-dataset. Existing cards
+retain that per-card provenance; added records use riot-gallery. The snapshot's
+source URL and fetched time describe the latest import. The original source's two
+untyped records (Buff and XP Tracker) remain Unknown; no missing numeric value is inferred.
+
+The recommended --additions-only mode keeps all existing cards even if they are
+absent or changed upstream. Omit it only for an intentional full details refresh,
+after reviewing potential name changes, text changes and removed IDs. Full refreshes
+increment revisions when normalized content changes, including source changes.
 
 Riftcodex returned a Cloudflare browser challenge from the development environment,
 so the initial snapshot uses the downloadable dataset. An optional Riftcodex
@@ -32,7 +51,7 @@ without replacing the snapshot on an unexpected response. Sources are never
 silently switched. A saved source JSON array can also be imported offline:
 
 ```powershell
-python ingestion/import_cards.py --input path/to/cards.json
+python ingestion/import_cards.py --source gallery-dataset --additions-only --input path/to/cards.json
 ```
 
 Downloads finish and validate before atomically replacing the snapshot. Failed

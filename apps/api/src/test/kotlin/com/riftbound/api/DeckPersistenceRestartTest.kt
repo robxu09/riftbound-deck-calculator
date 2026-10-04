@@ -23,6 +23,27 @@ class DeckPersistenceRestartTest {
         )
 
     @Test
+    fun sideboardPlansSurviveRestartAndDeckDeletion() {
+        lateinit var deck: Deck
+        lateinit var plan: SideboardPlan
+        start().use { context ->
+            val service = context.getBean(DeckService::class.java)
+            val units = service.getCards().filter { it.type == "Unit" }.take(2)
+            val entries = listOf(DeckCard(units[0].id, 39), DeckCard(units[1].id, 1, DeckSection.SIDEBOARD))
+            deck = service.createDeck(CreateDeckRequest("Plan restart", "format-constructed", entries))
+            plan = context.getBean(com.riftbound.api.service.SideboardPlanService::class.java).save(deck.id,
+                SaveSideboardPlanRequest("Aggro", service.getDeckVersions(deck.id).last().id, listOf(SideboardSwap(units[0].id, units[1].id))))
+        }
+        start().use { context ->
+            assertEquals(listOf(plan), context.getBean(com.riftbound.api.service.SideboardPlanService::class.java).list(deck.id))
+            context.getBean(DeckService::class.java).deleteDeck(deck.id)
+        }
+        start().use { context ->
+            assertThrows(DeckNotFoundException::class.java) { context.getBean(com.riftbound.api.service.SideboardPlanService::class.java).list(deck.id) }
+        }
+    }
+
+    @Test
     fun `decks versions sections and deletions survive closing and reopening the application`() {
         lateinit var deck: Deck
         lateinit var versions: List<DeckVersion>

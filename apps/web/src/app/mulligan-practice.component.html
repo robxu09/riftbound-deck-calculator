@@ -1,50 +1,34 @@
+<p *ngIf="swapCount" class="lineup-indicator" role="status">Sideboard adjusted &middot; {{ swapCount }} {{ swapCount === 1 ? 'swap' : 'swaps' }}</p>
+<div *ngIf="session as practice" class="practice-controls">
+  <div class="practice-counters">
+  <div class="practice-counter practice-turns" role="group" aria-label="Turn counter">
+    <span>Turn</span>
+    <button type="button" class="secondary" aria-label="Previous turn" (click)="practice.previousTurn()" [disabled]="practice.turn === 1">&minus;</button>
+    <output aria-label="Current turn" aria-live="polite" aria-atomic="true">{{ practice.turn }}</output>
+    <button type="button" aria-label="Next turn" (click)="practice.nextTurn()">+</button>
+  </div>
+  <div class="practice-counter practice-score" role="group" aria-label="Point counter">
+    <span>Points</span>
+    <button type="button" class="secondary" aria-label="Subtract one point" (click)="practice.subtractPoint()" [disabled]="practice.points === 0">&minus;</button>
+    <output aria-label="Current points" aria-live="polite" aria-atomic="true">{{ practice.points }}</output>
+    <button type="button" aria-label="Add one point" (click)="practice.addPoint()">+</button>
+  </div>
+  </div>
+  <div class="button-row practice-actions">
+    <button type="button" (click)="runes?.channel()" [disabled]="practice.choosing || !runes?.remaining">Channel 1</button>
+    <button type="button" (click)="practice.draw()" [disabled]="practice.choosing || !practice.remaining">Draw one</button>
+    <button type="button" class="secondary" (click)="resetPractice()">Reset practice</button>
+  </div>
+</div>
 <section class="panel mulligan-panel">
-  <h2>Mulligan practice</h2>
+  <h2>{{ session && !session.choosing ? 'Play practice' : 'Mulligan practice' }}</h2>
   <p *ngIf="loading" role="status">Loading practice deck...</p>
   <p *ngIf="error" role="alert">{{ error }} <button (click)="load()">Retry</button></p>
   <ng-container *ngIf="session as practice">
-    <div class="probability-panel">
-      <h3>Next draw chance</h3>
-      <div class="card-filters">
-        <div class="field-group">
-          <label for="probability-name">Card name (optional)</label>
-          <input id="probability-name" [(ngModel)]="filters.name" type="search" placeholder="Any name" />
-        </div>
-        <div class="field-group">
-          <label for="probability-type">Card type</label>
-          <select id="probability-type" [(ngModel)]="filters.type">
-            <option value="">All types</option>
-            <option *ngFor="let type of probabilityTypes" [value]="type">{{ type }}</option>
-          </select>
-        </div>
-        <div class="field-group">
-          <label for="probability-cost">Cost</label>
-          <select id="probability-cost" [(ngModel)]="filters.cost">
-            <option [ngValue]="null">Any cost</option>
-            <option *ngFor="let cost of probabilityCosts" [ngValue]="cost">{{ cost }}</option>
-          </select>
-        </div>
-        <div class="field-group">
-          <label for="draw-probability-count">Next draws</label>
-          <input id="draw-probability-count" [(ngModel)]="drawCount" type="number" min="1" step="1" />
-        </div>
-      </div>
-      <p *ngIf="practice.choosing">Confirm the mulligan to update odds after replacements.</p>
-      <p role="status">{{ probabilitySummary }}</p>
-      <p>{{ matchStateSummary }}</p>
-    </div>
-    <div class="button-row">
-      <button *ngIf="practice.choosing" (click)="practice.confirm()">{{ practice.selected.length ? 'Replace ' + practice.selected.length + ' selected' : 'Keep all four' }}</button>
-      <button *ngIf="!practice.choosing" (click)="practice.draw()" [disabled]="!practice.remaining">Draw one</button>
-      <button (click)="practice.reset()">Reset practice</button>
-    </div>
-    <p *ngIf="!practice.remaining">No cards left to draw. Reset to practice another opening hand.</p>
-    <p *ngIf="practice.draws.length" role="status">Last drawn: {{ catalog.get(practice.draws[practice.draws.length - 1].cardId)?.name }}</p>
     <h3>{{ practice.choosing ? 'Opening hand' : 'Cards in hand' }} ({{ practice.hand.length }})</h3>
+    <p *ngIf="!practice.hand.length" class="empty-state">Your hand is empty.</p>
     <div class="practice-hand">
-      <button *ngFor="let copy of practice.hand" class="card-item" (click)="practice.toggle(copy.copyId)"
-        [attr.aria-pressed]="practice.selected.includes(copy.copyId)"
-        [disabled]="!practice.choosing || (practice.selected.length === 2 && !practice.selected.includes(copy.copyId))">
+      <article *ngFor="let copy of practice.hand" class="card-item" [class.mulligan-selected]="practice.selected.includes(copy.copyId)">
         <ng-container *ngIf="catalog.get(copy.cardId) as card">
           <strong>{{ card.name }}</strong>
           <span>{{ card.type }} - {{ card.setCode }}</span>
@@ -53,13 +37,97 @@
           <span *ngIf="card.power != null">Power: {{ card.power }}</span>
           <span *ngIf="card.might != null">Might: {{ card.might }}</span>
           <small>{{ card.text }}</small>
+          <button *ngIf="practice.choosing" type="button" class="secondary" (click)="practice.toggle(copy.copyId)"
+            [attr.aria-pressed]="practice.selected.includes(copy.copyId)"
+            [disabled]="practice.selected.length === 2 && !practice.selected.includes(copy.copyId)">
+            {{ practice.selected.includes(copy.copyId) ? 'Undo selection' : 'Select for mulligan' }}
+          </button>
           <span *ngIf="practice.selected.includes(copy.copyId)">Bottom position {{ practice.selected.indexOf(copy.copyId) + 1 }}</span>
+          <button *ngIf="!practice.choosing" type="button" class="secondary remove-hand-card" (click)="practice.removeFromHand(copy.copyId)" [attr.aria-label]="'Remove ' + card.name + ' from hand'">Remove from hand</button>
         </ng-container>
-      </button>
+      </article>
     </div>
-    <details *ngIf="practice.draws.length" class="draw-history">
-      <summary>Draw history ({{ practice.draws.length }})</summary>
-      <ol><li *ngFor="let copy of practice.draws">{{ catalog.get(copy.cardId)?.name }}</li></ol>
+    <div class="button-row">
+      <button *ngIf="practice.choosing" (click)="practice.confirm()">{{ practice.selected.length ? 'Replace ' + practice.selected.length + ' selected' : 'Keep all four' }}</button>
+    </div>
+    <p *ngIf="!practice.remaining">No cards left to draw. Reset to practice another opening hand.</p>
+    <p *ngIf="practice.draws.length" role="status">Last drawn: {{ catalog.get(practice.draws[practice.draws.length - 1].cardId)?.name }}</p>
+    <details *ngIf="practice.removed.length" class="removed-cards">
+      <summary>Played / discarded ({{ practice.removed.length }})</summary>
+      <ul class="practice-runes">
+        <li *ngFor="let copy of practice.removed">
+          <span>{{ catalog.get(copy.cardId)?.name }}</span>
+          <button type="button" class="secondary" (click)="practice.returnToHand(copy.copyId)" [attr.aria-label]="'Return ' + catalog.get(copy.cardId)?.name + ' to hand'">Undo</button>
+        </li>
+      </ul>
     </details>
   </ng-container>
 </section>
+
+<details class="panel rune-practice" *ngIf="session && !session.choosing">
+  <summary>Runes</summary>
+  <p *ngIf="runeError" role="alert">{{ runeError }}</p>
+  <ng-container *ngIf="runes as runeState">
+    <p *ngIf="!runeState.total">Add runes to your saved deck to practice channeling.</p>
+    <ng-container *ngIf="runeState.total">
+      <div class="button-row">
+        <span role="status">In play: {{ runeState.inPlay.length }} &middot; In rune deck: {{ runeState.remaining }}</span>
+      </div>
+      <ul class="practice-runes">
+        <li *ngFor="let group of runeState.groups">
+          <span>{{ catalog.get(group.cardId)?.name }} &times;{{ group.quantity }}</span>
+          <button type="button" class="secondary" (click)="runeState.recycle(group.copyId)" [attr.aria-label]="'Recycle one ' + catalog.get(group.cardId)?.name">Recycle 1</button>
+        </li>
+      </ul>
+    </ng-container>
+  </ng-container>
+</details>
+
+<ng-container *ngIf="session as practice">
+  <details *ngIf="practice.draws.length" class="panel draw-history">
+    <summary>Draw history ({{ practice.draws.length }})</summary>
+    <ol><li *ngFor="let copy of practice.draws">{{ catalog.get(copy.cardId)?.name }}</li></ol>
+  </details>
+</ng-container>
+
+<app-opening-hand-odds *ngIf="session" [entries]="analysisEntries" [catalog]="catalog" [adjusted]="swapCount > 0" />
+
+<details class="panel probability-panel" *ngIf="session as practice">
+  <summary>Next draw odds</summary>
+  <div class="card-filters">
+    <div class="field-group">
+      <label for="probability-name">Card name (optional)</label>
+      <input id="probability-name" [(ngModel)]="filters.name" type="search" placeholder="Any name" />
+    </div>
+    <div class="field-group">
+      <label for="probability-keyword">Printed keyword</label>
+      <select id="probability-keyword" [(ngModel)]="filters.keyword">
+        <option value="">Any keyword</option>
+        <option *ngFor="let keyword of keywords" [value]="keyword">{{ keyword }}</option>
+      </select>
+    </div>
+    <div class="field-group">
+      <label for="probability-type">Card type</label>
+      <select id="probability-type" [(ngModel)]="filters.type">
+        <option value="">All types</option>
+        <option *ngFor="let type of probabilityTypes" [value]="type">{{ type }}</option>
+      </select>
+    </div>
+    <div class="field-group">
+      <label for="probability-cost">Energy cost</label>
+      <select id="probability-cost" [(ngModel)]="filters.cost">
+        <option [ngValue]="null">Any cost</option>
+        <option *ngFor="let cost of probabilityCosts" [ngValue]="cost">{{ cost }}</option>
+      </select>
+    </div>
+    <div class="field-group">
+      <label for="draw-probability-count">Next draws</label>
+      <input id="draw-probability-count" [(ngModel)]="drawCount" type="number" min="1" step="1" />
+    </div>
+  </div>
+  <p *ngIf="practice.choosing">Confirm the mulligan to update odds after replacements.</p>
+  <p role="status">{{ probabilitySummary }}</p>
+  <p>{{ matchStateSummary }}</p>
+</details>
+
+<app-sideboard-swaps *ngIf="session" [deckId]="deckId" [baseVersionId]="baseVersionId" [entries]="savedEntries" [catalog]="catalog" (lineupChange)="changeLineup($event)" />

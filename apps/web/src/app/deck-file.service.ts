@@ -2,6 +2,11 @@ import { Injectable } from '@angular/core';
 
 @Injectable({ providedIn: 'root' })
 export class DeckFileService {
+  async copy(text: string): Promise<void> {
+    if (!navigator.clipboard) throw new Error('Clipboard unavailable');
+    await navigator.clipboard.writeText(text);
+  }
+
   download(text: string, deckName: string): void {
     const fileName = deckName.replace(/[<>:"/\\|?*\x00-\x1f]/g, '_').trim().slice(0, 100) || 'deck';
     const url = URL.createObjectURL(new Blob([text], { type: 'text/plain;charset=utf-8' }));
